@@ -1,0 +1,130 @@
+{
+  "id": "ui:table-insert-dropdown",
+  "kind": "dropdown",
+  "label": "Table",
+  "purpose": "flyout of subfeature:table-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Insert Table",
+  "screenshot": "screenshots/ui-table-insert-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Draw Table",
+      "icon": {
+        "description": "Draw Table (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        168,
+        393,
+        362,
+        421
+      ],
+      "state_notes": "menu command (endpoint; no cascade on hover)",
+      "source": "hit-test",
+      "triggers": "subfeature:table-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Excel Spreadsheet",
+      "icon": {
+        "description": "Excel Spreadsheet (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        168,
+        449,
+        362,
+        477
+      ],
+      "state_notes": "menu command (endpoint; no cascade on hover)",
+      "source": "hit-test",
+      "triggers": "subfeature:table-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Quick Tables",
+      "icon": {
+        "description": "Quick Tables (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        168,
+        477,
+        362,
+        505
+      ],
+      "state_notes": "opens a cascade submenu (measured by hover)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:table-insert-dropdown-quick-tables",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Insert Table...",
+      "icon": {
+        "description": "Insert Table... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        168,
+        365,
+        362,
+        393
+      ],
+      "state_notes": "menu command (endpoint — no surface appeared on press)",
+      "source": "hit-test",
+      "triggers": "subfeature:table-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Convert Text to Table...",
+      "icon": {
+        "description": "Convert Text to Table... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        168,
+        421,
+        362,
+        449
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:table-insert-dropdown-convert-text-to-table",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:table-insert-dropdown-quick-tables",
+    "ui:table-insert-dropdown-convert-text-to-table"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

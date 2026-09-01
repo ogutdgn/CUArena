@@ -1,0 +1,14 @@
+{
+  "keys": "Ctrl+Alt+M",
+  "bindings": [
+    {
+      "context": "text selected or cursor placed (anchors the comment)",
+      "effect": "Creates a pending draft comment anchored at the selection and opens its card (measured: in-frame 'Post comment' button); the comment joins the review thread when posted.",
+      "triggers": "subfeature:insert-new-comment",
+      "opens": null,
+      "source": [
+        "docs"
+      ]
+    }
+  ]
+}

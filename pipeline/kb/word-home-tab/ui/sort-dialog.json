@@ -1,0 +1,10 @@
+{
+  "id": "ui:sort-dialog",
+  "kind": "dialog",
+  "label": "Sort Text",
+  "purpose": null,
+  "screenshot": "screenshots/ui-sort-dialog/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

@@ -1,0 +1,55 @@
+{
+  "id": "subfeature:borders-selection-gallery",
+  "node_type": "subfeature",
+  "name": "Borders",
+  "parent": "feature:paragraph",
+  "what_it_does": "Applies borders to the selection/paragraph; the dropdown lists border options and the Borders and Shading dialog.",
+  "affects": "the paragraph/selection borders",
+  "audience_breadth": "most",
+  "behavior": "Opens Borders (dropdown) (menu). Contents (18 controls): Color swatches, Borders, Bottom Border, Top Border, Left Border, Right Border, No Border, All Borders, Outside Borders, Inside Borders, Inside Horizontal Border, Inside Vertical Border, Diagonal Down Border, Diagonal Up Border, Horizontal Line, Draw Table. [flyout of subfeature:borders-selection-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:borders-selection-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:borders-selection-gallery-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:borders-selection-menu",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-borders-selection-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-borders-selection-gallery.png",
+    "screenshots/ui-borders-selection-menu/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:shading-color-picker",
+      "kind": "affects",
+      "why": "paragraph decoration; both live in the Borders and Shading dialog",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Paragraph dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

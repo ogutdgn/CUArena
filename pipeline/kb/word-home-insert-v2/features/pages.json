@@ -1,0 +1,183 @@
+{
+  "feature": {
+    "id": "feature:pages",
+    "node_type": "feature",
+    "name": "Pages",
+    "what_it_does": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks.",
+    "affects": "the document's page structure and flow",
+    "audience_breadth": "most",
+    "behavior": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks. Group controls: subfeature:cover-page-insert, subfeature:blank-page-insert, subfeature:page-break-insert",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:cover-page-insert",
+      "subfeature:blank-page-insert",
+      "subfeature:page-break-insert"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:cover-page-insert",
+      "node_type": "subfeature",
+      "name": "Cover Page",
+      "parent": "feature:pages",
+      "what_it_does": "Inserts a preformatted, styled cover page (title/subtitle/date placeholders) at the start of the document, chosen from a gallery of designs.",
+      "affects": "document content (adds a formatted first page)",
+      "audience_breadth": "most",
+      "behavior": "Opens Cover Page (dropdown). Contents (20 controls): Color swatches, Line up, Position, Austin, Banded, Facet, Filigree, Grid, Integral, Page down, Ion (Dark), Ion (Light), Motion, Line down, Retrospect, Semaphore. [flyout of subfeature:cover-page-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in] Appears as a page with a title band, labelled 'Cover Page'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:cover-page-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:cover-page-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-cover-page-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-cover-page-insert-gallery.png",
+        "screenshots/ui-cover-page-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:blank-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-break-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:quick-parts-insert",
+          "kind": "co-location",
+          "why": "cover pages are building blocks from the same gallery system",
+          "source": "inference"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:blank-page-insert",
+      "node_type": "subfeature",
+      "name": "Blank Page",
+      "parent": "feature:pages",
+      "what_it_does": "Inserts an empty page at the cursor position (measured: two page breaks around a new empty page).",
+      "affects": "document content (page flow)",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Inserts an empty page at the cursor position (measured: two page breaks around a new empty page). Applied immediately to document content (page flow); toggle state (where applicable) is reflected by the button's highlighted look. Appears as an empty page outline, labelled 'Blank Page'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:blank-page-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-blank-page-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-blank-page-insert.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:cover-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-break-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-break-insert",
+      "node_type": "subfeature",
+      "name": "Page Break",
+      "parent": "feature:pages",
+      "what_it_does": "Ends the current page at the cursor and continues content on the next page (measured: doc + format delta).",
+      "affects": "document content (page flow)",
+      "audience_breadth": "everyone",
+      "behavior": "Direct action: Ends the current page at the cursor and continues content on the next page (measured: doc + format delta). Applied immediately to document content (page flow); toggle state (where applicable) is reflected by the button's highlighted look. Appears as a page split by a dashed line, labelled 'Page Break'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:page-break-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Return"
+        }
+      ],
+      "shortcut": "Ctrl+Return",
+      "opens": null,
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-page-break-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-page-break-insert.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:cover-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:blank-page-insert",
+          "kind": "affects-same",
+          "why": "all change the document's page structure/flow",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

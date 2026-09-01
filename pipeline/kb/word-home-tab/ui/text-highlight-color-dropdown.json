@@ -1,0 +1,121 @@
+{
+  "id": "ui:text-highlight-color-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:text-highlight-color-picker",
+  "purpose": "the subfeature:text-highlight-color-picker flyout — items are endpoints; swatches pixel-sampled; sections: Gallery Filters",
+  "screenshot": "screenshots/ui-text-highlight-color-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Text Highlight Color",
+      "icon": {
+        "description": "Text Highlight Color (in subfeature:text-highlight-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        407,
+        146,
+        583,
+        346
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:text-highlight-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "High-contrast only",
+      "icon": {
+        "description": "High-contrast only (in subfeature:text-highlight-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        415,
+        154,
+        575,
+        182
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:text-highlight-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "No Color",
+      "icon": {
+        "description": "No Color (in subfeature:text-highlight-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        409,
+        284,
+        581,
+        312
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:text-highlight-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Stop Highlighting",
+      "icon": {
+        "description": "Stop Highlighting (in subfeature:text-highlight-color-picker)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        409,
+        315,
+        581,
+        344
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:text-highlight-color-picker",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-text-highlight-color-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "2 owner-drawn color cells; sample RGB ['#008080', '#EBEBEB']",
+      "source": "pixel",
+      "triggers": "subfeature:text-highlight-color-picker",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}

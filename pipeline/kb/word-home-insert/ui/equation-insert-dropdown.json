@@ -1,0 +1,10 @@
+{
+  "id": "ui:equation-insert-dropdown",
+  "kind": "dropdown",
+  "label": "Equation (dropdown)",
+  "purpose": null,
+  "screenshot": "screenshots/ui-equation-insert-dropdown/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

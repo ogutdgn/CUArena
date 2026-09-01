@@ -1,0 +1,61 @@
+{
+  "id": "subfeature:font-color-picker",
+  "node_type": "subfeature",
+  "name": "Font Color",
+  "parent": "feature:font",
+  "what_it_does": "Sets the color of the selected text; the dropdown opens a color picker (theme/standard/more).",
+  "affects": "the selection's font color",
+  "audience_breadth": "everyone",
+  "behavior": "Opens subfeature:font-color-picker (dropdown). Contents (6 controls): Font Color, High-contrast only, Automatic, More Colors..., Gradient, Color swatches. Sub-surfaces: ui:font-color-dropdown-more-colors. [the subfeature:font-color-picker flyout — items are endpoints; swatches pixel-sampled; sections: Gallery Filters, Standard Colors, Theme Colors] Appears as a capital 'A' with a red bar beneath it and a dropdown chevron.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:font-color-picker"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:font-color-picker-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:font-color-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-font-color-picker.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-font-color-picker.png",
+    "screenshots/ui-font-color-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:text-highlight-color-picker",
+      "kind": "affects",
+      "why": "all apply a color (text / highlight / fill) to the selection",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:shading-color-picker",
+      "kind": "affects",
+      "why": "all apply a color (text / highlight / fill) to the selection",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

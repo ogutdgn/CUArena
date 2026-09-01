@@ -1,0 +1,42 @@
+{
+  "id": "subfeature:object-insert",
+  "node_type": "subfeature",
+  "name": "Object",
+  "parent": "feature:text",
+  "what_it_does": "Embeds an OLE object (or inserts text from another file via the dropdown menu) into the document.",
+  "affects": "document content (adds an embedded object)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:ole-objectct-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:ole-objectct-insert-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:ole-objectct-insert-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-ole-objectct-insert.png",
+    "screenshots/ui-ole-objectct-insert-dialog/surface.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "subfeature:bookmark-insert",
+  "node_type": "subfeature",
+  "name": "Bookmark",
+  "parent": "feature:links",
+  "what_it_does": "Opens the Bookmark dialog to name the current place/selection so links and references can jump to it.",
+  "affects": "the document's bookmark registry",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:bookmark-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:bookmark-insert-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-bookmark-insert.png",
+    "screenshots/ui-bookmark-insert-dialog/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:insert-link",
+      "kind": "uses",
+      "why": "the navigation-target family (Links group)",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:cross-reference-insert",
+      "kind": "uses",
+      "why": "the navigation-target family (Links group)",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

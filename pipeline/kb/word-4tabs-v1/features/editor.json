@@ -1,0 +1,69 @@
+{
+  "feature": {
+    "id": "feature:editor",
+    "node_type": "feature",
+    "name": "Editor",
+    "what_it_does": "Check spelling, grammar and writing refinements via the cloud Editor service.",
+    "affects": "the document text (proofing) and the Editor pane",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": null,
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:editor"
+    ],
+    "connections": [],
+    "boundary": true,
+    "explored": false,
+    "source": "inference"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:editor",
+      "node_type": "subfeature",
+      "name": "Editor",
+      "parent": "feature:editor",
+      "what_it_does": "Opens the Editor pane with spelling, grammar and writing-refinement suggestions.",
+      "affects": "the document text (proofing) and Editor pane",
+      "audience_breadth": "most",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:writing-assistance-check-document"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-writing-assistance-check-document.png"
+      ],
+      "connections": [],
+      "boundary": true,
+      "explored": false,
+      "source": "inference"
+    }
+  ]
+}

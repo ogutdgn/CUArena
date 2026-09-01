@@ -1,0 +1,69 @@
+{
+  "id": "subfeature:strikethrough",
+  "node_type": "subfeature",
+  "name": "Strikethrough",
+  "parent": "feature:font",
+  "what_it_does": "Draws a line through the middle of the selected text.",
+  "affects": "the selection's character format (strikethrough)",
+  "audience_breadth": "most",
+  "behavior": "Direct action: Draws a line through the middle of the selected text. Applied immediately to the selection's character format (strikethrough); toggle state (where applicable) is reflected by the button's highlighted look. Appears as 'abc' with a line struck through it.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:strikethrough"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-strikethrough.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-strikethrough.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:bold",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:italic",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:underline-gallery",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:subscript",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:superscript",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

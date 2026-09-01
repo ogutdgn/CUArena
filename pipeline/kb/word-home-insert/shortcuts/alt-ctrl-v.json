@@ -1,0 +1,15 @@
+{
+  "keys": "Alt+Ctrl+V",
+  "bindings": [
+    {
+      "context": "document has focus",
+      "effect": "apply the copied formatting to the selection",
+      "triggers": "subfeature:format-painter",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "subfeature:date-and-time-insert",
+  "node_type": "subfeature",
+  "name": "Date & Time",
+  "parent": "feature:text",
+  "what_it_does": "Opens a dialog of date/time formats to insert the current date or time, optionally as an auto-updating field.",
+  "affects": "document content (adds date/time text or field)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:date-and-time-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:date-and-time-insert-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-date-and-time-insert.png",
+    "screenshots/ui-date-and-time-insert-dialog/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:quick-parts-insert",
+      "kind": "uses",
+      "why": "an auto-updating date is a field, the machinery Quick Parts exposes",
+      "source": "inference"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

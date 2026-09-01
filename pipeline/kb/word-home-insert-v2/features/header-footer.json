@@ -1,0 +1,220 @@
+{
+  "feature": {
+    "id": "feature:header-footer",
+    "node_type": "feature",
+    "name": "Header & Footer",
+    "what_it_does": "Repeat content at the top/bottom of every page and number the pages; editing them activates the Header & Footer contextual tab.",
+    "affects": "the header/footer stories of every page",
+    "audience_breadth": "most",
+    "behavior": "Repeat content at the top/bottom of every page and number the pages; editing them activates the Header & Footer contextual tab. Group controls: subfeature:header-insert, subfeature:footer-insert, subfeature:page-number-insert",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:header-insert",
+      "subfeature:footer-insert",
+      "subfeature:page-number-insert"
+    ],
+    "connections": [
+      {
+        "target": "feature:pages",
+        "kind": "affects-same",
+        "why": "headers/footers render on every page the page structure creates",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:header-insert",
+      "node_type": "subfeature",
+      "name": "Header",
+      "parent": "feature:header-footer",
+      "what_it_does": "Opens a gallery of built-in header designs (Blank, Austin, Banded…) plus Edit/Remove Header; applying one enters header editing and activates the Header & Footer contextual tab (measured).",
+      "affects": "the header story of every page",
+      "audience_breadth": "most",
+      "behavior": "Opens Header (dropdown). Contents (15 controls): Color swatches, Header, Line up, Position, Blank, Blank (Three Columns), Page down, Austin, Banded, Facet (Even Page), Line down, More Headers from Office.com, Edit Header, Remove Header, Save Selection to Header Gallery.... Sub-surfaces: ui:footer-insert-dropdown-save-selection-to-footer-gal. [flyout of subfeature:header-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in] Appears as a page with its top band highlighted, labelled 'Header'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:header-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:header-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-header-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-header-insert-gallery.png",
+        "screenshots/ui-header-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:footer-insert",
+          "kind": "affects-same",
+          "why": "all write into the per-page header/footer stories",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-number-insert",
+          "kind": "affects-same",
+          "why": "all write into the per-page header/footer stories",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:footer-insert",
+      "node_type": "subfeature",
+      "name": "Footer",
+      "parent": "feature:header-footer",
+      "what_it_does": "Opens a gallery of built-in footer designs plus Edit/Remove Footer; applying one enters footer editing and activates the Header & Footer contextual tab.",
+      "affects": "the footer story of every page",
+      "audience_breadth": "most",
+      "behavior": "Opens Footer (dropdown). Contents (15 controls): Color swatches, Footer, Line up, Position, Blank, Blank (Three Columns), Page down, Austin, Banded, Facet (Even Page), Line down, More Footers from Office.com, Edit Footer, Remove Footer, Save Selection to Footer Gallery.... Sub-surfaces: ui:footer-insert-dropdown-save-selection-to-footer-gal. [flyout of subfeature:footer-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in] Appears as a page with its bottom band highlighted, labelled 'Footer'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:footer-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-footer-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:footer-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-footer-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-footer-insert-gallery.png",
+        "screenshots/ui-footer-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:header-insert",
+          "kind": "affects-same",
+          "why": "all write into the per-page header/footer stories",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:page-number-insert",
+          "kind": "affects-same",
+          "why": "all write into the per-page header/footer stories",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-number-insert",
+      "node_type": "subfeature",
+      "name": "Page Number",
+      "parent": "feature:header-footer",
+      "what_it_does": "Opens a menu of page-number positions (top, bottom, margins, current position) and formats; numbers live in the header/footer stories.",
+      "affects": "the header/footer stories (page numbering)",
+      "audience_breadth": "most",
+      "behavior": "Opens Page Number (menu). Contents (6 controls): Top of Page, Bottom of Page, Page Margins, Current Position, Remove Page Numbers, Format Page Numbers.... Sub-surfaces: ui:header-footer-page-number-insert-menu-top-of-page, ui:header-footer-page-number-insert-menu-bottom-of-page, ui:header-footer-page-number-insert-menu-page-margins, ui:header-footer-page-number-insert-menu-current-position, ui:header-footer-page-number-insert-menu-format-page-numbers. [flyout of subfeature:page-number-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as a page with '#' marks, labelled 'Page Number'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:header-footer-page-number-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-page-number-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:header-footer-page-number-insert-menu",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-header-footer-page-number-insert.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-header-footer-page-number-insert.png",
+        "screenshots/ui-header-footer-page-number-insert-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:header-insert",
+          "kind": "affects-same",
+          "why": "all write into the per-page header/footer stories",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:footer-insert",
+          "kind": "affects-same",
+          "why": "all write into the per-page header/footer stories",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:header-insert",
+          "kind": "requires",
+          "why": "page numbers are written into the header/footer stories",
+          "source": "dependency"
+        },
+        {
+          "target": "subfeature:footer-insert",
+          "kind": "requires",
+          "why": "page numbers are written into the header/footer stories",
+          "source": "dependency"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "subfeature:page-number-insert",
+  "node_type": "subfeature",
+  "name": "Page Number",
+  "parent": "feature:header-footer",
+  "what_it_does": "Opens a menu of page-number positions (top, bottom, margins, current position) and formats; numbers live in the header/footer stories.",
+  "affects": "the header/footer stories (page numbering)",
+  "audience_breadth": "most",
+  "behavior": "Opens Page Number (menu). Contents (6 controls): Top of Page, Bottom of Page, Page Margins, Current Position, Remove Page Numbers, Format Page Numbers.... Sub-surfaces: ui:header-footer-page-number-insert-menu-top-of-page, ui:header-footer-page-number-insert-menu-bottom-of-page, ui:header-footer-page-number-insert-menu-page-margins, ui:header-footer-page-number-insert-menu-current-position, ui:header-footer-page-number-insert-menu-format-page-numbers. [flyout of subfeature:page-number-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as a page with '#' marks, labelled 'Page Number'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:header-footer-page-number-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:header-footer-page-number-insert-menu",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-header-footer-page-number-insert.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-header-footer-page-number-insert.png",
+    "screenshots/ui-header-footer-page-number-insert-menu/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:header-insert",
+      "kind": "affects",
+      "why": "all write into the per-page header/footer stories",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:footer-insert",
+      "kind": "affects",
+      "why": "all write into the per-page header/footer stories",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:header-insert",
+      "kind": "uses",
+      "why": "page numbers are written into the header/footer stories",
+      "source": "dependency"
+    },
+    {
+      "target": "subfeature:footer-insert",
+      "kind": "uses",
+      "why": "page numbers are written into the header/footer stories",
+      "source": "dependency"
+    },
+    {
+      "target": "ui:ribbon-header-footer",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

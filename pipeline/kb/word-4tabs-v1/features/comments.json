@@ -1,0 +1,92 @@
+{
+  "feature": {
+    "id": "feature:comments",
+    "node_type": "feature",
+    "name": "Comments",
+    "what_it_does": "Attach review comments to document ranges for collaboration.",
+    "affects": "the document's comment thread (review layer)",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Attach review comments to document ranges for collaboration. Group controls: subfeature:insert-new-comment",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:insert-new-comment"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:insert-new-comment",
+      "node_type": "subfeature",
+      "name": "Comment",
+      "parent": "feature:comments",
+      "what_it_does": "Creates a pending draft comment anchored at the selection and opens its card (measured: in-frame 'Post comment' button); the comment joins the review thread when posted.",
+      "affects": "the document's comment thread",
+      "audience_breadth": "most",
+      "behavior": "enabled in context(s): bare, chart-selected, equation, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, in-table, picture-selected, shape-selected, smartart-selected, svg-selected, text-selected; disabled in: header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: InsertNewComment",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics: live-preview / caret-landing / undo-granularity (screen-channel recording not run this pass, R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:insert-new-comment"
+        ],
+        "gesture": "executeMso(InsertNewComment)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert-new-comment"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Alt+M"
+        }
+      ],
+      "shortcut": "Ctrl+Alt+M",
+      "opens": null,
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-insert-new-comment.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-insert-new-comment.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

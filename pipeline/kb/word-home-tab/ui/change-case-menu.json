@@ -1,0 +1,10 @@
+{
+  "id": "ui:change-case-menu",
+  "kind": "menu",
+  "label": "Change Case",
+  "purpose": null,
+  "screenshot": "screenshots/ui-change-case-menu/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

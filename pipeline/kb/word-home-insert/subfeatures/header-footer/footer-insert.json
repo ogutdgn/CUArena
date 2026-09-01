@@ -1,0 +1,52 @@
+{
+  "id": "subfeature:footer-insert",
+  "node_type": "subfeature",
+  "name": "Footer",
+  "parent": "feature:header-footer",
+  "what_it_does": "Opens a gallery of built-in footer designs plus Edit/Remove Footer; applying one enters footer editing and activates the Header & Footer contextual tab.",
+  "affects": "the footer story of every page",
+  "audience_breadth": "most",
+  "behavior": "Opens Footer (dropdown). Contents (15 controls): Color swatches, Footer, Line up, Position, Blank, Blank (Three Columns), Page down, Austin, Banded, Facet (Even Page), Line down, More Footers from Office.com, Edit Footer, Remove Footer, Save Selection to Footer Gallery.... Sub-surfaces: ui:table-insert-dropdown-quick-tables-save-selection-to-quick-tabl. [flyout of subfeature:footer-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Built-in] Appears as a page with its bottom band highlighted, labelled 'Footer'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:footer-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:footer-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-footer-insert-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-footer-insert-gallery.png",
+    "screenshots/ui-footer-insert-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:header-insert",
+      "kind": "affects",
+      "why": "all write into the per-page header/footer stories",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:page-number-insert",
+      "kind": "affects",
+      "why": "all write into the per-page header/footer stories",
+      "source": "shared-target"
+    },
+    {
+      "target": "ui:ribbon-header-footer",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

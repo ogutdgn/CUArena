@@ -1,0 +1,1423 @@
+{
+  "weights": {
+    "connectivity": 0.3,
+    "usage": 0.4,
+    "audience": 0.3
+  },
+  "usage_tier_score": {
+    "very-high": 1.0,
+    "high": 0.8,
+    "medium": 0.55,
+    "low": 0.3,
+    "rare": 0.15
+  },
+  "usage_default": 0.25,
+  "note": "combined = w.connectivity*conn + w.usage*usage + w.audience*audience",
+  "ranking": [
+    {
+      "id": "subfeature:insert-pictures",
+      "name": "Pictures",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.5,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Dual Microsoft-curated telemetry-adjacent signals (essential trio in browser Word; 'Pictures' one of seven help-hub Quick Access categories) plus unanimous education (MO-110 objective, Level-1 topic in every curriculum) and a mass community tutorial ecosystem (Microsoft training, PCWorld, CustomGuide). Same overall-top-10 ceiling caveat as tables."
+      },
+      "combined": 0.85,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:bold",
+      "name": "Bold",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "CEIP telemetry ranks Bold #5 — the only text-formatting command in the top five."
+      },
+      "combined": 0.8286,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:font",
+      "name": "Font",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.3571,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Choosing the typeface is a foundational everyday action every user touches."
+      },
+      "combined": 0.8071,
+      "layer": "P0"
+    },
+    {
+      "id": "subfeature:font-size",
+      "name": "Font Size",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Change Font Size is CEIP #11; setting size is a core basic."
+      },
+      "combined": 0.7857,
+      "layer": "P0"
+    },
+    {
+      "id": "feature:clipboard",
+      "name": "Clipboard",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Paste (#1), Copy (#3), Cut dominate command usage."
+      },
+      "combined": 0.7643,
+      "layer": "P1"
+    },
+    {
+      "id": "feature:font",
+      "name": "Font",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Bold #5, Change Font Size #11; font/size/emphasis/color are the foundational set."
+      },
+      "combined": 0.7643,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:paste",
+      "name": "Paste",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "CEIP telemetry ranks Paste #1 in Word 2003 (>11% of ALL command use); most-clicked toolbar button."
+      },
+      "combined": 0.7643,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:italic",
+      "name": "Italic",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "One of the three 'workhorse' basic styles (Ctrl+I), just below Bold."
+      },
+      "combined": 0.7486,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:underline-gallery",
+      "name": "Underline",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Core basic text style (Ctrl+U) taught with Bold/Italic."
+      },
+      "combined": 0.7486,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:copy",
+      "name": "Copy",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "CEIP telemetry ranks Copy #3 (top-5 ~32% of all command use)."
+      },
+      "combined": 0.7429,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:table-insert",
+      "name": "Table",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "All three pillars converge at the top of the Insert-tab band: Microsoft's browser-Word triage keeps tables in the essential trio (tables/pictures/links), MOS gives tables a dedicated 20-25% Associate exam domain taught at Level 1 everywhere, and community volume is 197 SuperUser matches vs 17 for charts with one of the largest tutorial ecosystems. Telemetry ceiling noted: no Insert command cracks Word's overall top-10, so 'very-high' means top of the Insert tab, not top of Word."
+      },
+      "combined": 0.7429,
+      "layer": "P1"
+    },
+    {
+      "id": "feature:tables",
+      "name": "Tables",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 1.0,
+        "audience": 1.0,
+        "usage_tier": "very-high",
+        "usage_evidence": "Education (dedicated 20-25% MOS Associate domain — joint-largest) and community (one of the largest tutorial ecosystems; 197 SuperUser matches, 10x the chart figure) grade very-high; telemetry graded high via the essential-trio browser triage with the ceiling note that no Insert command reaches Word's overall telemetry top-10. Merged very-high within the Insert-tab band."
+      },
+      "combined": 0.7214,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:align-center",
+      "name": "Center",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Standard, frequently-used alignment (titles/headings)."
+      },
+      "combined": 0.7057,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:align-left",
+      "name": "Align Left",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Core alignment basic; left is the default/most common."
+      },
+      "combined": 0.7057,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:font-color-picker",
+      "name": "Font Color",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Standard basic to make text stand out; part of the foundational set."
+      },
+      "combined": 0.6843,
+      "layer": "P1"
+    },
+    {
+      "id": "feature:paragraph",
+      "name": "Paragraph",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Alignment, lists, line spacing, indents are core everyday formatting."
+      },
+      "combined": 0.6629,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:cut",
+      "name": "Cut",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Core clipboard op (Ctrl+X) paired with #1/#3 commands; used less than Paste/Copy."
+      },
+      "combined": 0.6629,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:find",
+      "name": "Find",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Ctrl+F is a universal everyday shortcut for locating text."
+      },
+      "combined": 0.6629,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:page-break-insert",
+      "name": "Page Break",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Education grades very-high ('Insert page, section, and column breaks' is an MO-110 Associate core objective) and community high (268 SuperUser matches, tutorials on every major site, Ctrl+Enter taught universally); the telemetry agent gave only medium on admittedly thin, negative-only signals (Ctrl+Enter absent from Microsoft's frequently-used shortcuts). Merged high — positive education/community evidence outweighs the telemetry agent's absence-of-evidence."
+      },
+      "combined": 0.6629,
+      "layer": "P1"
+    },
+    {
+      "id": "subfeature:shapes-insert",
+      "name": "Shapes",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Education grades high — 'Insert shapes' is an MO-110 Associate core objective with a dedicated beginner GoSkills lesson (though ONLC defers drawing to its Advanced course); community grades only medium (27-28 SuperUser matches, well below pictures/tables). Education-weighted merge lands high, with the community mid-band volume noted as the disagreement."
+      },
+      "combined": 0.6436,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:illustrations",
+      "name": "Illustrations",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.8,
+        "audience": 1.0,
+        "usage_tier": "high",
+        "usage_evidence": "Unanimous high with extreme internal skew flagged by all three agents: Pictures alone is very-high (essential trio, help-hub category, mass tutorials) and the group maps exactly onto MO-110's 15-20% graphics domain, while Shapes/Screenshot are mid-band and Charts (17 matches), Icons (16), SmartArt (11), and 3D Models (3; Remix 3D retired 2020) sit low-to-rare. Group ranking is carried almost entirely by Pictures."
+      },
+      "combined": 0.6414,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:footer-insert",
+      "name": "Footer",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 0.65,
+        "usage_tier": "very-high",
+        "usage_evidence": "Same evidence cluster as headers: the OWL #20 'View Header' entry point covered both header and footer editing in Word 6; 'Insert and modify headers and footers' is an MO-110 core objective and Level-1 topic; footers are taught jointly with page numbers in every university and legal-office guide found. Merged very-high."
+      },
+      "combined": 0.6379,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:header-insert",
+      "name": "Header",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 0.65,
+        "usage_tier": "very-high",
+        "usage_evidence": "Education and community grade very-high (MO-110 core objective, Level-1 topic everywhere, 142 SuperUser matches, dense university-guide coverage), and telemetry corroborates top-of-band placement: 'View Header' is the ONLY document-furniture command in the OWL top-20 (#20, 0.68%) — while capping it below Home-tab basics. Merged very-high within the Insert-tab universe."
+      },
+      "combined": 0.6379,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:page-number-insert",
+      "name": "Page Number",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 1.0,
+        "audience": 0.65,
+        "usage_tier": "very-high",
+        "usage_evidence": "Highest community volume of any of the 27 same-pattern probes (380 SuperUser matches) plus practitioner testimony that page numbers are 'by far the most common type of header or footer'; education treats it as essential (GoSkills lesson, standard MO-110 header/footer content), and telemetry supports via the header/footer cluster's OWL top-20 entry. Merged very-high."
+      },
+      "combined": 0.6379,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:header-footer",
+      "name": "Header & Footer",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 1.0,
+        "audience": 0.65,
+        "usage_tier": "very-high",
+        "usage_evidence": "Education and community grade very-high (MO-110 core objective; Level-1 topic in every curriculum; 380 SuperUser matches for page numbers and 142 for header/footer; every university formatting guide found covers it), and telemetry corroborates top-of-Insert-band placement with the only document-furniture entry in the OWL top-20 (#20, 0.68%) while capping it below Home-tab basics. Merged very-high."
+      },
+      "combined": 0.6164,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:font-dialog",
+      "name": "Font dialog launcher",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 1.0,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Advanced fallback; most emphasis is done via ribbon buttons/shortcuts."
+      },
+      "combined": 0.615,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:align-right",
+      "name": "Align Right",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.55,
+        "audience": 1.0,
+        "usage_tier": "medium",
+        "usage_evidence": "Standard option (dates/headers), less than left/center."
+      },
+      "combined": 0.6057,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:paragraph-dialog",
+      "name": "Paragraph dialog launcher",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.8571,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Fine-grained fallback; everyday adjustments use ribbon buttons."
+      },
+      "combined": 0.5721,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:styles",
+      "name": "Styles",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Powerful time-saving tool; standard for headings/consistency/auto-TOC."
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:insert-link",
+      "name": "Link",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Unanimous high: hyperlinks are in Microsoft's essential browser-Word trio (telemetry/triage), 'Link to locations within documents' is MO-110 material (education), and community volume is 264 SuperUser matches. Counter-signal noted: Ctrl+K is absent from Microsoft's frequently-used shortcuts and vendor curricula defer hands-on hyperlink work to advanced courses — a leading Insert command that still trails clipboard/formatting basics."
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:bullets-gallery",
+      "name": "Bullets",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Core list tool for reports/resumes/instructions/outlines."
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:numbering-gallery",
+      "name": "Numbering",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Core list tool for sequenced content, standard for structuring documents."
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:quick-styles",
+      "name": "Quick Styles gallery",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Applying Heading styles is standard practice (nav pane, auto-TOC); 'one of the most powerful formatting tools.'"
+      },
+      "combined": 0.5579,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:editing",
+      "name": "Editing",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Find (Ctrl+F, universal) + Replace + Select — routine editing."
+      },
+      "combined": 0.5364,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:pages",
+      "name": "Pages",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Carried by page break (merged high: MO-110 core objective, 268 SuperUser matches, universal Ctrl+Enter instruction) over cover page (merged low) and blank page (low). Disagreement noted: the telemetry agent graded the group medium on thin negative-only page-break evidence, while education and community both graded high."
+      },
+      "combined": 0.5364,
+      "layer": "P2"
+    },
+    {
+      "id": "subfeature:line-spacing",
+      "name": "Line and Paragraph Spacing",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Important paragraph basic users adjust routinely (single vs double)."
+      },
+      "combined": 0.5364,
+      "layer": "P2"
+    },
+    {
+      "id": "feature:comments",
+      "name": "Comments",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Unanimous high: the 2003 telemetry lower bound (reviewing commands ~#100, pre-collaboration era) plus Microsoft's 2021 cross-platform modern-comments redesign and 'Collaborate' as a help-hub Quick Access category; MO-110's collaboration domain covers add/reply/resolve/delete; and a large collaboration-driven tutorial ecosystem spans Microsoft, CustomGuide, and university guides."
+      },
+      "combined": 0.515,
+      "layer": "P3"
+    },
+    {
+      "id": "feature:links",
+      "name": "Links",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Unanimous high, anchored by hyperlink (essential browser-Word trio; MO-110 objective; 264 SuperUser matches with broad tutorial coverage); bookmarks and cross-references are low specialist members (advanced-course-only, display-text-only in browser Word), an internal skew all three agents flagged."
+      },
+      "combined": 0.515,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:insert-new-comment",
+      "name": "Comment",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.8,
+        "audience": 0.65,
+        "usage_tier": "high",
+        "usage_evidence": "Unanimous high: reviewing commands ranked ~#100 in Word 2003 telemetry before cloud collaboration, and Microsoft's 2021 modern-comments redesign signals a first-class collaboration surface; MO-110 dedicates a collaboration domain (add/reply/resolve/delete) and comments have a large tutorial ecosystem (CustomGuide, university guides). Caveat from community: most usage routes through the Review tab, with the Insert-tab Comment button as a secondary entry point."
+      },
+      "combined": 0.515,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:align-justify",
+      "name": "Justify",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Standard for body text in formal docs, less than left/center."
+      },
+      "combined": 0.5007,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:format-painter",
+      "name": "Format Painter",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Valued time-saver but a convenience feature below core clipboard/emphasis commands; not in CEIP top ranks."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:replace",
+      "name": "Replace",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Common editing tool, less universal than plain Find."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:text-highlight-color-picker",
+      "name": "Text Highlight Color",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Common for review/emphasis, less universal than font color."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:indent-decrease",
+      "name": "Decrease Indent",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Paired outdent control; used with lists."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:indent-increase",
+      "name": "Increase Indent",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Standard structuring control (lists, block quotes)."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:text-box-insert",
+      "name": "Text Box",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Telemetry and education agree on medium: text boxes are the manual layout workhorse Harris documented, yet placeholder-only in browser Word, and MO-110-listed but deferred to intermediate/advanced courses (ONLC, WCUPA; no GoSkills lesson). Community graded high on 348 SuperUser matches — noted, but that count is partly inflated by 'dialog box' phrasing; merged medium."
+      },
+      "combined": 0.4579,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:strikethrough",
+      "name": "Strikethrough",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Niche emphasis style far below bold/italic/underline."
+      },
+      "combined": 0.4436,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:chart-insert",
+      "name": "Chart",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Telemetry/triage and community agree on low: charts are non-editable placeholders in browser Word, only an ordinary help article on Microsoft's hub, draw 17 SuperUser matches (10x below tables), and the common community advice is to build charts in Excel and paste. Disagreement noted: education graded medium on intermediate course placement (ONLC, Enhancv) even though charts are absent from both MOS exams — merged low."
+      },
+      "combined": 0.4436,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:smart-art-insert",
+      "name": "SmartArt",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Telemetry and community agree on low: SmartArt was a brand-new 2007 discoverability bet with no prior usage history, is placeholder-only in browser Word, draws just 11 SuperUser matches, and press coverage says it 'might not be widely used'. Disagreement noted: education graded medium because MO-110 lists SmartArt objectives, but all vendor training defers it to advanced courses — telemetry-weighted merge stays low."
+      },
+      "combined": 0.4436,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:screenshot-insert",
+      "name": "Screenshot",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.55,
+        "audience": 0.3,
+        "usage_tier": "medium",
+        "usage_evidence": "Education and community agree on medium: 'Insert screenshots and screen clippings' is an MO-110 objective with a GoSkills lesson (though ONLC never covers it and WCUPA defers it to Advanced), and a modest but genuine tutorial set exists (HelpDeskGeek, Erin Wright, university knowledge bases) — known mainly to documentation writers; forum volume is unmeasurable due to query noise."
+      },
+      "combined": 0.4386,
+      "layer": "P3"
+    },
+    {
+      "id": "feature:text",
+      "name": "Text",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Education and community grade medium, carried entirely by Text Box (MO-110 objective; 348 SuperUser matches) over a long low/rare tail — Quick Parts ('hidden feature' framing, Expert-exam material), WordArt (telemetry 'plummeted'), Drop Cap (1 match), Signature Line, Date & Time, and Object. Disagreement noted: the telemetry agent graded the group low; merged medium under the carried-by-strongest-member convention applied to links and illustrations."
+      },
+      "combined": 0.4364,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:symbol-insert",
+      "name": "Symbol",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Telemetry-weighted medium: Harris's Symbolism post characterizes symbol insertion as a recurring but modest-frequency task concentrated on a small personal symbol set, and symbols were placeholder-only in browser Word. Disagreement noted: education (MO-110 core objective, Level-1 topic) and community (massive per-character micro-tutorial ecosystem — 10+ tutorials for the degree sign alone) both graded high, but the telemetry characterization prevails."
+      },
+      "combined": 0.4364,
+      "layer": "P3"
+    },
+    {
+      "id": "feature:symbols",
+      "name": "Symbols",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.55,
+        "audience": 0.65,
+        "usage_tier": "medium",
+        "usage_evidence": "Telemetry and education both grade the group medium: Symbol is a recurring but modest-frequency task (Harris's gallery-design rationale) and a Level-1/MOS-core topic, while Equation is exam-absent and academically concentrated (placeholder-only in browser Word). Disagreement noted: community graded high on 299 equation matches plus the degree-symbol micro-tutorial ecosystem — outweighed by telemetry+education."
+      },
+      "combined": 0.415,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:shading-color-picker",
+      "name": "Shading",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2857,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Occasional emphasis/table-styling tool."
+      },
+      "combined": 0.4007,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:font-size-decrease",
+      "name": "Shrink Font",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Secondary incremental control, not a distinct top-usage command."
+      },
+      "combined": 0.3793,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:font-size-increase",
+      "name": "Grow Font",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Incremental convenience path; CEIP 'Change Font Size' most plausibly reflects the size box."
+      },
+      "combined": 0.3793,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:cover-page-insert",
+      "name": "Cover Page",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Telemetry-weighted low: the gallery was brand-new in Word 2007, promoted for discoverability rather than measured usage (Harris Part 8 documents promoting desirable-but-low-usage features), cover pages are placeholder-only in browser Word, and they are absent from both MOS exams. Disagreement noted: education (ONLC intermediate lesson, GoSkills) and community (50 SuperUser matches, moderate tutorial ring) both graded medium."
+      },
+      "combined": 0.3793,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:borders-selection-gallery",
+      "name": "Borders",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.2143,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Occasional decorative/structural tool."
+      },
+      "combined": 0.3793,
+      "layer": "P3"
+    },
+    {
+      "id": "subfeature:clear-formatting",
+      "name": "Clear All Formatting",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Cleanup command used occasionally; not in top ranks."
+      },
+      "combined": 0.3579,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:blank-page-insert",
+      "name": "Blank Page",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Education and community agree on low: the only curriculum mention is bundled inside ONLC's intermediate 'Insert Blank and Cover Pages' lesson, it is absent from MOS objectives and GoSkills, and the 133 SuperUser matches are dominated by the inverse problem — deleting unwanted blank pages — while tutorials teach Ctrl+Enter page breaks instead."
+      },
+      "combined": 0.3579,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:select",
+      "name": "Select",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.55,
+        "audience": 0.3,
+        "usage_tier": "medium",
+        "usage_evidence": "Select All is routine; the ribbon menu used less than keyboard selection."
+      },
+      "combined": 0.3529,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:icon-insert",
+      "name": "Icons",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Merged low: absent from GoSkills, all three ONLC levels, and every features article, with just 16 SuperUser matches and 'flair'-framed coverage noting the feature is Microsoft 365-only. Disagreement noted: the education agent graded medium purely on the MO-110 exam listing — the sole positive signal, self-described as 'near-invisible in actual curricula'."
+      },
+      "combined": 0.3386,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:change-case",
+      "name": "Change Case",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Handy but occasional; absent from usage rankings and core basics."
+      },
+      "combined": 0.3364,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:paragraph-marks",
+      "name": "Show/Hide ¶",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.3,
+        "audience": 0.65,
+        "usage_tier": "low",
+        "usage_evidence": "Troubleshooting aid, not routine document creation."
+      },
+      "combined": 0.315,
+      "layer": "P4"
+    },
+    {
+      "id": "feature:editor",
+      "name": "Editor",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.65,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.295,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:editor",
+      "name": "Editor",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.65,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.295,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:subscript",
+      "name": "Subscript",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Specialized scientific/notation formatting, rare for typical users."
+      },
+      "combined": 0.2786,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:superscript",
+      "name": "Superscript",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Specialized notation (footnotes, exponents); rare."
+      },
+      "combined": 0.2786,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:insert-3d-models",
+      "name": "3D Models",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.4286,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Telemetry-adjacent signal prevails: Microsoft retired the Remix 3D ecosystem behind the feature in January 2020, ~2.5 years after launch, and community shows near-silence (3 SuperUser matches; novelty-framed 'tedious' coverage). Disagreement noted: the education agent graded medium based solely on the MO-110 exam listing and one GoSkills lesson — overridden by the stronger telemetry and community evidence."
+      },
+      "combined": 0.2786,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:bookmark-insert",
+      "name": "Bookmark",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Telemetry/triage and education agree on low: browser Word cannot create bookmarks (display-text-only editing), bookmarks appear only in advanced courses (ONLC Advanced, WCUPA, specialized thesis guides), and are named in neither MOS exam. Disagreement noted: community graded medium on 168 SuperUser matches (with browser-bookmark noise) and a genuine specialist ecosystem — outweighed by the two higher-priority pillars."
+      },
+      "combined": 0.2529,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:cross-reference-insert",
+      "name": "Cross-reference",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Telemetry/triage and education agree on low: display-text-only in browser Word, taught exclusively in advanced/long-document contexts (ONLC Advanced, WCUPA, UMich dissertation guide, Waterloo thesis guide), and absent from both MOS exams. Disagreement noted: community graded medium (144 SuperUser matches, real editor/proofreader ecosystem) — a specialist rather than mass signal, so the merge stays low."
+      },
+      "combined": 0.2529,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:multilevel-list",
+      "name": "Multilevel List",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Advanced nested-outline feature; far less than simple bullets/numbering."
+      },
+      "combined": 0.2529,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:quick-parts-insert",
+      "name": "Quick Parts",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.1429,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Unanimous low across all three pillars: Harris cites '\"Everyone uses AutoText a lot\"' as the canonical folklore CEIP telemetry existed to correct; Quick Parts/building blocks/fields are Expert-exam (MO-111) material absent from beginner curricula; and community tutorials uniformly frame it as a hidden/underused feature ('Work Smarter, Not Harder') with only 37 SuperUser matches."
+      },
+      "combined": 0.2529,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:equation-insert-gallery",
+      "name": "Equation",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Telemetry/triage and education both grade low: equations are placeholder-only in browser Word, absent from both MOS exams and mainstream curricula, and heavily segment-concentrated. Disagreement noted: community graded high (299 SuperUser matches plus institutional guides at MSU Denver, Penn State, and Waterloo) — a strong but academic-niche signal; the telemetry+education-weighted merge stays low for the general population."
+      },
+      "combined": 0.2314,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:word-art-insert",
+      "name": "WordArt",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Unanimous low with rare telemetry corroboration: reported Microsoft telemetry showed WordArt usage 'plummeted by the late 2000s' (maintenance mode since Office 2010); it is placeholder-only in browser Word, absent from both MOS exams, taught only in advanced/decorative contexts, and draws 10 SuperUser matches."
+      },
+      "combined": 0.2314,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:styles-pane",
+      "name": "Styles pane launcher",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Power-user surface; most users apply styles via the ribbon gallery."
+      },
+      "combined": 0.21,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:object-insert",
+      "name": "Object",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.3,
+        "audience": 0.3,
+        "usage_tier": "low",
+        "usage_evidence": "Split verdict resolved to low: education grades rare (untaught by name anywhere; nearest objective is Expert-level MO-111 external-content linking), while community grades medium because Insert > Object persists as the embed-Excel-in-Word workflow with genuine tutorials on major spreadsheet sites and 41 SuperUser matches. Education-weighted compromise: low — a persistent but narrow legacy workflow."
+      },
+      "combined": 0.21,
+      "layer": "P4"
+    },
+    {
+      "id": "feature:acrobat",
+      "name": "Adobe Acrobat",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "feature:add-ins",
+      "name": "Add-ins",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "feature:esignature",
+      "name": "eSignature",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "feature:voice",
+      "name": "Voice",
+      "node_type": "feature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:create-pdf",
+      "name": "Create a PDF",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:office-addins",
+      "name": "Add-ins",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:esignature-fields",
+      "name": "eSignature fields",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:dictate",
+      "name": "Dictate",
+      "node_type": "subfeature",
+      "boundary": true,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.25,
+        "audience": 0.3,
+        "usage_tier": "default",
+        "usage_evidence": null
+      },
+      "combined": 0.19,
+      "layer": "P4",
+      "layer_note": "boundary — depth excluded by policy; floored to P4"
+    },
+    {
+      "id": "subfeature:text-effects",
+      "name": "Text Effects and Typography",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Decorative cosmetic extra absent from usage/skill lists."
+      },
+      "combined": 0.1714,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:sort",
+      "name": "Sort",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Niche command absent from usage rankings."
+      },
+      "combined": 0.1714,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:date-and-time-insert",
+      "name": "Date & Time",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0714,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Education grades rare — the dedicated Insert > Date & Time command appears in no exam objective, course outline, or features article examined (date/time is mentioned only as content typed into headers/footers). Community graded low on 14 SuperUser matches with no tutorial ecosystem; education-weighted merge: rare — effectively untaught and undiscussed."
+      },
+      "combined": 0.1714,
+      "layer": "P4"
+    },
+    {
+      "id": "feature:media",
+      "name": "Media",
+      "node_type": "feature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Education grades rare — the group's sole command (Online Videos) is absent from every exam objective and curriculum examined — and community graded low (18 SuperUser matches, footprint dominated by 'button missing/grayed out' troubleshooting threads, trainer coverage centered on videos not playing). Education-weighted merge: rare."
+      },
+      "combined": 0.15,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:office-clipboard",
+      "name": "Office Clipboard",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "24-item collector pane is a power-user feature most users never open."
+      },
+      "combined": 0.15,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:online-videos-insert",
+      "name": "Online Videos",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Education grades rare (absent from MO-110/MO-111, GoSkills, and all ONLC levels; the only dedicated training is a troubleshooting-centric trainer post) and community graded low (18 SuperUser matches, footprint dominated by 'button missing/grayed out' threads). Education-weighted merge: rare — the community footprint is availability complaints, not usage."
+      },
+      "combined": 0.15,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:drop-cap-insert",
+      "name": "Drop Cap",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Unanimous rare among the agents that graded it: 1 SuperUser match — the lowest of all 27 same-pattern probes — absent from both MOS exams and GoSkills, and the only course teaching it (WCUPA Advanced) itself says 'There will rarely be a time when a Drop Cap is necessary in a document.'"
+      },
+      "combined": 0.15,
+      "layer": "P4"
+    },
+    {
+      "id": "subfeature:signature-line-insert",
+      "name": "Signature Line",
+      "node_type": "subfeature",
+      "boundary": false,
+      "signals": {
+        "connectivity": 0.0,
+        "usage": 0.15,
+        "audience": 0.3,
+        "usage_tier": "rare",
+        "usage_evidence": "Education grades rare (absent from MO-110/MO-111 and every curriculum examined; ONLC's digital-signature topic is the protect-document workflow, not the Insert-tab feature), and community's low is largely illusory — abundant 'insert signature' content is e-signature vendor marketing while the actual Signature Line feature draws only 10 SuperUser matches. Education-weighted merge: rare."
+      },
+      "combined": 0.15,
+      "layer": "P4"
+    }
+  ]
+}

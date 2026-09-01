@@ -1,0 +1,30 @@
+{
+  "id": "feature:media",
+  "node_type": "feature",
+  "name": "Media",
+  "what_it_does": "Embed online videos into the document from web sources.",
+  "affects": "document content (adds an embedded video)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:online-videos-insert"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,270 @@
+{
+  "feature": {
+    "id": "feature:chart-format",
+    "node_type": "feature",
+    "name": "Chart Format (chart-specific)",
+    "what_it_does": "Format individual chart elements — select and format a specific chart part.",
+    "affects": "individual elements of the selected chart",
+    "audience_breadth": "niche",
+    "cohesion": "capability",
+    "behavior": "Format individual chart elements — select and format a specific chart part.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:chart-format-selection",
+      "subfeature:chart-select-element"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:chart-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:chart-format-selection",
+      "node_type": "subfeature",
+      "name": "Format Selection",
+      "parent": "feature:chart-format",
+      "what_it_does": "Opens the format pane for the selected chart element, and resets it to the style default.",
+      "affects": "the selected chart element's formatting",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Format Selection pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the selected chart element's formatting.",
+      "behavior_record": {
+        "effect": "Opens the Format Selection pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the selected chart element's formatting.",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartResetToMatchStyle",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-format-selection"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-chart-format-selection"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-chart-reset-to-match-style"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-chart-format-selection-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-format-selection.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-format-selection.png",
+        "screenshots/ui-ribbon-chart-format-chart-format-selection-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-select-element",
+      "node_type": "subfeature",
+      "name": "Chart Elements selector",
+      "parent": "feature:chart-format",
+      "what_it_does": "Selects a specific chart element (series, axis, legend…) to format via the dropdown.",
+      "affects": "which chart element is selected",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Chart Elements dropdown — the surface that presents this capability's options (16 controls enumerated in the structural pass). Applying a choice there changes: which chart element is selected.",
+      "behavior_record": {
+        "effect": "Opens the Chart Elements dropdown — the surface that presents this capability's options (16 controls enumerated in the structural pass). Applying a choice there changes: which chart element is selected.",
+        "options": [
+          {
+            "name": "Chart Area",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Chart Title",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Data Table",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Horizontal (Category) Axis",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Horizontal (Category) Axis Title",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Legend",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Plot Area",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Vertical (Value) Axis",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Vertical (Value) Axis Major Gridlines",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Vertical (Value) Axis Title",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Series \"Series 1\"",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Series \"Series 1\" Data Labels",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Series \"Series 2\"",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Series \"Series 2\" Data Labels",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Series \"Series 3\"",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          },
+          {
+            "name": "Series \"Series 3\" Data Labels",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:chart-select-element"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ChartElementSelector",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:chart-select-element"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-chart-element-selector"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-chart-element-selector-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-element-selector.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-element-selector.png",
+        "screenshots/ui-ribbon-chart-format-chart-element-selector-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

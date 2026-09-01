@@ -1,0 +1,40 @@
+{
+  "id": "subfeature:line-spacing",
+  "node_type": "subfeature",
+  "name": "Line and Paragraph Spacing",
+  "parent": "feature:paragraph",
+  "what_it_does": "Sets the spacing between lines and before/after paragraphs.",
+  "affects": "the paragraph's line and spacing",
+  "audience_breadth": "most",
+  "behavior": "Opens subfeature:line-spacing (dropdown). Contents (9 controls): 1.0, 1.15, 1.5, 2.0, 2.5, 3.0, Line Spacing Options…, Add Space Before Paragraph, Remove Space After Paragraph. Sub-surfaces: ui:line-spacing-menu-line-spacing-options. [the subfeature:line-spacing flyout — items are endpoints; swatches pixel-sampled] Appears as stacked lines with up/down arrows and a dropdown chevron.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:line-spacing-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:line-spacing-menu",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-line-spacing-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-line-spacing-gallery.png",
+    "screenshots/ui-line-spacing-menu/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Paragraph dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

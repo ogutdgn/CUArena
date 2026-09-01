@@ -1,0 +1,127 @@
+Window       'scratch-20260709-072441-32444 - Word'
+  Pane         'DropShadowTop'  {DISABLED}
+  Pane         'MsoDockTop'
+    ToolBar      ''
+      Pane         'Ribbon'
+        Pane         ''
+          Pane         ''
+            Pane         'Ribbon'
+              ToolBar      'Quick Access Toolbar'
+                Button       'AutoSave' [AutoSaveSwitch]  {keytip=Alt, 1}
+                Button       'Save' [FileSave]  {acc=Ctrl+S, keytip=Alt, 2}
+                SplitButton  'Can't Undo' [Undo]  {keytip=Alt, 3, DISABLED}
+                  Button       'Can't Undo'  {DISABLED}
+                  MenuItem     'More Options' [Undo_Dropdown]  {keytip=Alt, 3, DISABLED}
+                Button       'Can't Repeat' [RedoOrRepeat]  {acc=Ctrl+Y, keytip=Alt, 4, DISABLED}
+                MenuItem     'Customize Quick Access Toolbar'
+              TitleBar     '‪scratch-20260709-072441-32444‬  -  Save…'
+                MenuItem     '‪scratch-20260709-072441-32444‬  -  Save…'  {keytip=Alt, B}
+              MenuItem     'Type to search and use the up and down a…' [TellMeControlAnchor]  {keytip=Alt, Q}
+                Edit         'Microsoft search' [TellMeTextBoxAutomationId]  {keytip=Alt, Q}
+              Button       'Upgrade your plan'  {keytip=Alt, U}
+              MenuItem     'Dogan Ogut' [MeControlWidget]  {keytip=Alt, Z P}
+              Button       'Minimize'
+              Button       'Restore Down'
+              Button       'Close'
+              Button       'File Tab' [FileTabButton]  {keytip=Alt, F}
+              Tab          'Ribbon Tabs'
+                TabItem      'Home' [TabHome]  {keytip=Alt, H}
+                TabItem      'Insert' [TabInsert]  {keytip=Alt, N}
+                TabItem      'Design' [TabWordDesign]  {keytip=Alt, G}
+                TabItem      'Layout' [TabPageLayoutWord]  {keytip=Alt, P}
+                TabItem      'References' [TabReferences]  {keytip=Alt, S}
+                TabItem      'Mailings' [TabMailings]  {keytip=Alt, M}
+                TabItem      'Review' [TabReviewWord]  {keytip=Alt, R}
+                TabItem      'View' [TabView]  {keytip=Alt, W}
+                TabItem      'Help' [HelpTab]  {keytip=Alt, Y 1}
+                TabItem      'Acrobat'  {keytip=Alt, Y 2}
+                Button       'Comments'  {keytip=Alt, Z C}
+                ComboBox     'Editing'  {keytip=Alt, Z M}
+                MenuItem     'Share'  {keytip=Alt, Z S}
+              Pane         'Lower Ribbon'
+                Group        'Insert'  {keytip=Alt, N}
+                  Group        'Pages'  {keytip=Alt, N, Z P}
+                    MenuItem     'Cover Page' [CoverPageInsertGallery]  {keytip=Alt, N, V}
+                    Button       'Blank Page' [BlankPageInsert]  {keytip=Alt, N, N P}
+                    Button       'Page Break' [PageBreakInsertWord]  {acc=Ctrl+Return, keytip=Alt, N, B}
+                  Group        'Tables'  {keytip=Alt, N, Z B}
+                    MenuItem     'Table' [TableInsertGallery]  {keytip=Alt, N, T}
+                  Group        'Illustrations'  {keytip=Alt, N, Z I}
+                    MenuItem     'Pictures' [FlyoutAnchorInsertPictures]  {keytip=Alt, N, P}
+                    MenuItem     'Shapes' [ShapesInsertGallery]  {keytip=Alt, N, S H}
+                    Button       'Icons' [IconInsertFromFile]  {keytip=Alt, N, N S}
+                    SplitButton  '3D Models'  {keytip=Alt, N, S 3}
+                      Button       '3D Models' [Insert3DModelDefault]
+                      MenuItem     'More Options' [Insert3DModelDropdown_Dropdown]  {keytip=Alt, N, S 3}
+                    Button       'SmartArt...' [SmartArtInsert]  {keytip=Alt, N, M}
+                    Button       'Chart...' [ChartInsert]  {keytip=Alt, N, C}
+                    MenuItem     'Screenshot' [ScreenshotInsertGallery]  {keytip=Alt, N, S C}
+                  Group        'Media'  {keytip=Alt, N, Z Q}
+                    Button       'Online Videos...' [MovieFromClipOrganizerInsert]  {keytip=Alt, N, N V}
+                  Group        'Links'  {keytip=Alt, N, Z L}
+                    SplitButton  'Link' [InsertLinkGallery]  {keytip=Alt, N, I}
+                      Button       'Link'
+                      MenuItem     'More Options' [InsertLinkGallery_Dropdown]  {keytip=Alt, N, I}
+                    Button       'Bookmark...' [BookmarkInsert]  {keytip=Alt, N, K}
+                    Button       'Cross-reference...' [CrossReferenceInsert]  {keytip=Alt, N, R F}
+                  Group        'Comments'  {keytip=Alt, N, Z 1}
+                    Button       'Comment' [InsertNewComment]  {keytip=Alt, N, L}
+                  Group        'Header & Footer'  {keytip=Alt, N, Z H}
+                    MenuItem     'Header' [HeaderInsertGallery]  {keytip=Alt, N, H}
+                    MenuItem     'Footer' [FooterInsertGallery]  {keytip=Alt, N, O}
+                    MenuItem     'Page Number' [HeaderFooterPageNumberInsert]  {keytip=Alt, N, N U}
+                  Group        'Text'  {keytip=Alt, N, Z T}
+                    MenuItem     'Text Box' [TextBoxInsertGallery]  {keytip=Alt, N, X}
+                    MenuItem     'Quick Parts' [QuickPartsInsertGallery]  {keytip=Alt, N, Q}
+                    MenuItem     'WordArt' [WordArtInsertGallery]  {keytip=Alt, N, W}
+                    MenuItem     'Drop Cap' [DropCapInsertGallery]  {keytip=Alt, N, R C, DISABLED}
+                    SplitButton  'Signature Line'  {keytip=Alt, N, G}
+                      Button       'Signature Line' [SignatureLineInsert]
+                      MenuItem     'More Options' [SignatureLineInsertMenu_Dropdown]  {keytip=Alt, N, G}
+                    Button       'Date & Time...' [DateAndTimeInsert]  {keytip=Alt, N, D}
+                    SplitButton  'Object...'  {keytip=Alt, N, J}
+                      Button       'Object...' [OleObjectctInsert]
+                      MenuItem     'More Options' [OleObjectInsertMenu_Dropdown]  {keytip=Alt, N, J}
+                  Group        'Symbols'  {keytip=Alt, N, Z S}
+                    SplitButton  'Equation' [EquationInsertGallery]  {keytip=Alt, N, E}
+                      Button       'Equation'
+                      MenuItem     'More Options' [EquationInsertGallery_Dropdown]  {keytip=Alt, N, E}
+                    MenuItem     'Symbol' [SymbolInsertGallery]  {keytip=Alt, N, U}
+                  Group        'eSignature'  {keytip=Alt, N, Z 2}
+                    Button       'eSignature fields' [SyntexEsign]  {keytip=Alt, N, S E}
+              MenuItem     'Ribbon Display Options'  {keytip=Alt, Z R}
+  Pane         'MsoDockBottom'
+    ToolBar      ''
+      Pane         'Status Bar'
+        Pane         ''
+          Pane         ''
+            StatusBar    'Status Bar'
+              Text         'Word Count 0 words'
+              Button       'Coauthoring Mode '
+              Button       'Text Predictions Text Predictions: On'
+              Button       'Focus '
+              Button       'Read Mode'
+              Button       'Print Layout'
+              Button       'Web Layout'
+              Button       'Zoom Out (Ctrl -)'
+              Slider       'Zoom'
+                Button       'Zoom Out'
+                Thumb        'Position'
+                Button       'Zoom In'
+              Button       'Zoom In (Ctrl +)'
+              Button       'Zoom 100%'
+  Pane         ''
+    Pane         'scratch-20260709-072441-32444'
+      Document     'scratch-20260709-072441-32444'
+        Pane         ''
+          Group        ''
+            Button       'Copilot Chat' [dynamicActionButton]
+      Pane         'Vertical'
+        Pane         ''
+          ScrollBar    ''
+  TitleBar     ''
+    MenuBar      'System' [MenuBar]
+      MenuItem     'System'  {keytip=Space}
+    Button       'Minimize'
+    Button       'Restore'
+    Button       'Close'

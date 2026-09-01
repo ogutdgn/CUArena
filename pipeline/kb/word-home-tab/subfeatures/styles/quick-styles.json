@@ -1,0 +1,46 @@
+{
+  "id": "subfeature:quick-styles",
+  "node_type": "subfeature",
+  "name": "Quick Styles gallery",
+  "parent": "feature:styles",
+  "what_it_does": "Applies a named style (Normal, No Spacing, Heading 1/2, Title, Subtitle, Quote…) to the selection from the in-ribbon gallery.",
+  "affects": "the paragraph/character style applied",
+  "audience_breadth": "most",
+  "behavior": "Opens Quick Styles gallery (dropdown). Contents (16 controls): ¶ Normal, ¶ No Spacing, Heading 1, Heading 2, Title, Subtitle, Subtle Emphasis, Emphasis, Intense Emphasis, Strong, Quote, Intense Quote, Subtle Reference, Intense Reference, Book Title, ¶ List Paragraph. [the Quick Styles gallery — named style tiles (each applies a style)] Appears as a gallery of style previews (Normal, No Spacing, Heading, Title…).",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:quick-styles-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:styles-gallery",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-quick-styles.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-quick-styles.png",
+    "screenshots/ui-styles-gallery/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "a style bundles the character formatting the Font dialog sets",
+      "source": "observed"
+    },
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "uses",
+      "why": "a style bundles paragraph formatting",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "uia"
+}

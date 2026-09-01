@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+J",
+  "bindings": [
+    {
+      "context": "editing text — applies to the current paragraph(s)",
+      "effect": "Spaces the paragraph text to align to both left and right margins.",
+      "triggers": "subfeature:align-justify",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

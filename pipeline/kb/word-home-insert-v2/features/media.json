@@ -1,0 +1,67 @@
+{
+  "feature": {
+    "id": "feature:media",
+    "node_type": "feature",
+    "name": "Media",
+    "what_it_does": "Embed online videos into the document from web sources.",
+    "affects": "document content (adds an embedded video)",
+    "audience_breadth": "niche",
+    "behavior": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:online-videos-insert"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": false,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:online-videos-insert",
+      "node_type": "subfeature",
+      "name": "Online Videos",
+      "parent": "feature:media",
+      "what_it_does": "Opens a dialog to embed an online video by URL (YouTube etc.); playback happens in-document (network content).",
+      "affects": "document content (adds an embedded video)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:movie-from-clip-organizer-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:movie-from-clip-organizer-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-movie-from-clip-organizer-insert.png",
+        "screenshots/ui-movie-from-clip-organizer-insert-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

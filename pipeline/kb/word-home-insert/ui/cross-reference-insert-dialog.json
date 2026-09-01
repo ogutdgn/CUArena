@@ -1,0 +1,10 @@
+{
+  "id": "ui:cross-reference-insert-dialog",
+  "kind": "dialog",
+  "label": "Cross-reference",
+  "purpose": null,
+  "screenshot": "screenshots/ui-cross-reference-insert-dialog/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

@@ -1,0 +1,60 @@
+{
+  "id": "subfeature:insert-link",
+  "node_type": "subfeature",
+  "name": "Link",
+  "parent": "feature:links",
+  "what_it_does": "Opens the Insert Hyperlink dialog to link the selection to webpages, files, headings or email addresses; the dropdown lists recent items.",
+  "affects": "the selection (wraps it in a hyperlink)",
+  "audience_breadth": "most",
+  "behavior": "Opens Insert Hyperlink (dialog). Contents (26 controls): Current Folder, Browsed Pages, Recent Files, Existing File or Web Page, Place in This Document, Create New Document, E-mail Address, RichEdit Control, Line up, Page down, Line down, RichEdit Control, Context help, Close, Text to display:, ScreenTip.... Sub-surfaces: ui:insert-link-dialog-screentip, ui:insert-link-dialog-bookmark, ui:insert-link-dialog-target-frame. [the Insert Hyperlink dialog; enumerated across 1 tab(s)] Appears as two chain links, labelled 'Link', with a dropdown.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:insert-link-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:insert-link-gallery-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+K"
+    }
+  ],
+  "shortcut": "Ctrl+K",
+  "opens": "ui:insert-link-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-insert-link-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-insert-link-gallery.png",
+    "screenshots/ui-insert-link-dialog/tab-single.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:bookmark-insert",
+      "kind": "uses",
+      "why": "the navigation-target family (Links group)",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:cross-reference-insert",
+      "kind": "uses",
+      "why": "the navigation-target family (Links group)",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

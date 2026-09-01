@@ -1,0 +1,74 @@
+{
+  "id": "subfeature:superscript",
+  "node_type": "subfeature",
+  "name": "Superscript",
+  "parent": "feature:font",
+  "what_it_does": "Places the selected text slightly above the baseline in a smaller size.",
+  "affects": "the selection's character format (superscript)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:superscript"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+Shift++"
+    }
+  ],
+  "shortcut": "Ctrl+Shift++",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-superscript.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:bold",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:italic",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:underline-gallery",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:strikethrough",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:subscript",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

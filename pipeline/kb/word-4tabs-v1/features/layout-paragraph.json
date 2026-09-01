@@ -1,0 +1,414 @@
+{
+  "feature": {
+    "id": "feature:layout-paragraph",
+    "node_type": "feature",
+    "name": "Paragraph (Layout)",
+    "what_it_does": "Set the selected paragraph's precise left/right indentation and the spacing before and after it (the Layout tab's numeric Paragraph group).",
+    "affects": "the selected paragraph's indentation and spacing",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Set the selected paragraph's precise left/right indentation and the spacing before and after it (the Layout tab's numeric Paragraph group).",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-layout"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-layout",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:indent-left",
+      "subfeature:indent-right",
+      "subfeature:spacing-before",
+      "subfeature:spacing-after"
+    ],
+    "connections": [
+      {
+        "target": "feature:paragraph",
+        "kind": "affects-same",
+        "why": "the Layout Paragraph group is the numeric half of the same paragraph formatting",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:indent-left",
+      "node_type": "subfeature",
+      "name": "Indent Left",
+      "parent": "feature:layout-paragraph",
+      "what_it_does": "Sets the selected paragraph's left indent to a precise measurement (value field + More/Less steppers).",
+      "affects": "the paragraph's left indent",
+      "audience_breadth": "most",
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:indent-left"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:indent-left"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:indent-left-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:indent-left-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-indent-left.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-indent-left.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-right",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:spacing-before",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:spacing-after",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:indent-increase",
+          "kind": "affects-same",
+          "why": "both change the paragraph's left indent (precise value vs one-step)",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:indent-right",
+      "node_type": "subfeature",
+      "name": "Indent Right",
+      "parent": "feature:layout-paragraph",
+      "what_it_does": "Sets the selected paragraph's right indent to a precise measurement (value field + More/Less steppers).",
+      "affects": "the paragraph's right indent",
+      "audience_breadth": "most",
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:indent-right"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:indent-right"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:indent-right-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:indent-right-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-indent-right.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-indent-right.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-left",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:spacing-before",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:spacing-after",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:spacing-before",
+      "node_type": "subfeature",
+      "name": "Spacing Before",
+      "parent": "feature:layout-paragraph",
+      "what_it_does": "Sets the space above the selected paragraph in points (value field + More/Less steppers).",
+      "affects": "the space before the paragraph",
+      "audience_breadth": "most",
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:spacing-before"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:spacing-before"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:spacing-before-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:spacing-before-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-spacing-before.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-spacing-before.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-left",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:indent-right",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:spacing-after",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:line-spacing",
+          "kind": "affects-same",
+          "why": "both set paragraph spacing",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:spacing-after",
+      "node_type": "subfeature",
+      "name": "Spacing After",
+      "parent": "feature:layout-paragraph",
+      "what_it_does": "Sets the space below the selected paragraph in points (value field + More/Less steppers).",
+      "affects": "the space after the paragraph",
+      "audience_breadth": "most",
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:spacing-after"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:spacing-after"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:spacing-after-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-layout",
+            "el:spacing-after-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-layout",
+      "screenshot": "screenshots/ui-ribbon-layout/icon-spacing-after.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-layout/icon-spacing-after.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:indent-left",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:indent-right",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:spacing-before",
+          "kind": "affects-same",
+          "why": "all set the selected paragraph's indent/spacing metrics",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

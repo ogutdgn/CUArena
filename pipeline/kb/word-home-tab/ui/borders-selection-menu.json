@@ -1,0 +1,10 @@
+{
+  "id": "ui:borders-selection-menu",
+  "kind": "menu",
+  "label": "Borders (dropdown)",
+  "purpose": null,
+  "screenshot": "screenshots/ui-borders-selection-menu/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

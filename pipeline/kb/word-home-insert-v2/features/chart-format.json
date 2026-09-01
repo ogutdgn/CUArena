@@ -1,0 +1,117 @@
+{
+  "feature": {
+    "id": "feature:chart-format",
+    "node_type": "feature",
+    "name": "Chart Format (chart-specific)",
+    "what_it_does": "Format individual chart elements — select and format a specific chart part.",
+    "affects": "individual elements of the selected chart",
+    "audience_breadth": "niche",
+    "behavior": "Format individual chart elements — select and format a specific chart part.",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:chart-format-selection",
+      "subfeature:chart-select-element"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:chart-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:chart-format-selection",
+      "node_type": "subfeature",
+      "name": "Format Selection",
+      "parent": "feature:chart-format",
+      "what_it_does": "Opens the format pane for the selected chart element, and resets it to the style default.",
+      "affects": "the selected chart element's formatting",
+      "audience_breadth": "niche",
+      "behavior": "Opens Format Selection (pane). Contents (3 controls): Minimize, Restore, Close. [the subfeature:chart-format-selection pane (docked/floating), enumerated one level — pane controls act on the pane's function (endpoints)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-chart-format-selection"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-chart-reset-to-match-style"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-chart-format-selection-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-format-selection.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-format-selection.png",
+        "screenshots/ui-ribbon-chart-format-chart-format-selection-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:chart-select-element",
+      "node_type": "subfeature",
+      "name": "Chart Elements selector",
+      "parent": "feature:chart-format",
+      "what_it_does": "Selects a specific chart element (series, axis, legend…) to format via the dropdown.",
+      "affects": "which chart element is selected",
+      "audience_breadth": "niche",
+      "behavior": "Opens Chart Elements (dropdown). Contents (10 controls): Chart Area, Chart Title, Horizontal (Category) Axis, Legend, Plot Area, Vertical (Value) Axis, Vertical (Value) Axis Major Gridlines, Series \"Series 1\", Series \"Series 2\", Series \"Series 3\". [flyout of subfeature:chart-select-element — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-chart-element-selector"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-chart-element-selector-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-element-selector.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-chart-format/icon-ribbon-chart-format-chart-element-selector.png",
+        "screenshots/ui-ribbon-chart-format-chart-element-selector-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

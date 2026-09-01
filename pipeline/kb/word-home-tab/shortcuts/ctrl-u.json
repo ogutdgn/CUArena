@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+U",
+  "bindings": [
+    {
+      "context": "editing text — applies to the selection or at the cursor",
+      "effect": "Toggles an underline on the selected text; the dropdown picks the underline style and color.",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

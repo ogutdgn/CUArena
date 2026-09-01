@@ -1,0 +1,50 @@
+{
+  "id": "subfeature:cut",
+  "node_type": "subfeature",
+  "name": "Cut",
+  "parent": "feature:clipboard",
+  "what_it_does": "Removes the selection from the document and places it on the clipboard.",
+  "affects": "document content + clipboard",
+  "audience_breadth": "everyone",
+  "behavior": "Direct action: Removes the selection from the document and places it on the clipboard. Applied immediately to document content + clipboard; toggle state (where applicable) is reflected by the button's highlighted look. Appears as a pair of scissors.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:cut"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+X"
+    }
+  ],
+  "shortcut": "Ctrl+X",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-cut.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-cut.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:copy",
+      "kind": "uses",
+      "why": "operate together through the clipboard",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:paste",
+      "kind": "uses",
+      "why": "operate together through the clipboard",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

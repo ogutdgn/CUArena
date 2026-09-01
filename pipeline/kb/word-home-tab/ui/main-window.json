@@ -1,0 +1,358 @@
+{
+  "id": "ui:main-window",
+  "kind": "window",
+  "label": "Word main window (frame)",
+  "purpose": null,
+  "screenshot": null,
+  "children": [
+    {
+      "id": "el:tab-tab-home",
+      "control_type": "tab",
+      "label": "Home",
+      "icon": {
+        "description": "Home ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        58,
+        48,
+        113,
+        78
+      ],
+      "state_notes": "the in-scope universe",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:ribbon-home",
+      "unexplored": false
+    },
+    {
+      "id": "el:tab-tab-insert",
+      "control_type": "tab",
+      "label": "Insert",
+      "icon": {
+        "description": "Insert ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        114,
+        48,
+        167,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-tab-word-design",
+      "control_type": "tab",
+      "label": "Design",
+      "icon": {
+        "description": "Design ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        168,
+        48,
+        227,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-tab-page-layout",
+      "control_type": "tab",
+      "label": "Layout",
+      "icon": {
+        "description": "Layout ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        228,
+        48,
+        287,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-tab-references",
+      "control_type": "tab",
+      "label": "References",
+      "icon": {
+        "description": "References ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        288,
+        48,
+        371,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-tab-mailings",
+      "control_type": "tab",
+      "label": "Mailings",
+      "icon": {
+        "description": "Mailings ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        372,
+        48,
+        440,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-tab-review",
+      "control_type": "tab",
+      "label": "Review",
+      "icon": {
+        "description": "Review ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        441,
+        48,
+        501,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-tab-view",
+      "control_type": "tab",
+      "label": "View",
+      "icon": {
+        "description": "View ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        502,
+        48,
+        548,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-help-tab",
+      "control_type": "tab",
+      "label": "Help",
+      "icon": {
+        "description": "Help ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        549,
+        48,
+        595,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:tab-acrobat",
+      "control_type": "tab",
+      "label": "Acrobat",
+      "icon": {
+        "description": "Acrobat ribbon tab",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        596,
+        48,
+        662,
+        78
+      ],
+      "state_notes": "other ribbon tab — out of scope this run (name only)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:file-tab",
+      "control_type": "button",
+      "label": "File",
+      "icon": {
+        "description": "File tab (opens Backstage)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        4,
+        48,
+        58,
+        78
+      ],
+      "state_notes": "boundary: opens Backstage (out of scope)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:qat-auto-save-switch",
+      "control_type": "button",
+      "label": "AutoSave",
+      "icon": {
+        "description": "AutoSave (Quick Access Toolbar)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        42,
+        9,
+        154,
+        38
+      ],
+      "state_notes": "persistent chrome — out of Home-tab scope; never pressed",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:qat-file-save",
+      "control_type": "button",
+      "label": "Save",
+      "icon": {
+        "description": "Save (Quick Access Toolbar)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        155,
+        9,
+        183,
+        38
+      ],
+      "state_notes": "persistent chrome — out of Home-tab scope; never pressed",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:qat-undo",
+      "control_type": "splitbutton",
+      "label": "VBA-ParagraphFormat.LeftIndent",
+      "icon": {
+        "description": "VBA-ParagraphFormat.LeftIndent (Quick Access Toolbar)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        184,
+        9,
+        222,
+        38
+      ],
+      "state_notes": "persistent chrome — out of Home-tab scope; never pressed",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:qat-redo-or-repeat",
+      "control_type": "button",
+      "label": "Redo Border Bottom",
+      "icon": {
+        "description": "Redo Border Bottom (Quick Access Toolbar)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": "ui:main-window",
+      "bounds": [
+        223,
+        9,
+        251,
+        38
+      ],
+      "state_notes": "persistent chrome — out of Home-tab scope; never pressed",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [
+    "ui:ribbon-home"
+  ],
+  "explored": true
+}

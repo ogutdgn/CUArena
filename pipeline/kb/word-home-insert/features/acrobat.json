@@ -1,0 +1,30 @@
+{
+  "id": "feature:acrobat",
+  "node_type": "feature",
+  "name": "Adobe Acrobat",
+  "what_it_does": "Create a PDF from the document via the Adobe Acrobat add-in.",
+  "affects": "produces a PDF file (external add-in)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:create-pdf"
+  ],
+  "connections": [],
+  "boundary": true,
+  "explored": false,
+  "source": "inference"
+}

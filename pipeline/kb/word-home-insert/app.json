@@ -1,0 +1,186 @@
+{
+  "name": "Microsoft Word",
+  "version": "16.0.20131",
+  "platform": "desktop",
+  "what_is_it": "A desktop word processor for creating, formatting and editing text documents.",
+  "used_for": "Writing and formatting documents — letters, reports, essays, resumes — with rich text styling, paragraph layout, lists, styles, tables, graphics, headers/footers and review tools.",
+  "who_uses": "Students, office workers, writers, and virtually anyone producing formatted text documents.",
+  "layout_regions": [
+    "ui:main-window",
+    "ui:ribbon-home",
+    "ui:ribbon-insert"
+  ],
+  "feature_inventory": [
+    {
+      "id": "feature:clipboard",
+      "name": "Clipboard",
+      "one_liner": "Move and duplicate content and formatting via the clipboard.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:font",
+      "name": "Font",
+      "one_liner": "Format the characters of the selected text — typeface, size, weight, color, effects.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:paragraph",
+      "name": "Paragraph",
+      "one_liner": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:styles",
+      "name": "Styles",
+      "one_liner": "Apply named, reusable style sets that bundle character and paragraph formatting.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:editing",
+      "name": "Editing",
+      "one_liner": "Find, replace and select text within the document.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:voice",
+      "name": "Voice",
+      "one_liner": "Dictate text by voice using cloud speech recognition.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:editor",
+      "name": "Editor",
+      "one_liner": "Check spelling, grammar and writing refinements via the cloud Editor service.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:acrobat",
+      "name": "Adobe Acrobat",
+      "one_liner": "Create a PDF from the document via the Adobe Acrobat add-in.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:add-ins",
+      "name": "Add-ins",
+      "one_liner": "Browse and launch Office Add-ins from the store.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:pages",
+      "name": "Pages",
+      "one_liner": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:tables",
+      "name": "Tables",
+      "one_liner": "Insert tables to organize content in rows and columns; a selected table brings up its own Table Design and Table Layout contextual tabs.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:illustrations",
+      "name": "Illustrations",
+      "one_liner": "Insert graphic objects — pictures, shapes, icons, 3D models, SmartArt diagrams, charts and screenshots; each selected object surfaces its own Format contextual tab(s).",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:media",
+      "name": "Media",
+      "one_liner": "Embed online videos into the document from web sources.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:links",
+      "name": "Links",
+      "one_liner": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:comments",
+      "name": "Comments",
+      "one_liner": "Attach review comments to document ranges for collaboration.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:header-footer",
+      "name": "Header & Footer",
+      "one_liner": "Repeat content at the top/bottom of every page and number the pages; editing them activates the Header & Footer contextual tab.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:text",
+      "name": "Text",
+      "one_liner": "Insert text objects and building blocks: text boxes, Quick Parts/fields, WordArt, drop caps, signature lines, date/time and embedded objects.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:symbols",
+      "name": "Symbols",
+      "one_liner": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:esignature",
+      "name": "eSignature",
+      "one_liner": "Request electronic signatures on the document via the SharePoint Syntex cloud service.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    }
+  ]
+}

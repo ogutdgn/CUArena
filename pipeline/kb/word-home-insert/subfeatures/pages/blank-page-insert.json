@@ -1,0 +1,45 @@
+{
+  "id": "subfeature:blank-page-insert",
+  "node_type": "subfeature",
+  "name": "Blank Page",
+  "parent": "feature:pages",
+  "what_it_does": "Inserts an empty page at the cursor position (measured: two page breaks around a new empty page).",
+  "affects": "document content (page flow)",
+  "audience_breadth": "most",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:blank-page-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-blank-page-insert.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:cover-page-insert",
+      "kind": "affects",
+      "why": "all change the document's page structure/flow",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:page-break-insert",
+      "kind": "affects",
+      "why": "all change the document's page structure/flow",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

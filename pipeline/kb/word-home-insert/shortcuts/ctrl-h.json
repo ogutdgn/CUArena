@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+H",
+  "bindings": [
+    {
+      "context": "document has focus",
+      "effect": "Opens the Find and Replace dialog to substitute text throughout the document.",
+      "triggers": null,
+      "opens": "ui:replace-dialog",
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

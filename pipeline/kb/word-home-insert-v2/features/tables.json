@@ -1,0 +1,81 @@
+{
+  "feature": {
+    "id": "feature:tables",
+    "node_type": "feature",
+    "name": "Tables",
+    "what_it_does": "Insert tables to organize content in rows and columns; a selected table brings up its own Table Design and Table Layout contextual tabs.",
+    "affects": "document content (adds a table object)",
+    "audience_breadth": "everyone",
+    "behavior": "Insert tables to organize content in rows and columns; a selected table brings up its own Table Design and Table Layout contextual tabs. Group controls: subfeature:table-insert",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:table-insert"
+    ],
+    "connections": [
+      {
+        "target": "feature:paragraph",
+        "kind": "affects-same",
+        "why": "table cells contain paragraphs formatted by the Paragraph tools",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:table-insert",
+      "node_type": "subfeature",
+      "name": "Table",
+      "parent": "feature:tables",
+      "what_it_does": "Opens the table builder: a hover grid to insert an N×M table instantly, plus Insert Table…, Draw Table, Convert Text to Table…, Excel Spreadsheet and Quick Tables. A selected table activates the Table Design + Table Layout contextual tabs (measured).",
+      "affects": "document content (adds a table object)",
+      "audience_breadth": "everyone",
+      "behavior": "Opens Table (dropdown). Contents (5 controls): Draw Table, Excel Spreadsheet, Quick Tables, Insert Table..., Convert Text to Table.... Sub-surfaces: ui:table-insert-dropdown-quick-tables, ui:table-insert-dropdown-insert-table. [flyout of subfeature:table-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Insert Table] Appears as a 4x4 grid labelled 'Table' with a dropdown chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:table-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:table-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-table-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-table-insert-gallery.png",
+        "screenshots/ui-table-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:sort",
+          "kind": "affects-same",
+          "why": "Sort operates on table contents as well as paragraphs",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

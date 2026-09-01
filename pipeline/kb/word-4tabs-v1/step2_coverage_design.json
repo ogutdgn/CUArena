@@ -1,0 +1,38 @@
+{
+  "scope": "Design tab of the Home+Insert universe",
+  "boundary_groups": {},
+  "counts": {
+    "controls": 10,
+    "measured": 10,
+    "boundary_controls": 0,
+    "opened_surfaces_stubbed": 10,
+    "no_effect": 0,
+    "reset_mismatch": 0
+  },
+  "no_effect_controls": [],
+  "reset_mismatch_controls": [],
+  "measured_controls": [
+    "themes-gallery[flyout]",
+    "style-set-gallery[flyout]",
+    "theme-colors-gallery[flyout]",
+    "theme-fonts-gallery[flyout]",
+    "paragraph-spacing[flyout]",
+    "theme-effects-gallery[flyout]",
+    "quick-styles-set-as-default[dialog]",
+    "watermark-gallery[flyout]",
+    "page-color-picker[flyout]",
+    "page-border-and-shading-dialog[dialog]"
+  ],
+  "stub_surfaces": [
+    "ui:page-border-and-shading-dialog",
+    "ui:page-color-menu",
+    "ui:paragraph-spacing-menu",
+    "ui:quick-styles-set-as-default-dialog",
+    "ui:style-set-gallery",
+    "ui:theme-colors-dropdown",
+    "ui:theme-effects-dropdown",
+    "ui:theme-fonts-dropdown",
+    "ui:themes-dropdown",
+    "ui:watermark-dropdown"
+  ]
+}

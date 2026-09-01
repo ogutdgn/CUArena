@@ -1,0 +1,380 @@
+{
+  "id": "ui:styles-gallery",
+  "kind": "dropdown",
+  "label": "Quick Styles gallery",
+  "purpose": "the Quick Styles gallery — named style tiles (each applies a style)",
+  "screenshot": "screenshots/ui-styles-gallery/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "¶ Normal",
+      "icon": {
+        "description": "'¶ Normal' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        757,
+        92,
+        865,
+        148
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "¶ No Spacing",
+      "icon": {
+        "description": "'¶ No Spacing' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        865,
+        92,
+        973,
+        148
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Heading 1",
+      "icon": {
+        "description": "'Heading 1' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        973,
+        92,
+        1081,
+        148
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Heading 2",
+      "icon": {
+        "description": "'Heading 2' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1081,
+        92,
+        1189,
+        148
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Title",
+      "icon": {
+        "description": "'Title' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1189,
+        92,
+        1297,
+        148
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Subtitle",
+      "icon": {
+        "description": "'Subtitle' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1297,
+        92,
+        1405,
+        148
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Subtle Emphasis",
+      "icon": {
+        "description": "'Subtle Emphasis' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        757,
+        148,
+        865,
+        204
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Emphasis",
+      "icon": {
+        "description": "'Emphasis' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        865,
+        148,
+        973,
+        204
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Intense Emphasis",
+      "icon": {
+        "description": "'Intense Emphasis' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        973,
+        148,
+        1081,
+        204
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Strong",
+      "icon": {
+        "description": "'Strong' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1081,
+        148,
+        1189,
+        204
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Quote",
+      "icon": {
+        "description": "'Quote' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1189,
+        148,
+        1297,
+        204
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Intense Quote",
+      "icon": {
+        "description": "'Intense Quote' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1297,
+        148,
+        1405,
+        204
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Subtle Reference",
+      "icon": {
+        "description": "'Subtle Reference' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        757,
+        204,
+        865,
+        260
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Intense Reference",
+      "icon": {
+        "description": "'Intense Reference' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        865,
+        204,
+        973,
+        260
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Book Title",
+      "icon": {
+        "description": "'Book Title' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        973,
+        204,
+        1081,
+        260
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "¶ List Paragraph",
+      "icon": {
+        "description": "'¶ List Paragraph' style preview tile",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1081,
+        204,
+        1189,
+        260
+      ],
+      "state_notes": "applies the named style (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:quick-styles",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": null
+}

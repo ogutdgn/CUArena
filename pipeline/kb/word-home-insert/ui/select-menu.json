@@ -1,0 +1,10 @@
+{
+  "id": "ui:select-menu",
+  "kind": "menu",
+  "label": "Select",
+  "purpose": null,
+  "screenshot": "screenshots/ui-select-menu/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

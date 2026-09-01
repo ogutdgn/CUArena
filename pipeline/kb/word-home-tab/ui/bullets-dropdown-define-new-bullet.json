@@ -1,0 +1,10 @@
+{
+  "id": "ui:bullets-dropdown-define-new-bullet",
+  "kind": "dialog",
+  "label": "Define New Bullet...",
+  "purpose": "sub-surface of a menu; interior deferred",
+  "screenshot": null,
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

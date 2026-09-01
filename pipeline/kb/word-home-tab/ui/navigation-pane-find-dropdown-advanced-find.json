@@ -1,0 +1,10 @@
+{
+  "id": "ui:navigation-pane-find-dropdown-advanced-find",
+  "kind": "dialog",
+  "label": "Advanced Find...",
+  "purpose": "sub-surface of a menu; interior deferred",
+  "screenshot": null,
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

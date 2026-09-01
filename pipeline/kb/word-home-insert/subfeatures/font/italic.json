@@ -1,0 +1,74 @@
+{
+  "id": "subfeature:italic",
+  "node_type": "subfeature",
+  "name": "Italic",
+  "parent": "feature:font",
+  "what_it_does": "Toggles italic (slanted) style on the selected text.",
+  "affects": "the selection's character format (italic)",
+  "audience_breadth": "everyone",
+  "behavior": "Direct action: Toggles italic (slanted) style on the selected text. Applied immediately to the selection's character format (italic); toggle state (where applicable) is reflected by the button's highlighted look. Appears as a slanted capital 'I'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:italic"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+I"
+    }
+  ],
+  "shortcut": "Ctrl+I",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-italic.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-italic.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:bold",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:underline-gallery",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:strikethrough",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:subscript",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:superscript",
+      "kind": "affects",
+      "why": "all mutate the selection's character format",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

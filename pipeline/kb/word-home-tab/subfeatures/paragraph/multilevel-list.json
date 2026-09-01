@@ -1,0 +1,52 @@
+{
+  "id": "subfeature:multilevel-list",
+  "node_type": "subfeature",
+  "name": "Multilevel List",
+  "parent": "feature:paragraph",
+  "what_it_does": "Applies a multi-level (nested) list scheme to the selected paragraphs.",
+  "affects": "the selected paragraphs' multi-level list format",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:multilevel-list-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:multilevel-list-menu",
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-multilevel-list-gallery.png",
+    "screenshots/ui-multilevel-list-menu/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:bullets-gallery",
+      "kind": "affects",
+      "why": "all apply list formatting to paragraphs",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:numbering-gallery",
+      "kind": "affects",
+      "why": "all apply list formatting to paragraphs",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:numbering-gallery",
+      "kind": "uses",
+      "why": "multilevel lists build on numbering",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

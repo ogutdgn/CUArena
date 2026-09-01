@@ -1,0 +1,33 @@
+{
+  "id": "subfeature:quick-parts-insert",
+  "node_type": "subfeature",
+  "name": "Quick Parts",
+  "parent": "feature:text",
+  "what_it_does": "Inserts reusable building blocks: AutoText, document properties and fields; also saves the selection to the gallery.",
+  "affects": "document content (adds building blocks/fields)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:quick-parts-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:quick-parts-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-quick-parts-insert-gallery.png",
+    "screenshots/ui-quick-parts-insert-dropdown/surface.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

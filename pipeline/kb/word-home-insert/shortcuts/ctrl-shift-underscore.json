@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+Shift+_",
+  "bindings": [
+    {
+      "context": "editing text — applies to the selection or at the cursor",
+      "effect": "Places the selected text slightly below the baseline in a smaller size.",
+      "triggers": "subfeature:subscript",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

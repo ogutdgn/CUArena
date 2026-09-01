@@ -1,0 +1,76 @@
+{
+  "id": "subfeature:screenshot-insert",
+  "node_type": "subfeature",
+  "name": "Screenshot",
+  "parent": "feature:illustrations",
+  "what_it_does": "Inserts a snapshot of any open window (gallery of live thumbnails) or a Screen Clipping region; the result is a picture (Picture Format applies).",
+  "affects": "document content (adds a screenshot image)",
+  "audience_breadth": "niche",
+  "behavior": "Opens Screenshot (dropdown). Contents (4 controls): Color swatches, Screenshot, Claude, Screen Clipping. [flyout of subfeature:screenshot-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Available Windows] Appears as a camera over a window frame with a dashed border.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:screenshot-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:screenshot-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-screenshot-insert-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-screenshot-insert-gallery.png",
+    "screenshots/ui-screenshot-insert-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:insert-pictures",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:shapes-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:icon-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:insert-3d-models",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:smart-art-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:chart-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "ui:ribbon-picture-format",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

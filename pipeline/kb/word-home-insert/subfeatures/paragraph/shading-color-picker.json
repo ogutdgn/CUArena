@@ -1,0 +1,67 @@
+{
+  "id": "subfeature:shading-color-picker",
+  "node_type": "subfeature",
+  "name": "Shading",
+  "parent": "feature:paragraph",
+  "what_it_does": "Fills the background of the selection/paragraph with a color; the dropdown picks the color.",
+  "affects": "the paragraph/selection background shading",
+  "audience_breadth": "most",
+  "behavior": "Opens Shading (dropdown) (dropdown). Contents (5 controls): Color swatches, Shading, High-contrast only, No Color, More Colors.... [flyout of subfeature:shading-color-picker — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors] Appears as a paint bucket tilted over a square with a chevron.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:shading-color-picker"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:shading-color-picker-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:shading-color-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-shading-color-picker.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-shading-color-picker.png",
+    "screenshots/ui-shading-color-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-color-picker",
+      "kind": "affects",
+      "why": "all apply a color (text / highlight / fill) to the selection",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:text-highlight-color-picker",
+      "kind": "affects",
+      "why": "all apply a color (text / highlight / fill) to the selection",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:borders-selection-gallery",
+      "kind": "affects",
+      "why": "paragraph decoration; both live in the Borders and Shading dialog",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Paragraph dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "idmso"
+}

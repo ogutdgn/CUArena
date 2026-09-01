@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+E",
+  "bindings": [
+    {
+      "context": "editing text — applies to the current paragraph(s)",
+      "effect": "Centers the paragraph text between the margins.",
+      "triggers": "subfeature:align-center",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

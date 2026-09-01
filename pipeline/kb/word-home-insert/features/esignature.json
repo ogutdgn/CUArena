@@ -1,0 +1,30 @@
+{
+  "id": "feature:esignature",
+  "node_type": "feature",
+  "name": "eSignature",
+  "what_it_does": "Request electronic signatures on the document via the SharePoint Syntex cloud service.",
+  "affects": "starts a cloud e-signature request",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:esignature-fields"
+  ],
+  "connections": [],
+  "boundary": true,
+  "explored": false,
+  "source": "inference"
+}

@@ -1,0 +1,309 @@
+{
+  "feature": {
+    "id": "feature:table-design",
+    "node_type": "feature",
+    "name": "Table Design",
+    "what_it_does": "Style a selected table — apply a table style, toggle which parts the style emphasizes, and set shading and borders.",
+    "affects": "the visual style of the selected table",
+    "audience_breadth": "most",
+    "behavior": "Style a selected table — apply a table style, toggle which parts the style emphasizes, and set shading and borders. Group controls: subfeature:table-borders, subfeature:table-shading, subfeature:table-style-options, subfeature:table-styles",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-table-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-table-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:table-borders",
+      "subfeature:table-shading",
+      "subfeature:table-style-options",
+      "subfeature:table-styles"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:table-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:table-borders",
+      "node_type": "subfeature",
+      "name": "Table Borders",
+      "parent": "feature:table-design",
+      "what_it_does": "Sets the table's borders — border style/pen weight/pen color (options), which edges get a border, the border painter, and the Borders and Shading dialog.",
+      "affects": "the selected cells' borders",
+      "audience_breadth": "most",
+      "behavior": "Opens Border Styles (dropdown) (dropdown). Contents (23 controls): Border Styles, Single solid line, 1/2 pt, Single solid line, 1/2 pt, Accent 1, Single solid line, 1/2 pt, Accent 2, Single solid line, 1/2 pt, Accent 3, Single solid line, 1/2 pt, Accent 4, Single solid line, 1/2 pt, Accent 5, Single solid line, 1/2 pt, Accent 6, Single solid line, 1 1/2 pt, Single solid line, 1 1/2 pt, Accent 1, Single solid line, 1 1/2 pt, Accent 2, Single solid line, 1 1/2 pt, Accent 3, Single solid line, 1 1/2 pt, Accent 4, Single solid line, 1 1/2 pt, Accent 5, Single solid line, 1 1/2 pt, Accent 6, Double solid lines, 1/2 pt. [flyout of subfeature:table-borders — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Theme Borders]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-styles-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-pen-style"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-pen-weight"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-border-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-borders-selection-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-borders-selection-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-paint-border"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-borders-shading-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-design-border-styles-dropdown",
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-border-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-border-styles-gallery.png",
+        "screenshots/ui-ribbon-table-design-border-styles-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-shading",
+      "node_type": "subfeature",
+      "name": "Table Shading",
+      "parent": "feature:table-design",
+      "what_it_does": "Fills the selected cells' background with a color from the shading picker.",
+      "affects": "the selected cells' background fill",
+      "audience_breadth": "most",
+      "behavior": "Opens Shading (dropdown) (dropdown). Contents (5 controls): Color swatches, Shading, High-contrast only, No Color, More Colors.... [flyout of subfeature:table-shading — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-shading-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-shading-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-table-design-shading-color-dropdown",
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-shading-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-shading-color-picker.png",
+        "screenshots/ui-ribbon-table-design-shading-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-style-options",
+      "node_type": "subfeature",
+      "name": "Table Style Options",
+      "parent": "feature:table-design",
+      "what_it_does": "Toggles which parts of the table the current table style emphasizes (header row, total row, banded rows, first/last column, banded columns).",
+      "affects": "which table regions the style formats",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Toggles which parts of the table the current table style emphasizes (header row, total row, banded rows, first/last column, banded columns). Applied immediately to which table regions the style formats; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-header-row"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-total-row"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-banded-rows"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-styles-first-column"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-last-column"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-style-banded-columns"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-style-header-row.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-style-header-row.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:table-styles",
+      "node_type": "subfeature",
+      "name": "Table Styles gallery",
+      "parent": "feature:table-design",
+      "what_it_does": "Applies a built-in table style (borders, shading, banding) from the gallery.",
+      "affects": "the whole table's style",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Applies a built-in table style (borders, shading, banding) from the gallery. Applied immediately to the whole table's style; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-table-design",
+            "el:ribbon-table-design-table-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-table-design",
+      "screenshot": "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-table-design/icon-ribbon-table-design-table-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

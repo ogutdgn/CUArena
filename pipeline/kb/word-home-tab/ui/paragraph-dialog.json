@@ -1,0 +1,749 @@
+{
+  "id": "ui:paragraph-dialog",
+  "kind": "dialog",
+  "label": "Paragraph",
+  "purpose": "the subfeature:paragraph-dialog dialog — fully enumerated across 2 tab(s); option controls are endpoints",
+  "screenshot": "screenshots/ui-paragraph-dialog/tab-indents-and-spacing.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        857,
+        414,
+        896,
+        428
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        857,
+        438,
+        896,
+        452
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1093,
+        438,
+        1132,
+        452
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        857,
+        525,
+        896,
+        539
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        857,
+        549,
+        896,
+        563
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1093,
+        549,
+        1132,
+        563
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1072,
+        229,
+        1119,
+        259
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1119,
+        229,
+        1166,
+        259
+      ],
+      "state_notes": "commit/dismiss",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Alignment:",
+      "icon": {
+        "description": "Alignment: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        855,
+        317,
+        947,
+        339
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Outline level:",
+      "icon": {
+        "description": "Outline level: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        855,
+        342,
+        947,
+        364
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Collapsed by default",
+      "icon": {
+        "description": "Collapsed by default (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        956,
+        345,
+        1082,
+        361
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "Left:",
+      "icon": {
+        "description": "Left: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        855,
+        411,
+        914,
+        431
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "Right:",
+      "icon": {
+        "description": "Right: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        855,
+        435,
+        914,
+        455
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Special:",
+      "icon": {
+        "description": "Special: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        956,
+        434,
+        1082,
+        456
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "By:",
+      "icon": {
+        "description": "By: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1091,
+        435,
+        1150,
+        455
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Mirror indents",
+      "icon": {
+        "description": "Mirror indents (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        464,
+        872,
+        480
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "Before:",
+      "icon": {
+        "description": "Before: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        855,
+        522,
+        914,
+        542
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "After:",
+      "icon": {
+        "description": "After: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        855,
+        546,
+        914,
+        566
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Line spacing:",
+      "icon": {
+        "description": "Line spacing: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        956,
+        545,
+        1082,
+        567
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "spinner",
+      "label": "At:",
+      "icon": {
+        "description": "At: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1091,
+        546,
+        1150,
+        566
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Don't add space between paragraphs of the same style",
+      "icon": {
+        "description": "Don't add space between paragraphs of the same style (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        570,
+        1081,
+        586
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Tabs...",
+      "icon": {
+        "description": "Tabs... (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        759,
+        741,
+        835,
+        765
+      ],
+      "state_notes": "opens a sub-dialog",
+      "source": "uia",
+      "triggers": null,
+      "opens": "ui:paragraph-dialog-tabs",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Set As Default",
+      "icon": {
+        "description": "Set As Default (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        872,
+        741,
+        963,
+        765
+      ],
+      "state_notes": "commit/dismiss",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "OK",
+      "icon": {
+        "description": "OK (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        999,
+        741,
+        1075,
+        765
+      ],
+      "state_notes": "commit/dismiss",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1083,
+        741,
+        1159,
+        765
+      ],
+      "state_notes": "commit/dismiss",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Widow/Orphan control",
+      "icon": {
+        "description": "Widow/Orphan control (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        317,
+        919,
+        333
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Keep with next",
+      "icon": {
+        "description": "Keep with next (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        336,
+        874,
+        352
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Keep lines together",
+      "icon": {
+        "description": "Keep lines together (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        355,
+        898,
+        371
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Page break before",
+      "icon": {
+        "description": "Page break before (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        374,
+        892,
+        390
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Suppress line numbers",
+      "icon": {
+        "description": "Suppress line numbers (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        418,
+        915,
+        434
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "checkbox",
+      "label": "Don't hyphenate",
+      "icon": {
+        "description": "Don't hyphenate (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        437,
+        885,
+        453
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "combobox",
+      "label": "Tight wrap:",
+      "icon": {
+        "description": "Tight wrap: (in subfeature:paragraph-dialog)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        778,
+        497,
+        930,
+        519
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:paragraph-dialog",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:paragraph-dialog-tabs"
+  ],
+  "explored": true
+}

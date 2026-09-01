@@ -1,0 +1,357 @@
+{
+  "id": "ui:ribbon-table-design",
+  "kind": "tab",
+  "label": "Table Design (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Table Tools' family; exists only while: selection is inside a table. Groups: Table Style Options, Table Styles, Borders. Appeared on the 'table' probe.",
+  "screenshot": "screenshots/ui-ribbon-table-design/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-table-design-table-style-header-row",
+      "control_type": "checkbox",
+      "label": "Header Row",
+      "icon": {
+        "description": "Header Row control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-style-header-row.png"
+      },
+      "tooltip": "Display special formatting for the first row of the table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        20,
+        82,
+        112,
+        106
+      ],
+      "state_notes": "group 'Table Style Options'; keytip Alt, J T, A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-table-style-total-row",
+      "control_type": "checkbox",
+      "label": "Total Row",
+      "icon": {
+        "description": "Total Row control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-style-total-row.png"
+      },
+      "tooltip": "Display special formatting for the last row of the table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        20,
+        108,
+        100,
+        132
+      ],
+      "state_notes": "group 'Table Style Options'; keytip Alt, J T, T; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-table-style-banded-rows",
+      "control_type": "checkbox",
+      "label": "Banded Rows",
+      "icon": {
+        "description": "Banded Rows control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-style-banded-rows.png"
+      },
+      "tooltip": "Display banded rows, in which even rows are formatted differently from odd rows.\n\nThis banding can make tables easier to read.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        20,
+        134,
+        119,
+        158
+      ],
+      "state_notes": "group 'Table Style Options'; keytip Alt, J T, R; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-table-styles-first-column",
+      "control_type": "checkbox",
+      "label": "First Column",
+      "icon": {
+        "description": "First Column control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-styles-first-column.png"
+      },
+      "tooltip": "Display special formatting for the first column of the table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        121,
+        82,
+        217,
+        106
+      ],
+      "state_notes": "group 'Table Style Options'; keytip Alt, J T, M; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-table-style-last-column",
+      "control_type": "checkbox",
+      "label": "Last Column",
+      "icon": {
+        "description": "Last Column control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-style-last-column.png"
+      },
+      "tooltip": "Display special formatting for the last column of the table.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        121,
+        108,
+        216,
+        132
+      ],
+      "state_notes": "group 'Table Style Options'; keytip Alt, J T, N; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-table-style-banded-columns",
+      "control_type": "checkbox",
+      "label": "Banded Columns",
+      "icon": {
+        "description": "Banded Columns control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-style-banded-columns.png"
+      },
+      "tooltip": "Display banded columns, in which even columns are formatted differently from odd columns.\n\nThis banding can make tables easier to read.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        121,
+        134,
+        240,
+        158
+      ],
+      "state_notes": "group 'Table Style Options'; keytip Alt, J T, U; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-table-styles-gallery",
+      "control_type": "menuitem",
+      "label": "TableStylesGalleryWord",
+      "icon": {
+        "description": "TableStylesGalleryWord control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-styles-gallery.png"
+      },
+      "tooltip": "Quickly change the visual style of your table.\n\nEach style uses a unique combination of borders and shading to change the appearance of your table. Hover over a style in the gallery to preview it in your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        256,
+        90,
+        1295,
+        150
+      ],
+      "state_notes": "group 'Table Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-shading-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shading",
+      "icon": {
+        "description": "Shading control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-shading-color-picker.png"
+      },
+      "tooltip": "Change the color behind the selected text, paragraph or table cell.\n\nThis is especially useful when you want information to jump off the page.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1297,
+        82,
+        1345,
+        158
+      ],
+      "state_notes": "group 'Table Styles'; keytip Alt, J T, H; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-border-styles-gallery",
+      "control_type": "splitbutton",
+      "label": "Border Styles",
+      "icon": {
+        "description": "Border Styles control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-border-styles-gallery.png"
+      },
+      "tooltip": "Format specific borders in your table using a common style or one that you recently applied.\n\nYou can also use the Border Sampler to copy the formatting of an existing border and apply it elsewhere.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1361,
+        82,
+        1407,
+        158
+      ],
+      "state_notes": "group 'Borders'; keytip Alt, J T, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-pen-style",
+      "control_type": "combobox",
+      "label": "Pen Style",
+      "icon": {
+        "description": "Pen Style control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-pen-style.png"
+      },
+      "tooltip": "Change the style of new borders.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1409,
+        82,
+        1508,
+        106
+      ],
+      "state_notes": "group 'Borders'; keytip Alt, J T, L; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-pen-weight",
+      "control_type": "combobox",
+      "label": "Pen Weight",
+      "icon": {
+        "description": "Pen Weight control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-pen-weight.png"
+      },
+      "tooltip": "Change the width of new borders.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1409,
+        108,
+        1508,
+        132
+      ],
+      "state_notes": "group 'Borders'; keytip Alt, J T, W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-border-color-picker",
+      "control_type": "splitbutton",
+      "label": "Pen Color",
+      "icon": {
+        "description": "Pen Color control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-border-color-picker.png"
+      },
+      "tooltip": "Change the color of new borders.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1409,
+        134,
+        1501,
+        158
+      ],
+      "state_notes": "group 'Borders'; keytip Alt, J T, C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-borders-selection-gallery",
+      "control_type": "splitbutton",
+      "label": "Borders",
+      "icon": {
+        "description": "Borders control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-borders-selection-gallery.png"
+      },
+      "tooltip": "Add or remove borders from your selection.\n\nTo change the look of the borders, check out the options on the Table Tools Design tab or use the Borders and Shading dialog box.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1510,
+        82,
+        1555,
+        158
+      ],
+      "state_notes": "group 'Borders'; keytip Alt, J T, B; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-table-paint-border",
+      "control_type": "button",
+      "label": "Border Painter",
+      "icon": {
+        "description": "Border Painter control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-table-paint-border.png"
+      },
+      "tooltip": "Apply formatting to specific borders in your table.\n\nTo change the look of the borders you're applying, use the style, weight and pen color menus.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1557,
+        82,
+        1599,
+        158
+      ],
+      "state_notes": "group 'Borders'; keytip Alt, J T, P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-table-design-borders-shading-dialog",
+      "control_type": "button",
+      "label": "Borders and Shading...",
+      "icon": {
+        "description": "Borders and Shading... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-table-design/icon-borders-shading-dialog.png"
+      },
+      "tooltip": "Explore additional border options, such as line color and line width.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-table-design",
+      "bounds": [
+        1591,
+        160,
+        1607,
+        176
+      ],
+      "state_notes": "group 'Borders'; keytip Alt, J T, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "selection is inside a table"
+}

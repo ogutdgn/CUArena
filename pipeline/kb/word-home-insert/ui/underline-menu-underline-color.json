@@ -1,0 +1,124 @@
+{
+  "id": "ui:underline-menu-underline-color",
+  "kind": "dropdown",
+  "label": "subfeature:underline-gallery",
+  "purpose": "flyout of subfeature:underline-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors",
+  "screenshot": "screenshots/ui-underline-menu-underline-color/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-underline-menu-underline-color/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Underline Color",
+      "icon": {
+        "description": "Underline Color (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        418,
+        413,
+        702,
+        792
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "High-contrast only",
+      "icon": {
+        "description": "High-contrast only (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        534,
+        421,
+        694,
+        449
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Automatic",
+      "icon": {
+        "description": "Automatic (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        420,
+        458,
+        700,
+        486
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:underline-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "More Colors...",
+      "icon": {
+        "description": "More Colors... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        420,
+        761,
+        700,
+        790
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:font-color-dropdown-more-colors",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:font-color-dropdown-more-colors"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

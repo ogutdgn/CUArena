@@ -1,0 +1,40 @@
+{
+  "id": "subfeature:symbol-insert",
+  "node_type": "subfeature",
+  "name": "Symbol",
+  "parent": "feature:symbols",
+  "what_it_does": "Opens a gallery of recently used symbols plus More Symbols… (the full character map) to insert characters not on the keyboard.",
+  "affects": "document content (adds a symbol character)",
+  "audience_breadth": "most",
+  "behavior": "Opens Symbol (dropdown). Contents (23 controls): Color swatches, Symbol, Euro Sign, Pound Sign, Yen Sign, Copyright Sign, Registered Sign, Trade Mark Sign, Plus-Minus Sign, Not Equal To, Less-Than Or Equal To, Greater-Than Or Equal To, Division Sign, Multiplication Sign, Infinity, Micro Sign. [flyout of subfeature:symbol-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as an omega symbol, labelled 'Symbol', with a chevron.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:symbol-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:symbol-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-symbol-insert-gallery.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-symbol-insert-gallery.png",
+    "screenshots/ui-symbol-insert-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:equation-insert-gallery",
+      "kind": "uses",
+      "why": "the Symbols group family",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

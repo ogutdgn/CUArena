@@ -1,0 +1,33 @@
+{
+  "id": "subfeature:office-clipboard",
+  "node_type": "subfeature",
+  "name": "Office Clipboard",
+  "parent": "feature:clipboard",
+  "what_it_does": "Opens the Office Clipboard pane showing the last 24 copied items for reuse.",
+  "affects": "opens the Clipboard task pane",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:show-clipboard"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:show-clipboard-pane",
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-show-clipboard.png",
+    "screenshots/ui-show-clipboard-pane/surface.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "word",
+  "exe": "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE",
+  "window_title_re": ".*Word.*",
+  "launch_args": ["{fixture}"],
+  "fixture": "configs/fixtures/word/blank.docx",
+  "flyout_classes": ["Net UI Tool Window", "MsoCommandBarPopup"],
+  "discard_label_res": ["(?i)kaydetme"],
+  "boundaries": {
+    "dismiss_title_res": [".*What's New.*", ".*Sign in.*"],
+    "exclude_labels": ["File", "Editor", "Adobe Acrobat"]
+  }
+}

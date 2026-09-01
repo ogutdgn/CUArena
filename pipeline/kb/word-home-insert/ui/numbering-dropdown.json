@@ -1,0 +1,308 @@
+{
+  "id": "ui:numbering-dropdown",
+  "kind": "dropdown",
+  "label": "Numbering (dropdown)",
+  "purpose": "flyout of subfeature:numbering-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Numbering Library",
+  "screenshot": "screenshots/ui-numbering-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-numbering-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells (endpoint: applies the color); sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Numbering",
+      "icon": {
+        "description": "Numbering (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        544,
+        114,
+        817,
+        503
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "None",
+      "icon": {
+        "description": "None (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        144,
+        630,
+        228
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1.",
+      "icon": {
+        "description": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1. (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        630,
+        144,
+        714,
+        228
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1)",
+      "icon": {
+        "description": "1, 2, 3, …, ALIGNMENT Left, Number Format: 1) (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        714,
+        144,
+        798,
+        228
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "I, II, III, …, ALIGNMENT Right, Number Format: I.",
+      "icon": {
+        "description": "I, II, III, …, ALIGNMENT Right, Number Format: I. (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        228,
+        630,
+        312
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "A, B, C, …, ALIGNMENT Left, Number Format: A.",
+      "icon": {
+        "description": "A, B, C, …, ALIGNMENT Left, Number Format: A. (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        630,
+        228,
+        714,
+        312
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "a, b, c, …, ALIGNMENT Left, Number Format: a)",
+      "icon": {
+        "description": "a, b, c, …, ALIGNMENT Left, Number Format: a) (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        714,
+        228,
+        798,
+        312
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "a, b, c, …, ALIGNMENT Left, Number Format: a.",
+      "icon": {
+        "description": "a, b, c, …, ALIGNMENT Left, Number Format: a. (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        312,
+        630,
+        396
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "i, ii, iii, …, ALIGNMENT Right, Number Format: i.",
+      "icon": {
+        "description": "i, ii, iii, …, ALIGNMENT Right, Number Format: i. (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        630,
+        312,
+        714,
+        396
+      ],
+      "state_notes": "menu/gallery command (endpoint)",
+      "source": "hit-test",
+      "triggers": "subfeature:numbering-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Change List Level",
+      "icon": {
+        "description": "Change List Level (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        407,
+        815,
+        435
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Set Numbering Value...",
+      "icon": {
+        "description": "Set Numbering Value... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        463,
+        815,
+        491
+      ],
+      "state_notes": "disabled in this document state",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Define New Number Format...",
+      "icon": {
+        "description": "Define New Number Format... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        546,
+        435,
+        815,
+        463
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:numbering-dropdown-define-new-number-format",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:numbering-dropdown-define-new-number-format"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

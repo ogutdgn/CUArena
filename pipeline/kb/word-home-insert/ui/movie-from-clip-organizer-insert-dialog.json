@@ -1,0 +1,10 @@
+{
+  "id": "ui:movie-from-clip-organizer-insert-dialog",
+  "kind": "dialog",
+  "label": "Insert Video",
+  "purpose": null,
+  "screenshot": "screenshots/ui-movie-from-clip-organizer-insert-dialog/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

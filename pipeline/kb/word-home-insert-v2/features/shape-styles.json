@@ -1,0 +1,429 @@
+{
+  "feature": {
+    "id": "feature:shape-styles",
+    "node_type": "feature",
+    "name": "Shape styles",
+    "what_it_does": "Style the fill, outline and effects of a selected shape/chart/SmartArt shape from a gallery or individually.",
+    "affects": "the fill/outline/effect styling of the selected drawing object",
+    "audience_breadth": "most",
+    "behavior": "Style the fill, outline and effects of a selected shape/chart/SmartArt shape from a gallery or individually. Group controls: subfeature:shape-effects, subfeature:shape-fill, subfeature:shape-format-pane, subfeature:shape-outline, subfeature:shape-style-gallery",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:shape-effects",
+      "subfeature:shape-fill",
+      "subfeature:shape-format-pane",
+      "subfeature:shape-outline",
+      "subfeature:shape-style-gallery"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:shapes-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:shape-effects",
+      "node_type": "subfeature",
+      "name": "Shape Effects",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Applies shadow/reflection/glow/bevel/3D effects to the shape (menu of families).",
+      "affects": "the shape's visual effects",
+      "audience_breadth": "niche",
+      "behavior": "Opens Shape Effects (dropdown). Contents (8 controls): Color swatches, Preset, Shadow, Reflection, Glow, Soft Edges, Bevel, 3-D Rotation. [flyout of subfeature:shape-effects — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-shape-effects-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-effects-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-effects-menu.png",
+        "screenshots/ui-ribbon-chart-format-shape-effects-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-fill",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-outline",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-style-gallery",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-fill",
+      "node_type": "subfeature",
+      "name": "Shape Fill",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Sets the shape's fill — color, gradient, picture, texture (options in the picker).",
+      "affects": "the shape's fill",
+      "audience_breadth": "most",
+      "behavior": "Opens Shape Fill (dropdown). Contents (8 controls): Color swatches, Shape Fill, High-contrast only, No Fill, Gradient, Texture, More Fill Colors..., Picture.... Sub-surfaces: ui:ribbon-chart-format-shape-fill-color-dropdown-gradient. [flyout of ui:ribbon-chart-format-shape-fill-color-dropdown — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-fill-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-fill-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-shape-fill-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-fill-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-fill-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-shape-fill-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-outline",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-effects",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-style-gallery",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-format-pane",
+      "node_type": "subfeature",
+      "name": "Format Shape pane",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Opens the Format Shape pane — the full fill/line/effects/text surface.",
+      "affects": "the shape's full formatting (pane)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-object-format-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-object-format-dialog.png",
+        "screenshots/ui-ribbon-chart-format-object-format-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-outline",
+      "node_type": "subfeature",
+      "name": "Shape Outline",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Sets the shape's outline color, weight and dashes (options in the picker).",
+      "affects": "the shape's outline",
+      "audience_breadth": "most",
+      "behavior": "Opens Shape Outline (dropdown). Contents (8 controls): Color swatches, Shape Outline, High-contrast only, No Outline, Arrows, Weight, Dashes, More Outline Colors.... Sub-surfaces: ui:ribbon-chart-format-outline-color-dropdown-weight. [flyout of ui:ribbon-chart-format-outline-color-dropdown — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-outline-color-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-outline-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-outline-color-picker.png",
+        "screenshots/ui-ribbon-chart-format-outline-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-fill",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-effects",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-style-gallery",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:shape-style-gallery",
+      "node_type": "subfeature",
+      "name": "Shape Styles gallery",
+      "parent": "feature:shape-styles",
+      "what_it_does": "Applies a preset fill+outline+effect style to the shape from the gallery.",
+      "affects": "the shape's overall style",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Applies a preset fill+outline+effect style to the shape from the gallery. Applied immediately to the shape's overall style; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-shape-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-shape-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-shape-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-shape-format/icon-ribbon-shape-format-shape-styles-gallery.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:shape-fill",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-outline",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shape-effects",
+          "kind": "affects-same",
+          "why": "all style the same shape's fill/outline/effect",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

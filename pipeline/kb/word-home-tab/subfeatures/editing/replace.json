@@ -1,0 +1,51 @@
+{
+  "id": "subfeature:replace",
+  "node_type": "subfeature",
+  "name": "Replace",
+  "parent": "feature:editing",
+  "what_it_does": "Opens the Find and Replace dialog to substitute text throughout the document.",
+  "affects": "document content (via replace)",
+  "audience_breadth": "most",
+  "behavior": "Opens Find and Replace (dialog). Contents (27 controls): Find In, Reading Highlight, RichEdit Control, Context help, Close, Find what:, More >>, Find Next, Cancel, RichEdit Control, Replace with:, Replace, Replace All, Line up, Page down, Line down. [the subfeature:replace dialog — fully enumerated across 3 tab(s); option controls are endpoints] Appears as 'abc' with a replacement arrow labelled 'Replace'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:replace-dialog"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+H"
+    }
+  ],
+  "shortcut": "Ctrl+H",
+  "opens": "ui:replace-dialog",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-replace-dialog.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-replace-dialog.png",
+    "screenshots/ui-replace-dialog/tab-find.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:find",
+      "kind": "uses",
+      "why": "the editing/navigation family",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:select",
+      "kind": "uses",
+      "why": "the editing/navigation family",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

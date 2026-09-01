@@ -1,0 +1,2025 @@
+{
+  "feature": {
+    "id": "feature:picture-format",
+    "node_type": "feature",
+    "name": "Picture Format",
+    "what_it_does": "Adjust and style a selected picture — corrections, color, artistic effects, compression, picture styles, border, effects and layout.",
+    "affects": "the appearance of the selected picture",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Adjust and style a selected picture — corrections, color, artistic effects, compression, picture styles, border, effects and layout. Group controls: subfeature:picture-artistic-effects, subfeature:picture-border, subfeature:picture-change, subfeature:picture-color, subfeature:picture-compress, subfeature:picture-convert-to-smartart, subfeature:picture-corrections, subfeature:picture-effects, subfeature:picture-format-pane, subfeature:picture-remove-background, subfeature:picture-reset, subfeature:picture-style-gallery, subfeature:picture-transparency",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-picture-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-picture-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:picture-artistic-effects",
+      "subfeature:picture-border",
+      "subfeature:picture-change",
+      "subfeature:picture-color",
+      "subfeature:picture-compress",
+      "subfeature:picture-convert-to-smartart",
+      "subfeature:picture-corrections",
+      "subfeature:picture-effects",
+      "subfeature:picture-format-pane",
+      "subfeature:picture-remove-background",
+      "subfeature:picture-reset",
+      "subfeature:picture-style-gallery",
+      "subfeature:picture-transparency"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:insert-pictures",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:picture-artistic-effects",
+      "node_type": "subfeature",
+      "name": "Artistic Effects",
+      "parent": "feature:picture-format",
+      "what_it_does": "Applies a painterly/artistic filter to the picture from a gallery.",
+      "affects": "the picture's artistic rendering",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Artistic Effects dropdown — the surface that presents this capability's options (26 controls enumerated in the structural pass). Applying a choice there changes: the picture's artistic rendering.",
+      "behavior_record": {
+        "effect": "Opens the Artistic Effects dropdown — the surface that presents this capability's options (26 controls enumerated in the structural pass). Applying a choice there changes: the picture's artistic rendering.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Artistic Effects",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "None",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Marker",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Pencil Grayscale",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Pencil Sketch",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Line Drawing",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Chalk Sketch",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Paint Strokes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Paint Brush",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Glow Diffused",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Blur",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Light Screen",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Watercolor Sponge",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Film Grain",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Mosaic Bubbles",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Cement",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Texturizer",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Crisscross Etching",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Pastels Smooth",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Plastic Wrap",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Cutout",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          },
+          {
+            "name": "Photocopy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-artistic-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-artistic-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-artistic-effects-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-artistic-effects-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-artistic-effects-gallery.png",
+        "screenshots/ui-ribbon-picture-format-picture-artistic-effects-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-corrections",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-color",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-transparency",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-border",
+      "node_type": "subfeature",
+      "name": "Picture Border",
+      "parent": "feature:picture-format",
+      "what_it_does": "Sets the picture's border color, weight and dash style (options in the picker).",
+      "affects": "the picture's border",
+      "audience_breadth": "most",
+      "behavior": "Opens the Picture Border dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the picture's border.",
+      "behavior_record": {
+        "effect": "Opens the Picture Border dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the picture's border.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          },
+          {
+            "name": "Picture Border",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          },
+          {
+            "name": "High-contrast only",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          },
+          {
+            "name": "No Outline",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          },
+          {
+            "name": "Weight",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          },
+          {
+            "name": "Sketched",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          },
+          {
+            "name": "Dashes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          },
+          {
+            "name": "More Outline Colors...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-border"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-border"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-outline-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-outline-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-outline-color-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-outline-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-outline-color-picker.png",
+        "screenshots/ui-ribbon-picture-format-outline-color-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-change",
+      "node_type": "subfeature",
+      "name": "Change Picture",
+      "parent": "feature:picture-format",
+      "what_it_does": "Replaces the picture with another (from file/stock/online) keeping formatting.",
+      "affects": "the picture's source image",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Change Picture dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the picture's source image.",
+      "behavior_record": {
+        "effect": "Opens the Change Picture dropdown — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the picture's source image.",
+        "options": [
+          {
+            "name": "From Clipboard...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-change"
+            ]
+          },
+          {
+            "name": "This Device...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-change"
+            ]
+          },
+          {
+            "name": "From Stock Images...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-change"
+            ]
+          },
+          {
+            "name": "From Online Sources...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-change"
+            ]
+          },
+          {
+            "name": "From Icons...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-change"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected, svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PictureChangeMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-change"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-change-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-change-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-change-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-change-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-change-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-color",
+      "node_type": "subfeature",
+      "name": "Color",
+      "parent": "feature:picture-format",
+      "what_it_does": "Recolors the picture — saturation, tone, and recolor presets (gallery + options).",
+      "affects": "the picture's color",
+      "audience_breadth": "most",
+      "behavior": "Opens the Color dropdown — the surface that presents this capability's options (38 controls enumerated in the structural pass). Applying a choice there changes: the picture's color.",
+      "behavior_record": {
+        "effect": "Opens the Color dropdown — the surface that presents this capability's options (38 controls enumerated in the structural pass). Applying a choice there changes: the picture's color.",
+        "options": [
+          {
+            "name": "Saturation: 0%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Saturation: 33%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Saturation: 66%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Saturation: 100%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Saturation: 200%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Saturation: 300%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Saturation: 400%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Temperature: 4700 K",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Temperature: 5300 K",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Temperature: 5900 K",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Temperature: 6500 K",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Temperature: 7200 K",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Temperature: 8800 K",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Temperature: 11200 K",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "No Recolor",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Grayscale",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Sepia",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Washout",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Black and White: 25%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Black and White: 50%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Black and White: 75%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Dark Blue, Text color 2 Dark",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Dark Teal, Accent color 1 Dark",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          },
+          {
+            "name": "Orange, Accent color 2 Dark",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-color"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected, svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PictureColorMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-color"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-color-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-color-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-color-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-color-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-corrections",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-artistic-effects",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-transparency",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-compress",
+      "node_type": "subfeature",
+      "name": "Compress Pictures",
+      "parent": "feature:picture-format",
+      "what_it_does": "Opens the Compress Pictures dialog to reduce image resolution/file size.",
+      "affects": "the picture's stored resolution/size",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Compress Pictures dialog — the surface that presents this capability's options (12 controls enumerated in the structural pass). Applying a choice there changes: the picture's stored resolution/size.",
+      "behavior_record": {
+        "effect": "Opens the Compress Pictures dialog — the surface that presents this capability's options (12 controls enumerated in the structural pass). Applying a choice there changes: the picture's stored resolution/size.",
+        "options": [
+          {
+            "name": "Apply only to this picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "Delete cropped areas of pictures",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "High fidelity: preserves quality of the original picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "HD (330 ppi): good quality for high-definition (HD) displays",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "Print (220 ppi): excellent quality on most printers and screens",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "Web (150 ppi): good for web pages and projectors",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "E-mail (96 ppi): minimize document size for sharing",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "Use default resolution",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-compress"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, header-edit, picture-selected, shape-selected, smartart-selected, svg-selected; disabled in: equation (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PicturesCompress",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-compress"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-pictures-compress"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-pictures-compress-dialog",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-pictures-compress.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-pictures-compress.png",
+        "screenshots/ui-ribbon-picture-format-pictures-compress-dialog/tab-single.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-convert-to-smartart",
+      "node_type": "subfeature",
+      "name": "Picture Layout (convert to SmartArt)",
+      "parent": "feature:picture-format",
+      "what_it_does": "Converts the picture(s) into a captioned SmartArt layout.",
+      "affects": "the picture (converted to a SmartArt layout)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Picture Layout dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the picture (converted to a SmartArt layout).",
+      "behavior_record": {
+        "effect": "Opens the Picture Layout dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the picture (converted to a SmartArt layout).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Accented Picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Circular Picture Callout",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Caption List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Snapshot Picture List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Spiral Picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Captioned Pictures",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Caption",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Semi-Transparent Text",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bending Picture Caption List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Titled Picture Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Grid",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Accent Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Strips",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Alternating Picture Blocks",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Ascending Picture Accent Process",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Alternating Picture Circles",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Title Picture Lineup",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Picture Lineup",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Framed Text Picture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Hexagon Cluster",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Bubble Picture List",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          },
+          {
+            "name": "Circle Picture Hierarchy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-convert-to-smartart"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-pictures-convert-to-smart-art"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-pictures-convert-to-smart-art-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-pictures-convert-to-smart-art.png",
+        "screenshots/ui-ribbon-picture-format-pictures-convert-to-smart-art-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-corrections",
+      "node_type": "subfeature",
+      "name": "Corrections",
+      "parent": "feature:picture-format",
+      "what_it_does": "Adjusts the picture's sharpness, brightness and contrast (gallery + options).",
+      "affects": "the picture's brightness/contrast/sharpness",
+      "audience_breadth": "most",
+      "behavior": "Opens the Corrections dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the picture's brightness/contrast/sharpness.",
+      "behavior_record": {
+        "effect": "Opens the Corrections dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the picture's brightness/contrast/sharpness.",
+        "options": [
+          {
+            "name": "Soften: 50%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Soften: 25%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Sharpen: 0%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Sharpen: 25%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Sharpen: 50%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -40% Contrast: -40%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -20% Contrast: -40%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: 0% (Normal) Contrast: -40%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: +20% Contrast: -40%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: +40% Contrast: -40%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -40% Contrast: -20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -20% Contrast: -20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: 0% (Normal) Contrast: -20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: +20% Contrast: -20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: +40% Contrast: -20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -40% Contrast: 0% (Normal)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -20% Contrast: 0% (Normal)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: 0% (Normal) Contrast: 0% (Normal)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: +20% Contrast: 0% (Normal)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: +40% Contrast: 0% (Normal)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -40% Contrast: +20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: -20% Contrast: +20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: 0% (Normal) Contrast: +20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          },
+          {
+            "name": "Brightness: +20% Contrast: +20%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-corrections"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected, svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PictureCorrectionsMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-corrections"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-corrections-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-corrections-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-corrections-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-corrections-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-corrections-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-color",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-artistic-effects",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-transparency",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-effects",
+      "node_type": "subfeature",
+      "name": "Picture Effects",
+      "parent": "feature:picture-format",
+      "what_it_does": "Applies shadow/reflection/glow/bevel/3D effects to the picture (menu of effect families).",
+      "affects": "the picture's visual effects",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Picture Effects dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the picture's visual effects.",
+      "behavior_record": {
+        "effect": "Opens the Picture Effects dropdown — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the picture's visual effects.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          },
+          {
+            "name": "Preset",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          },
+          {
+            "name": "Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          },
+          {
+            "name": "Reflection",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          },
+          {
+            "name": "Glow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          },
+          {
+            "name": "Soft Edges",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          },
+          {
+            "name": "Bevel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          },
+          {
+            "name": "3-D Rotation",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, picture-selected, shape-selected, smartart-selected, svg-selected; disabled in: equation, header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PictureEffectsMenu",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-effects-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-effects-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-effects-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-effects-menu.png",
+        "screenshots/ui-ribbon-picture-format-picture-effects-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-format-pane",
+      "node_type": "subfeature",
+      "name": "Format Picture pane",
+      "parent": "feature:picture-format",
+      "what_it_does": "Opens the Format Picture pane — the full fill/line/effects/picture-adjust surface.",
+      "affects": "the picture's full formatting (pane)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Picture... pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the picture's full formatting (pane).",
+      "behavior_record": {
+        "effect": "Opens the Picture... pane — the surface that presents this capability's options (5 controls enumerated in the structural pass). Applying a choice there changes: the picture's full formatting (pane).",
+        "options": [
+          {
+            "name": "Page left",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          },
+          {
+            "name": "Page up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          },
+          {
+            "name": "Minimize",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          },
+          {
+            "name": "Restore",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-format-pane"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-format-pane"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-format-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-format-pane",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-format-dialog.png",
+        "screenshots/ui-ribbon-picture-format-picture-format-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-remove-background",
+      "node_type": "subfeature",
+      "name": "Remove Background",
+      "parent": "feature:picture-format",
+      "what_it_does": "Enters Background Removal mode to auto-detect and delete the picture's background.",
+      "affects": "the picture's visible area (background removal)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Remove Background dropdown — the surface that presents this capability's options (1 controls enumerated in the structural pass). Applying a choice there changes: the picture's visible area (background removal).",
+      "behavior_record": {
+        "effect": "Opens the Remove Background dropdown — the surface that presents this capability's options (1 controls enumerated in the structural pass). Applying a choice there changes: the picture's visible area (background removal).",
+        "options": [
+          {
+            "name": "Remove Background",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-remove-background"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected, svg-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: PictureBackgroundRemoval",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-remove-background"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-background-removal"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-background-removal-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-background-removal.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-background-removal.png",
+        "screenshots/ui-ribbon-picture-format-picture-background-removal-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-reset",
+      "node_type": "subfeature",
+      "name": "Reset Picture",
+      "parent": "feature:picture-format",
+      "what_it_does": "Discards formatting changes (and optionally size) applied to the picture.",
+      "affects": "the picture's formatting (reset)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Reset Picture (dropdown) dropdown — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the picture's formatting (reset).",
+      "behavior_record": {
+        "effect": "Opens the Reset Picture (dropdown) dropdown — the surface that presents this capability's options (2 controls enumerated in the structural pass). Applying a choice there changes: the picture's formatting (reset).",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected, svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PictureReset",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-reset"
+        ],
+        "gesture": "executeMso(PictureReset)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-reset"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-reset-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-reset-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-reset.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-reset.png",
+        "screenshots/ui-ribbon-picture-format-picture-reset-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-style-gallery",
+      "node_type": "subfeature",
+      "name": "Picture Styles gallery",
+      "parent": "feature:picture-format",
+      "what_it_does": "Applies a framed/shadowed/3D picture style from the gallery.",
+      "affects": "the picture's frame/style",
+      "audience_breadth": "most",
+      "behavior": "enabled in context(s): picture-selected, svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Simple Frame, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Beveled Matte, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Metal Frame",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Drop Shadow Rectangle",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Reflected Rounded Rectangle",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Soft Edge Rectangle",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Double Frame, Black",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Thick Matte, Black",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Simple Frame, Black",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Beveled Oval, Black",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Compound Frame, Black",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Frame, Black",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Center Shadow Rectangle",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Rounded Diagonal Corner, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Snip Diagonal Corner, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Moderate Frame, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Rotated, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Perspective Shadow, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Relaxed Perspective, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Soft Edge Oval",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Bevel Rectangle",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Bevel Perspective",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Reflected Perspective Right",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Bevel Perspective Left, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Reflected Bevel, Black",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Reflected Bevel, White",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Metal Rounded Rectangle",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          },
+          {
+            "name": "Metal Oval",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:repair-galleries-backfill"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected, svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PictureStylesGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-style-gallery",
+          "journal:run-20260713-121821-repair-galleries",
+          "journal:repair-galleries-backfill"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-styles-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-styles-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:picture-transparency",
+      "node_type": "subfeature",
+      "name": "Transparency",
+      "parent": "feature:picture-format",
+      "what_it_does": "Sets the picture's overall transparency from presets.",
+      "affects": "the picture's transparency",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Transparency dropdown — the surface that presents this capability's options (10 controls enumerated in the structural pass). Applying a choice there changes: the picture's transparency.",
+      "behavior_record": {
+        "effect": "Opens the Transparency dropdown — the surface that presents this capability's options (10 controls enumerated in the structural pass). Applying a choice there changes: the picture's transparency.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency: 0%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency: 15%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency: 30%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency: 50%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency: 65%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency: 80%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Transparency: 95%",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          },
+          {
+            "name": "Picture Transparency Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:picture-transparency"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): picture-selected, svg-selected; disabled in: chart-selected, equation, header-edit, shape-selected, smartart-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PictureTransparencyGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:picture-transparency"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-transparency-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-picture-format-picture-transparency-dropdown",
+      "location": "ui:ribbon-picture-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-transparency-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-transparency-gallery.png",
+        "screenshots/ui-ribbon-picture-format-picture-transparency-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:picture-corrections",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-color",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:picture-artistic-effects",
+          "kind": "affects-same",
+          "why": "all adjust the same picture's rendering",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

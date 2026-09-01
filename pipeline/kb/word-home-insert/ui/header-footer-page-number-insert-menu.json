@@ -1,0 +1,156 @@
+{
+  "id": "ui:header-footer-page-number-insert-menu",
+  "kind": "menu",
+  "label": "Page Number",
+  "purpose": "flyout of subfeature:page-number-insert — commands/tiles are endpoints; openers descended per the depth-endpoint rule",
+  "screenshot": "screenshots/ui-header-footer-page-number-insert-menu/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Top of Page",
+      "icon": {
+        "description": "Top of Page (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        994,
+        160,
+        1182,
+        188
+      ],
+      "state_notes": "opens a cascade submenu (measured by hover)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:header-footer-page-number-insert-menu-top-of-page",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Bottom of Page",
+      "icon": {
+        "description": "Bottom of Page (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        994,
+        188,
+        1182,
+        216
+      ],
+      "state_notes": "opens a cascade submenu (measured by hover)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:header-footer-page-number-insert-menu-bottom-of-page",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Page Margins",
+      "icon": {
+        "description": "Page Margins (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        994,
+        216,
+        1182,
+        244
+      ],
+      "state_notes": "opens a cascade submenu (measured by hover)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:header-footer-page-number-insert-menu-page-margins",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Current Position",
+      "icon": {
+        "description": "Current Position (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        994,
+        244,
+        1182,
+        272
+      ],
+      "state_notes": "opens a cascade submenu (measured by hover)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:header-footer-page-number-insert-menu-current-position",
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Remove Page Numbers",
+      "icon": {
+        "description": "Remove Page Numbers (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        994,
+        303,
+        1182,
+        331
+      ],
+      "state_notes": "menu command (endpoint; no cascade on hover)",
+      "source": "hit-test",
+      "triggers": "subfeature:page-number-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Format Page Numbers...",
+      "icon": {
+        "description": "Format Page Numbers... (in-dialog control)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        994,
+        275,
+        1182,
+        303
+      ],
+      "state_notes": "opens a dialog (measured)",
+      "source": "hit-test",
+      "triggers": null,
+      "opens": "ui:header-footer-page-number-insert-menu-format-page-numbers",
+      "unexplored": false
+    }
+  ],
+  "child_containers": [
+    "ui:header-footer-page-number-insert-menu-top-of-page",
+    "ui:header-footer-page-number-insert-menu-bottom-of-page",
+    "ui:header-footer-page-number-insert-menu-page-margins",
+    "ui:header-footer-page-number-insert-menu-current-position",
+    "ui:header-footer-page-number-insert-menu-format-page-numbers"
+  ],
+  "explored": true,
+  "trigger_condition": null
+}

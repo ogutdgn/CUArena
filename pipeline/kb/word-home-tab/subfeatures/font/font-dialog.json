@@ -1,0 +1,38 @@
+{
+  "id": "subfeature:font-dialog",
+  "node_type": "subfeature",
+  "name": "Font dialog launcher",
+  "parent": "feature:font",
+  "what_it_does": "Opens the Font dialog — the consolidated surface for all character formatting plus advanced options (spacing, ligatures, defaults).",
+  "affects": "opens the Font dialog",
+  "audience_breadth": "most",
+  "behavior": "Opens Font (dialog). Contents (60 controls): RichEdit Control, Line up, Page down, Line down, RichEdit Control, Line up, Line down, RichEdit Control, Line up, Page down, Line down, Context help, Close, Font:, +Body, +Headings. Sub-surfaces: ui:font-dialog-text-effects. [the subfeature:font-dialog dialog — fully enumerated across 2 tab(s); option controls are endpoints] Appears as the small dialog-launcher arrow in the Font group's corner.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:font-dialog"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+D"
+    }
+  ],
+  "shortcut": "Ctrl+D",
+  "opens": "ui:font-dialog",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-font-dialog.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-font-dialog.png",
+    "screenshots/ui-font-dialog/tab-font.png"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "subfeature:select",
+  "node_type": "subfeature",
+  "name": "Select",
+  "parent": "feature:editing",
+  "what_it_does": "A menu to Select All, select objects, or select text with similar formatting.",
+  "affects": "the current selection",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:select-menu"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:select-menu",
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-select-menu.png",
+    "screenshots/ui-select-menu/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:find",
+      "kind": "uses",
+      "why": "the editing/navigation family",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:replace",
+      "kind": "uses",
+      "why": "the editing/navigation family",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

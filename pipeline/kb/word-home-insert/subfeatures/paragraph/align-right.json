@@ -1,0 +1,62 @@
+{
+  "id": "subfeature:align-right",
+  "node_type": "subfeature",
+  "name": "Align Right",
+  "parent": "feature:paragraph",
+  "what_it_does": "Aligns the paragraph text to the right margin.",
+  "affects": "the paragraph's alignment",
+  "audience_breadth": "everyone",
+  "behavior": "Direct action: Aligns the paragraph text to the right margin. Applied immediately to the paragraph's alignment; toggle state (where applicable) is reflected by the button's highlighted look. Appears as four horizontal lines aligned to the right.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:align-right"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+R"
+    }
+  ],
+  "shortcut": "Ctrl+R",
+  "opens": null,
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-align-right.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-align-right.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:align-left",
+      "kind": "affects",
+      "why": "all set paragraph alignment (mutually exclusive)",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:align-center",
+      "kind": "affects",
+      "why": "all set paragraph alignment (mutually exclusive)",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:align-justify",
+      "kind": "affects",
+      "why": "all set paragraph alignment (mutually exclusive)",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:paragraph-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Paragraph dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

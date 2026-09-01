@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+L",
+  "bindings": [
+    {
+      "context": "editing text — applies to the current paragraph(s)",
+      "effect": "Aligns the paragraph text to the left margin.",
+      "triggers": "subfeature:align-left",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

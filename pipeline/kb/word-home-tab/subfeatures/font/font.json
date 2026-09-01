@@ -1,0 +1,58 @@
+{
+  "id": "subfeature:font",
+  "node_type": "subfeature",
+  "name": "Font",
+  "parent": "feature:font",
+  "what_it_does": "Chooses the typeface for the selected text; the box opens a searchable font list.",
+  "affects": "the selection's font (typeface)",
+  "audience_breadth": "everyone",
+  "behavior": "Opens subfeature:font (dropdown). Contents (29 controls): Font, Line up, Position, Aptos Display (Headings), Page down, Aptos (Body), Times New Roman, Abadi, select to download, Abadi ExtraLight, select to download, ADLaM Display, select to download, Agency FB, Aharoni, select to download, Alasassy Caps, select to download, Aldhabi, select to download, Alef, Algerian. [the subfeature:font flyout — items are endpoints; swatches pixel-sampled; sections: All Fonts, Recently Used Fonts, Theme Fonts DYNAMIC: scrollable owner-drawn font list — the enumerated items are the visible window (machine-installed fonts), an honest sample, not a complete enumeration.] Appears as the font-name box showing the current typeface (e.g. 'Aptos (Body)').",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:font"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:font-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-font.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-font.png",
+    "screenshots/ui-font-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-size",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-size-increase",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-size-decrease",
+      "kind": "affects",
+      "why": "all set the selection's font or size",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,1011 @@
+{
+  "feature": {
+    "id": "feature:font",
+    "node_type": "feature",
+    "name": "Font",
+    "what_it_does": "Format the characters of the selected text — typeface, size, weight, color, effects.",
+    "affects": "the selection's character formatting",
+    "audience_breadth": "everyone",
+    "behavior": "Format the characters of the selected text — typeface, size, weight, color, effects. Group controls: subfeature:font, subfeature:font-size, subfeature:font-size-increase, subfeature:font-size-decrease, subfeature:change-case, subfeature:clear-formatting, subfeature:bold, subfeature:italic, subfeature:underline-gallery, subfeature:strikethrough, subfeature:subscript, subfeature:superscript, subfeature:text-effects, subfeature:text-highlight-color-picker, subfeature:font-color-picker, subfeature:font-dialog",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:font",
+      "subfeature:font-size",
+      "subfeature:font-size-increase",
+      "subfeature:font-size-decrease",
+      "subfeature:change-case",
+      "subfeature:clear-formatting",
+      "subfeature:bold",
+      "subfeature:italic",
+      "subfeature:underline-gallery",
+      "subfeature:strikethrough",
+      "subfeature:subscript",
+      "subfeature:superscript",
+      "subfeature:text-effects",
+      "subfeature:text-highlight-color-picker",
+      "subfeature:font-color-picker",
+      "subfeature:font-dialog"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:font",
+      "node_type": "subfeature",
+      "name": "Font",
+      "parent": "feature:font",
+      "what_it_does": "Chooses the typeface for the selected text; the box opens a searchable font list.",
+      "affects": "the selection's font (typeface)",
+      "audience_breadth": "everyone",
+      "behavior": "Opens Font (dropdown). Contents (29 controls): Color swatches, Font, Line up, Position, Aptos Display (Headings), Page down, Aptos (Body), Times New Roman, Abadi, select to download, Abadi ExtraLight, select to download, ADLaM Display, select to download, Agency FB, Aharoni, select to download, Alasassy Caps, select to download, Aldhabi, select to download, Alef. [flyout of subfeature:font — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: All Fonts, Recently Used Fonts, Theme Fonts] Appears as the font-name box showing the current typeface (e.g. 'Aptos (Body)').",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:font-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font.png",
+        "screenshots/ui-font-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-size",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-increase",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-decrease",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-size",
+      "node_type": "subfeature",
+      "name": "Font Size",
+      "parent": "feature:font",
+      "what_it_does": "Sets the point size of the selected text; the box opens a size list.",
+      "affects": "the selection's font size",
+      "audience_breadth": "everyone",
+      "behavior": "Opens Font Size (dropdown). Contents (18 controls): Color swatches, Font Size, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36. [flyout of subfeature:font-size — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as the point-size box showing the current size (e.g. 12).",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-size"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:font-size-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-size.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-size.png",
+        "screenshots/ui-font-size-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-increase",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-decrease",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-size-increase",
+      "node_type": "subfeature",
+      "name": "Grow Font",
+      "parent": "feature:font",
+      "what_it_does": "Increases the font size of the selection to the next step.",
+      "affects": "the selection's font size",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Increases the font size of the selection to the next step. Applied immediately to the selection's font size; toggle state (where applicable) is reflected by the button's highlighted look. Appears as a large 'A' beside a small 'A' with an up arrow.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-size-increase"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift+>"
+        }
+      ],
+      "shortcut": "Ctrl+Shift+>",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-size-increase.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-size-increase.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-decrease",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-size-decrease",
+      "node_type": "subfeature",
+      "name": "Shrink Font",
+      "parent": "feature:font",
+      "what_it_does": "Decreases the font size of the selection to the previous step.",
+      "affects": "the selection's font size",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Decreases the font size of the selection to the previous step. Applied immediately to the selection's font size; toggle state (where applicable) is reflected by the button's highlighted look. Appears as a large 'A' beside a small 'A' with a down arrow.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-size-decrease"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift+<"
+        }
+      ],
+      "shortcut": "Ctrl+Shift+<",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-size-decrease.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-size-decrease.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-size-increase",
+          "kind": "affects-same",
+          "why": "all set the selection's font or size",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:change-case",
+      "node_type": "subfeature",
+      "name": "Change Case",
+      "parent": "feature:font",
+      "what_it_does": "Changes the capitalization of the selected text (Sentence case, lowercase, UPPERCASE, Capitalize Each Word, tOGGLE cASE).",
+      "affects": "the case of the selected text",
+      "audience_breadth": "most",
+      "behavior": "Opens Change Case (menu). Contents (5 controls): Sentence case., lowercase, UPPERCASE, Capitalize Each Word, tOGGLE cASE. [flyout of subfeature:change-case — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as 'Aa' with a dropdown chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:change-case-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:change-case-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-change-case-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-change-case-gallery.png",
+        "screenshots/ui-change-case-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:clear-formatting",
+      "node_type": "subfeature",
+      "name": "Clear All Formatting",
+      "parent": "feature:font",
+      "what_it_does": "Removes all character and paragraph formatting from the selection, leaving plain text.",
+      "affects": "the selection's formatting (reset to default)",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Removes all character and paragraph formatting from the selection, leaving plain text. Applied immediately to the selection's formatting (reset to default); toggle state (where applicable) is reflected by the button's highlighted look. Appears as an 'A' with a pink eraser in front of it.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:clear-formatting"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-clear-formatting.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-clear-formatting.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "affects-same",
+          "why": "removes the character formatting the Font dialog applies",
+          "source": "observed"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "affects-same",
+          "why": "removes paragraph formatting",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:bold",
+      "node_type": "subfeature",
+      "name": "Bold",
+      "parent": "feature:font",
+      "what_it_does": "Toggles bold (heavier) weight on the selected text.",
+      "affects": "the selection's character format (bold)",
+      "audience_breadth": "everyone",
+      "behavior": "Direct action: Toggles bold (heavier) weight on the selected text. Applied immediately to the selection's character format (bold); toggle state (where applicable) is reflected by the button's highlighted look. Appears as a bold capital 'B'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:bold"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+B"
+        }
+      ],
+      "shortcut": "Ctrl+B",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-bold.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-bold.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:italic",
+      "node_type": "subfeature",
+      "name": "Italic",
+      "parent": "feature:font",
+      "what_it_does": "Toggles italic (slanted) style on the selected text.",
+      "affects": "the selection's character format (italic)",
+      "audience_breadth": "everyone",
+      "behavior": "Direct action: Toggles italic (slanted) style on the selected text. Applied immediately to the selection's character format (italic); toggle state (where applicable) is reflected by the button's highlighted look. Appears as a slanted capital 'I'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:italic"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+I"
+        }
+      ],
+      "shortcut": "Ctrl+I",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-italic.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-italic.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:underline-gallery",
+      "node_type": "subfeature",
+      "name": "Underline",
+      "parent": "feature:font",
+      "what_it_does": "Toggles an underline on the selected text; the dropdown picks the underline style and color.",
+      "affects": "the selection's character format (underline)",
+      "audience_breadth": "everyone",
+      "behavior": "Opens Underline (dropdown) (menu). Contents (12 controls): Color swatches, Underline, Double underline, Thick underline, Dotted underline, Dashed underline, Dot-dash underline, Dot-dot-dash underline, Wave underline, No underline, Underline Color, More Underlines.... Sub-surfaces: ui:underline-menu-underline-color, ui:font-dialog. [flyout of subfeature:underline-gallery — commands/tiles are endpoints; openers descended per the depth-endpoint rule] Appears as a capital 'U' with an underline, plus a dropdown chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:underline-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:underline-gallery-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+U"
+        }
+      ],
+      "shortcut": "Ctrl+U",
+      "opens": "ui:underline-menu",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-underline-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-underline-gallery.png",
+        "screenshots/ui-underline-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:strikethrough",
+      "node_type": "subfeature",
+      "name": "Strikethrough",
+      "parent": "feature:font",
+      "what_it_does": "Draws a line through the middle of the selected text.",
+      "affects": "the selection's character format (strikethrough)",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Draws a line through the middle of the selected text. Applied immediately to the selection's character format (strikethrough); toggle state (where applicable) is reflected by the button's highlighted look. Appears as 'abc' with a line struck through it.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:strikethrough"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-strikethrough.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-strikethrough.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:subscript",
+      "node_type": "subfeature",
+      "name": "Subscript",
+      "parent": "feature:font",
+      "what_it_does": "Places the selected text slightly below the baseline in a smaller size.",
+      "affects": "the selection's character format (subscript)",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Places the selected text slightly below the baseline in a smaller size. Applied immediately to the selection's character format (subscript); toggle state (where applicable) is reflected by the button's highlighted look. Appears as an 'x' with a small subscript '2'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:subscript"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift+_"
+        }
+      ],
+      "shortcut": "Ctrl+Shift+_",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-subscript.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-subscript.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:superscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:superscript",
+      "node_type": "subfeature",
+      "name": "Superscript",
+      "parent": "feature:font",
+      "what_it_does": "Places the selected text slightly above the baseline in a smaller size.",
+      "affects": "the selection's character format (superscript)",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Places the selected text slightly above the baseline in a smaller size. Applied immediately to the selection's character format (superscript); toggle state (where applicable) is reflected by the button's highlighted look. Appears as an 'x' with a small superscript '2'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:superscript"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Shift++"
+        }
+      ],
+      "shortcut": "Ctrl+Shift++",
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-superscript.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-superscript.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:bold",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:italic",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:underline-gallery",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:strikethrough",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:subscript",
+          "kind": "affects-same",
+          "why": "all mutate the selection's character format",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:text-effects",
+      "node_type": "subfeature",
+      "name": "Text Effects and Typography",
+      "parent": "feature:font",
+      "what_it_does": "Applies visual text effects (outline, shadow, reflection, glow) and OpenType typography.",
+      "affects": "the selection's character appearance",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:text-effects-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:text-effects-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-text-effects-gallery.png",
+        "screenshots/ui-text-effects-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:text-highlight-color-picker",
+      "node_type": "subfeature",
+      "name": "Text Highlight Color",
+      "parent": "feature:font",
+      "what_it_does": "Applies a highlighter color behind the text; the dropdown picks the color.",
+      "affects": "the selection's highlight color",
+      "audience_breadth": "most",
+      "behavior": "Opens Text Highlight Color (dropdown) (dropdown). Contents (5 controls): Color swatches, Text Highlight Color, High-contrast only, No Color, Stop Highlighting. [flyout of subfeature:text-highlight-color-picker — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters] Appears as a highlighter pen over text with a yellow bar.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:text-highlight-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:text-highlight-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:text-highlight-color-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-text-highlight-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-text-highlight-color-picker.png",
+        "screenshots/ui-text-highlight-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shading-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-color-picker",
+      "node_type": "subfeature",
+      "name": "Font Color",
+      "parent": "feature:font",
+      "what_it_does": "Sets the color of the selected text; the dropdown opens a color picker (theme/standard/more).",
+      "affects": "the selection's font color",
+      "audience_breadth": "everyone",
+      "behavior": "Opens Font Color (dropdown) (dropdown). Contents (6 controls): Color swatches, Font Color, High-contrast only, Automatic, Gradient, More Colors.... Sub-surfaces: ui:font-color-dropdown-gradient, ui:font-color-dropdown-more-colors. [flyout of subfeature:font-color-picker — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: Gallery Filters, Standard Colors, Theme Colors] Appears as a capital 'A' with a red bar beneath it and a chevron.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-color-picker-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:font-color-dropdown",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-color-picker.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-color-picker.png",
+        "screenshots/ui-font-color-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:text-highlight-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:shading-color-picker",
+          "kind": "affects-same",
+          "why": "all apply a color (text / highlight / fill) to the selection",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "co-location",
+          "why": "consolidated in the Font dialog",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:font-dialog",
+      "node_type": "subfeature",
+      "name": "Font dialog launcher",
+      "parent": "feature:font",
+      "what_it_does": "Opens the Font dialog — the consolidated surface for all character formatting plus advanced options (spacing, ligatures, defaults).",
+      "affects": "opens the Font dialog",
+      "audience_breadth": "most",
+      "behavior": "Opens Font (dialog). Contents (61 controls): RichEdit Control, Line up, Page up, Page down, Line down, RichEdit Control, Line up, Line down, RichEdit Control, Line up, Page down, Line down, Context help, Close, Font:, STXinwei. [the Font dialog; enumerated across 2 tab(s)] Appears as the small dialog-launcher arrow in the Font group's corner.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:font-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+D"
+        }
+      ],
+      "shortcut": "Ctrl+D",
+      "opens": "ui:font-dialog",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-font-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-font-dialog.png",
+        "screenshots/ui-font-dialog/tab-font.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

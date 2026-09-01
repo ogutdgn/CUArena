@@ -1,0 +1,69 @@
+{
+  "feature": {
+    "id": "feature:acrobat",
+    "node_type": "feature",
+    "name": "Adobe Acrobat",
+    "what_it_does": "Create a PDF from the document via the Adobe Acrobat add-in.",
+    "affects": "produces a PDF file (external add-in)",
+    "audience_breadth": "niche",
+    "cohesion": "capability",
+    "behavior": null,
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:create-pdf"
+    ],
+    "connections": [],
+    "boundary": true,
+    "explored": false,
+    "source": "inference"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:create-pdf",
+      "node_type": "subfeature",
+      "name": "Create a PDF",
+      "parent": "feature:acrobat",
+      "what_it_does": "Exports the document to a PDF using the Adobe Acrobat add-in.",
+      "affects": "produces a PDF file",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:create-a-pdf"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-home",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-create-a-pdf.png"
+      ],
+      "connections": [],
+      "boundary": true,
+      "explored": false,
+      "source": "inference"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "feature": {
+    "id": "feature:comments",
+    "node_type": "feature",
+    "name": "Comments",
+    "what_it_does": "Attach review comments to document ranges for collaboration.",
+    "affects": "the document's comment thread (review layer)",
+    "audience_breadth": "most",
+    "behavior": "Attach review comments to document ranges for collaboration. Group controls: subfeature:insert-new-comment",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:insert-new-comment"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:insert-new-comment",
+      "node_type": "subfeature",
+      "name": "Comment",
+      "parent": "feature:comments",
+      "what_it_does": "Creates a pending draft comment anchored at the selection and opens its card (measured: in-frame 'Post comment' button); the comment joins the review thread when posted.",
+      "affects": "the document's comment thread",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Creates a pending draft comment anchored at the selection and opens its card (measured: in-frame 'Post comment' button); the comment joins the review thread when posted. Applied immediately to the document's comment thread; toggle state (where applicable) is reflected by the button's highlighted look. Appears as a speech bubble with a plus sign, labelled 'Comment'.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:insert-new-comment"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Ctrl+Alt+M"
+        }
+      ],
+      "shortcut": "Ctrl+Alt+M",
+      "opens": null,
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-insert-new-comment.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-insert-new-comment.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

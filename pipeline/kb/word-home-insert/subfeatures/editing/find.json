@@ -1,0 +1,60 @@
+{
+  "id": "subfeature:find",
+  "node_type": "subfeature",
+  "name": "Find",
+  "parent": "feature:editing",
+  "what_it_does": "Opens the Navigation pane to search the document for text; the dropdown offers Find, Advanced Find and Go To.",
+  "affects": "opens the Navigation pane / search",
+  "audience_breadth": "everyone",
+  "behavior": "Opens Find (pane). Contents (30 controls): Search document, Font, Font Size, Close pane, Clear, Previous Result, Next Result, Result 1 of 1, AutoSave, Save, VBA-Range.InsertAfter, Repeat Copy, File Tab, Paste, Cut, Copy. [the subfeature:find pane (docked/floating), enumerated one level — pane controls act on the pane's function (endpoints)] Appears as a magnifying glass labelled 'Find'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:navigation-pane-find"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:navigation-pane-find-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Ctrl+F"
+    }
+  ],
+  "shortcut": "Ctrl+F",
+  "opens": "ui:navigation-pane-find-pane",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-navigation-pane-find.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-navigation-pane-find.png",
+    "screenshots/ui-navigation-pane-find-pane/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:replace",
+      "kind": "uses",
+      "why": "the editing/navigation family",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:select",
+      "kind": "uses",
+      "why": "the editing/navigation family",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

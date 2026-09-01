@@ -1,0 +1,503 @@
+{
+  "feature": {
+    "id": "feature:page-background",
+    "node_type": "feature",
+    "name": "Page Background",
+    "what_it_does": "Decorate the page itself: a watermark behind the content, a page background color, and a border around the page.",
+    "affects": "the page's background decoration and border",
+    "audience_breadth": "most",
+    "cohesion": "catalog",
+    "behavior": "Decorate the page itself: a watermark behind the content, a page background color, and a border around the page.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:watermark",
+      "subfeature:page-color",
+      "subfeature:page-borders"
+    ],
+    "connections": [],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:watermark",
+      "node_type": "subfeature",
+      "name": "Watermark",
+      "parent": "feature:page-background",
+      "what_it_does": "Stamps ghosted text or a picture (DRAFT, CONFIDENTIAL, a logo…) behind the document content on every page, from a gallery or a custom dialog.",
+      "affects": "the page's watermark layer",
+      "audience_breadth": "most",
+      "behavior": "Opens the Watermark dropdown — the surface that presents this capability's options (18 controls enumerated in the structural pass). Applying a choice there changes: the page's watermark layer.",
+      "behavior_record": {
+        "effect": "Opens the Watermark dropdown — the surface that presents this capability's options (18 controls enumerated in the structural pass). Applying a choice there changes: the page's watermark layer.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Watermark",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Position",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "CONFIDENTIAL 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "CONFIDENTIAL 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "DO NOT COPY 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "DO NOT COPY 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "DRAFT 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "DRAFT 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "SAMPLE 1",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "SAMPLE 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "More Watermarks from Office.com",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Remove Watermark",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Custom Watermark...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          },
+          {
+            "name": "Save Selection to Watermark Gallery...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:watermark"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: WatermarkGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:watermark"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:watermark-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:watermark-dropdown",
+      "location": "ui:ribbon-design",
+      "screenshot": "screenshots/ui-ribbon-design/icon-watermark-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-watermark-gallery.png",
+        "screenshots/ui-watermark-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:page-color",
+          "kind": "co-location",
+          "why": "the Page Background group — page-level decoration",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:page-borders",
+          "kind": "co-location",
+          "why": "the Page Background group — page-level decoration",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-color",
+      "node_type": "subfeature",
+      "name": "Page Color",
+      "parent": "feature:page-background",
+      "what_it_does": "Fills the page background with a color, gradient, texture or picture (fill effects); chiefly for on-screen/web viewing.",
+      "affects": "the page's background color/fill",
+      "audience_breadth": "most",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:page-color-picker"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:page-color-menu",
+      "location": "ui:ribbon-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-page-color-picker.png",
+        "screenshots/ui-page-color-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:watermark",
+          "kind": "co-location",
+          "why": "the Page Background group — page-level decoration",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:page-borders",
+          "kind": "co-location",
+          "why": "the Page Background group — page-level decoration",
+          "source": "co-location"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:page-borders",
+      "node_type": "subfeature",
+      "name": "Page Borders",
+      "parent": "feature:page-background",
+      "what_it_does": "Opens the Borders and Shading dialog on its Page Border tab to draw a decorative or line border around the whole page.",
+      "affects": "the page's border frame",
+      "audience_breadth": "most",
+      "behavior": "Opens the Borders and Shading dialog — the surface that presents this capability's options (29 controls enumerated in the structural pass). Applying a choice there changes: the page's border frame.",
+      "behavior_record": {
+        "effect": "Opens the Borders and Shading dialog — the surface that presents this capability's options (29 controls enumerated in the structural pass). Applying a choice there changes: the page's border frame.",
+        "options": [
+          {
+            "name": "Right Border",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Left Border",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Bottom Border",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Top Border",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Context help",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "None",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Box",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "3-D",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Custom",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Single solid line",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Dotted",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Dashed (small gap)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Dashed (large gap)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Dash dot",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Border Color (Automatic)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Width:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Apply to:",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          },
+          {
+            "name": "Options...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:page-borders"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: PageBorderAndShadingDialog",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:page-borders"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:page-border-and-shading-dialog"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:page-border-and-shading-dialog",
+      "location": "ui:ribbon-design",
+      "screenshot": "screenshots/ui-ribbon-design/icon-page-border-and-shading-dialog.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-page-border-and-shading-dialog.png",
+        "screenshots/ui-page-border-and-shading-dialog/tab-borders.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:watermark",
+          "kind": "co-location",
+          "why": "the Page Background group — page-level decoration",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:page-color",
+          "kind": "co-location",
+          "why": "the Page Background group — page-level decoration",
+          "source": "co-location"
+        },
+        {
+          "target": "subfeature:borders-selection-gallery",
+          "kind": "co-location",
+          "why": "both open the Borders and Shading dialog (different tab)",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

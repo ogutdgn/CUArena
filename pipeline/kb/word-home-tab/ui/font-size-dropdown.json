@@ -1,0 +1,420 @@
+{
+  "id": "ui:font-size-dropdown",
+  "kind": "dropdown",
+  "label": "subfeature:font-size",
+  "purpose": "the subfeature:font-size flyout — items are endpoints; swatches pixel-sampled DYNAMIC: scrollable size list — enumerated items are the visible window.",
+  "screenshot": "screenshots/ui-font-size-dropdown/surface.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "ct50009",
+      "label": "Font Size",
+      "icon": {
+        "description": "Font Size (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        318,
+        114,
+        372,
+        509
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "8",
+      "icon": {
+        "description": "8 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        116,
+        353,
+        140
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "9",
+      "icon": {
+        "description": "9 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        140,
+        353,
+        164
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "10",
+      "icon": {
+        "description": "10 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        164,
+        353,
+        188
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "11",
+      "icon": {
+        "description": "11 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        188,
+        353,
+        212
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "12",
+      "icon": {
+        "description": "12 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        212,
+        353,
+        236
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "14",
+      "icon": {
+        "description": "14 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        236,
+        353,
+        260
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "16",
+      "icon": {
+        "description": "16 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        260,
+        353,
+        284
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "18",
+      "icon": {
+        "description": "18 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        284,
+        353,
+        308
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "20",
+      "icon": {
+        "description": "20 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        308,
+        353,
+        332
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "22",
+      "icon": {
+        "description": "22 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        332,
+        353,
+        356
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "24",
+      "icon": {
+        "description": "24 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        356,
+        353,
+        380
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "26",
+      "icon": {
+        "description": "26 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        380,
+        353,
+        404
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "28",
+      "icon": {
+        "description": "28 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        404,
+        353,
+        428
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "36",
+      "icon": {
+        "description": "36 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        428,
+        353,
+        452
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "48",
+      "icon": {
+        "description": "48 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        452,
+        353,
+        476
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "72",
+      "icon": {
+        "description": "72 (in subfeature:font-size)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        320,
+        476,
+        353,
+        500
+      ],
+      "state_notes": "menu command (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "swatch-grid",
+      "label": "Color swatches",
+      "icon": {
+        "description": "grid of theme/standard color swatches",
+        "image": "screenshots/ui-font-size-dropdown/surface.png"
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": null,
+      "state_notes": "1 owner-drawn color cells; sample RGB ['#FFFFFF']",
+      "source": "pixel",
+      "triggers": "subfeature:font-size",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}

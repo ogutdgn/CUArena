@@ -1,0 +1,10 @@
+{
+  "id": "ui:drop-cap-insert-dropdown",
+  "kind": "dropdown",
+  "label": "Drop Cap",
+  "purpose": null,
+  "screenshot": "screenshots/ui-drop-cap-insert-dropdown/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

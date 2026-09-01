@@ -1,0 +1,32 @@
+{
+  "id": "feature:pages",
+  "node_type": "feature",
+  "name": "Pages",
+  "what_it_does": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks.",
+  "affects": "the document's page structure and flow",
+  "audience_breadth": "most",
+  "behavior": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks. Group controls: subfeature:cover-page-insert, subfeature:blank-page-insert, subfeature:page-break-insert",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:cover-page-insert",
+    "subfeature:blank-page-insert",
+    "subfeature:page-break-insert"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

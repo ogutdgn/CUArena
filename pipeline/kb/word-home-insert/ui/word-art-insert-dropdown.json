@@ -1,0 +1,10 @@
+{
+  "id": "ui:word-art-insert-dropdown",
+  "kind": "dropdown",
+  "label": "WordArt",
+  "purpose": null,
+  "screenshot": "screenshots/ui-word-art-insert-dropdown/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

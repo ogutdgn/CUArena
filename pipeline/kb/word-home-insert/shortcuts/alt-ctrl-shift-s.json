@@ -1,0 +1,15 @@
+{
+  "keys": "Alt+Ctrl+Shift+S",
+  "bindings": [
+    {
+      "context": "document has focus",
+      "effect": "Opens the Styles pane — the full style list with apply/new/inspect/manage controls.",
+      "triggers": null,
+      "opens": "ui:styles-pane",
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "id": "ui:ole-objectct-insert-dialog",
+  "kind": "dialog",
+  "label": "Object",
+  "purpose": null,
+  "screenshot": "screenshots/ui-ole-objectct-insert-dialog/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

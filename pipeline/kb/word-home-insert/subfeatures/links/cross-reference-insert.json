@@ -1,0 +1,46 @@
+{
+  "id": "subfeature:cross-reference-insert",
+  "node_type": "subfeature",
+  "name": "Cross-reference",
+  "parent": "feature:links",
+  "what_it_does": "Opens the Cross-reference dialog to insert a live reference to a heading, bookmark, figure or table (updates as the target moves).",
+  "affects": "document content (adds a reference field)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:cross-reference-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:cross-reference-insert-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-cross-reference-insert.png",
+    "screenshots/ui-cross-reference-insert-dialog/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:insert-link",
+      "kind": "uses",
+      "why": "the navigation-target family (Links group)",
+      "source": "co-location"
+    },
+    {
+      "target": "subfeature:bookmark-insert",
+      "kind": "uses",
+      "why": "the navigation-target family (Links group)",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

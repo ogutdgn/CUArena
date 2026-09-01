@@ -1,0 +1,332 @@
+{
+  "name": "Microsoft Word",
+  "version": "16.0.20131",
+  "platform": "desktop",
+  "what_is_it": "A desktop word processor for creating, formatting and editing text documents.",
+  "used_for": "Writing and formatting documents — letters, reports, essays, resumes — with rich text styling, paragraph layout, lists, styles, tables, graphics, headers/footers and review tools.",
+  "who_uses": "Students, office workers, writers, and virtually anyone producing formatted text documents.",
+  "layout_regions": [
+    "ui:main-window",
+    "ui:ribbon-home",
+    "ui:ribbon-insert",
+    "ui:ribbon-table-design",
+    "ui:ribbon-table-layout",
+    "ui:ribbon-picture-format",
+    "ui:ribbon-graphics-format",
+    "ui:ribbon-shape-format",
+    "ui:ribbon-smart-art-design",
+    "ui:ribbon-smart-art-format",
+    "ui:ribbon-chart-design",
+    "ui:ribbon-chart-format",
+    "ui:ribbon-equation",
+    "ui:ribbon-header-footer"
+  ],
+  "feature_inventory": [
+    {
+      "id": "feature:clipboard",
+      "name": "Clipboard",
+      "one_liner": "Move and duplicate content and formatting via the clipboard.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:font",
+      "name": "Font",
+      "one_liner": "Format the characters of the selected text — typeface, size, weight, color, effects.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:paragraph",
+      "name": "Paragraph",
+      "one_liner": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:styles",
+      "name": "Styles",
+      "one_liner": "Apply named, reusable style sets that bundle character and paragraph formatting.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:editing",
+      "name": "Editing",
+      "one_liner": "Find, replace and select text within the document.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:voice",
+      "name": "Voice",
+      "one_liner": "Dictate text by voice using cloud speech recognition.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:editor",
+      "name": "Editor",
+      "one_liner": "Check spelling, grammar and writing refinements via the cloud Editor service.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:acrobat",
+      "name": "Adobe Acrobat",
+      "one_liner": "Create a PDF from the document via the Adobe Acrobat add-in.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:add-ins",
+      "name": "Add-ins",
+      "one_liner": "Browse and launch Office Add-ins from the store.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ]
+    },
+    {
+      "id": "feature:pages",
+      "name": "Pages",
+      "one_liner": "Insert page-level structure: preformatted cover pages, blank pages, and page breaks.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:tables",
+      "name": "Tables",
+      "one_liner": "Insert tables to organize content in rows and columns; a selected table brings up its own Table Design and Table Layout contextual tabs.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:illustrations",
+      "name": "Illustrations",
+      "one_liner": "Insert graphic objects — pictures, shapes, icons, 3D models, SmartArt diagrams, charts and screenshots; each selected object surfaces its own Format contextual tab(s).",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:media",
+      "name": "Media",
+      "one_liner": "Embed online videos into the document from web sources.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:links",
+      "name": "Links",
+      "one_liner": "Create navigation targets and jumps: hyperlinks, bookmarks and cross-references.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:comments",
+      "name": "Comments",
+      "one_liner": "Attach review comments to document ranges for collaboration.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:header-footer",
+      "name": "Header & Footer",
+      "one_liner": "Repeat content at the top/bottom of every page and number the pages; editing them activates the Header & Footer contextual tab.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:text",
+      "name": "Text",
+      "one_liner": "Insert text objects and building blocks: text boxes, Quick Parts/fields, WordArt, drop caps, signature lines, date/time and embedded objects.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:symbols",
+      "name": "Symbols",
+      "one_liner": "Insert mathematical equations (with the Equation contextual tab) and special symbols not on the keyboard.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:esignature",
+      "name": "eSignature",
+      "one_liner": "Request electronic signatures on the document via the SharePoint Syntex cloud service.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ]
+    },
+    {
+      "id": "feature:chart-design",
+      "name": "Chart Design",
+      "one_liner": "Design a selected chart — add chart elements, quick layouts, colors, chart styles, switch row/column, edit the source data and change the chart type.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-chart-design"
+      ]
+    },
+    {
+      "id": "feature:chart-format",
+      "name": "Chart Format (chart-specific)",
+      "one_liner": "Format individual chart elements — select and format a specific chart part.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-chart-format"
+      ]
+    },
+    {
+      "id": "feature:equation-tools",
+      "name": "Equation",
+      "one_liner": "Author a mathematical equation in the selected math zone — conversions, symbols and structures (fractions, scripts, radicals, integrals, matrices…).",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-equation"
+      ]
+    },
+    {
+      "id": "feature:graphics-format",
+      "name": "Graphics Format",
+      "one_liner": "Style a selected SVG/icon graphic — recolor, graphics styles, outline, effects, and convert it to an editable shape.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-graphics-format"
+      ]
+    },
+    {
+      "id": "feature:header-footer-tools",
+      "name": "Header & Footer Tools",
+      "one_liner": "Navigate and configure header/footer editing mode — move between header and footer, set first-page / odd-even options, position, and close the editor.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-header-footer"
+      ]
+    },
+    {
+      "id": "feature:object-arrange",
+      "name": "Arrange objects",
+      "one_liner": "Position and order any selected drawing object — text wrapping, position, z-order, alignment, grouping, rotation, the selection pane, and alt text.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-chart-format"
+      ]
+    },
+    {
+      "id": "feature:object-size",
+      "name": "Size objects",
+      "one_liner": "Set the size of any selected drawing object — its height and width, the size/layout dialog, and (for images) cropping.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-chart-format"
+      ]
+    },
+    {
+      "id": "feature:picture-format",
+      "name": "Picture Format",
+      "one_liner": "Adjust and style a selected picture — corrections, color, artistic effects, compression, picture styles, border, effects and layout.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-picture-format"
+      ]
+    },
+    {
+      "id": "feature:shape-format",
+      "name": "Shape Format (shape-specific)",
+      "one_liner": "Shape-specific tools for a selected shape/text box — edit the shape geometry and set text direction/alignment inside it.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-chart-format"
+      ]
+    },
+    {
+      "id": "feature:shape-styles",
+      "name": "Shape styles",
+      "one_liner": "Style the fill, outline and effects of a selected shape/chart/SmartArt shape from a gallery or individually.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-chart-format"
+      ]
+    },
+    {
+      "id": "feature:smartart-design",
+      "name": "SmartArt Design",
+      "one_liner": "Build and restyle a selected SmartArt graphic — add/promote/reorder shapes, change the layout, colors and style.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-smart-art-design"
+      ]
+    },
+    {
+      "id": "feature:smartart-format",
+      "name": "SmartArt Format (shape-specific)",
+      "one_liner": "Shape-level formatting of individual SmartArt shapes — change/resize the shape.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-smart-art-format"
+      ]
+    },
+    {
+      "id": "feature:table-design",
+      "name": "Table Design",
+      "one_liner": "Style a selected table — apply a table style, toggle which parts the style emphasizes, and set shading and borders.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-table-design"
+      ]
+    },
+    {
+      "id": "feature:table-layout",
+      "name": "Table Layout",
+      "one_liner": "Change a selected table's structure — insert/delete rows and columns, merge and split cells, size and align cells, and sort or convert the contents.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-table-layout"
+      ]
+    },
+    {
+      "id": "feature:wordart-text-styles",
+      "name": "Text (WordArt) styles",
+      "one_liner": "Apply WordArt-style fill, outline and effects to the text inside a selected drawing object.",
+      "trigger_path": [
+        "ui:main-window",
+        "ui:ribbon-chart-format"
+      ]
+    }
+  ]
+}

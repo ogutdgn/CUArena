@@ -1,0 +1,44 @@
+{
+  "id": "feature:paragraph",
+  "node_type": "feature",
+  "name": "Paragraph",
+  "what_it_does": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders.",
+  "affects": "the selected paragraphs' formatting and layout",
+  "audience_breadth": "everyone",
+  "behavior": "Format whole paragraphs — lists, indentation, alignment, spacing, shading, borders. Group controls: subfeature:bullets-gallery, subfeature:numbering-gallery, subfeature:multilevel-list, subfeature:indent-decrease, subfeature:indent-increase, subfeature:sort, subfeature:paragraph-marks, subfeature:align-left, subfeature:align-center, subfeature:align-right, subfeature:align-justify, subfeature:line-spacing, subfeature:shading-color-picker, subfeature:borders-selection-gallery, subfeature:paragraph-dialog",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:bullets-gallery",
+    "subfeature:numbering-gallery",
+    "subfeature:multilevel-list",
+    "subfeature:indent-decrease",
+    "subfeature:indent-increase",
+    "subfeature:sort",
+    "subfeature:paragraph-marks",
+    "subfeature:align-left",
+    "subfeature:align-center",
+    "subfeature:align-right",
+    "subfeature:align-justify",
+    "subfeature:line-spacing",
+    "subfeature:shading-color-picker",
+    "subfeature:borders-selection-gallery",
+    "subfeature:paragraph-dialog"
+  ],
+  "connections": [],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

@@ -1,0 +1,692 @@
+{
+  "tab": "Layout",
+  "groups": [
+    {
+      "group": "Page Setup",
+      "group_keytip": "Alt, P, Z S",
+      "controls": [
+        {
+          "name": "Margins",
+          "automation_id": "PageMarginsGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            20,
+            82,
+            68,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Set the margin sizes for the entire document or the current section.\n\nChoose from several commonly-used margin formats, or customize your own.",
+          "access_key": "Alt, P, M",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Orientation",
+          "automation_id": "PageOrientationGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            70,
+            82,
+            135,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Give your pages a portrait or landscape layout.",
+          "access_key": "Alt, P, O",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Size",
+          "automation_id": "PageSizeGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            137,
+            82,
+            179,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose a paper size for your document.",
+          "access_key": "Alt, P, S Z",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Columns",
+          "automation_id": "TableColumnsGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            181,
+            82,
+            234,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Split your text into two or more columns.\n\nYou can also choose the width and spacing of your columns, or use one of the preset formats.",
+          "access_key": "Alt, P, J",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Breaks",
+          "automation_id": "BreaksGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            236,
+            82,
+            314,
+            106
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Add a break at your current location to have your text pick up again at the next page, section or column.",
+          "access_key": "Alt, P, B",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Line Numbers",
+          "automation_id": "LineNumbersMenu",
+          "control_type": "MenuItem",
+          "rect": [
+            236,
+            108,
+            354,
+            132
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Reference specific lines in your document quickly and easily using line numbers in the margin.",
+          "access_key": "Alt, P, L N",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Hyphenation",
+          "automation_id": "HyphenationMenu",
+          "control_type": "MenuItem",
+          "rect": [
+            236,
+            134,
+            349,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "When a word runs out of room, Word normally moves it down to the next line. When you turn on hyphenation, Word hyphenates it instead.\n\nJust like you see in books or magazines, hyphenating helps create more uniform spacing, and saves space in your document.",
+          "access_key": "Alt, P, H",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Page Setup...",
+          "automation_id": "PageSetupDialog",
+          "control_type": "Button",
+          "rect": [
+            346,
+            160,
+            362,
+            176
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Don't see what you're looking for?\n\nCheck out the full set of page formatting options.",
+          "access_key": "Alt, P, S P",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Paragraph",
+      "group_keytip": "Alt, P, Z G",
+      "controls": [
+        {
+          "name": "Indent Left",
+          "automation_id": "ParagraphIndentLeft",
+          "control_type": "Spinner",
+          "rect": [
+            429,
+            110,
+            481,
+            129
+          ],
+          "patterns": [
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how far to move the paragraph away from the left margin.\n\nTo change the margins for the whole document, click the Margins button.",
+          "access_key": "Alt, P, I L",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "More",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            481,
+            109,
+            498,
+            120
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how far to move the paragraph away from the left margin.\n\nTo change the margins for the whole document, click the Margins button.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Less",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            481,
+            120,
+            498,
+            131
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how far to move the paragraph away from the left margin.\n\nTo change the margins for the whole document, click the Margins button.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Indent Right",
+          "automation_id": "ParagraphIndentRight",
+          "control_type": "Spinner",
+          "rect": [
+            429,
+            136,
+            481,
+            155
+          ],
+          "patterns": [
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how far to move the paragraph away from the right margin.\n\nTo change the margins for the whole document, click the Margins button.",
+          "access_key": "Alt, P, I R",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "More",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            481,
+            135,
+            498,
+            146
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how far to move the paragraph away from the right margin.\n\nTo change the margins for the whole document, click the Margins button.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Less",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            481,
+            146,
+            498,
+            157
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how far to move the paragraph away from the right margin.\n\nTo change the margins for the whole document, click the Margins button.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Spacing Before",
+          "automation_id": "ParagraphSpacingBefore",
+          "control_type": "Spinner",
+          "rect": [
+            566,
+            110,
+            618,
+            129
+          ],
+          "patterns": [
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change how much space appears above the selected paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+          "access_key": "Alt, P, S B",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "More",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            618,
+            109,
+            635,
+            120
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change how much space appears above the selected paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Less",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            618,
+            120,
+            635,
+            131
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change how much space appears above the selected paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Spacing After",
+          "automation_id": "ParagraphSpacingAfter",
+          "control_type": "Spinner",
+          "rect": [
+            566,
+            136,
+            618,
+            155
+          ],
+          "patterns": [
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "value",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change how much space appears below the selected paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+          "access_key": "Alt, P, S A",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "More",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            618,
+            135,
+            635,
+            146
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change how much space appears below the selected paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Less",
+          "automation_id": "",
+          "control_type": "Button",
+          "rect": [
+            618,
+            146,
+            635,
+            157
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change how much space appears below the selected paragraphs.\n\nTo apply the same spacing to your whole document, use the Paragraph Spacing options on the Design tab.",
+          "access_key": "",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Paragraph...",
+          "automation_id": "ParagraphDialog",
+          "control_type": "Button",
+          "rect": [
+            628,
+            160,
+            644,
+            176
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Fine-tune the layout of the current paragraph, including spacing, indentation, and more.",
+          "access_key": "Alt, P, P G",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        }
+      ]
+    },
+    {
+      "group": "Arrange",
+      "group_keytip": "Alt, P, Z A",
+      "controls": [
+        {
+          "name": "Position",
+          "automation_id": "PicturePositionGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            652,
+            82,
+            700,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose where the selected object will appear on the page.\n\nText will automatically wrap around the object so that it's still easy to read.",
+          "access_key": "Alt, P, P O",
+          "accelerator_key": "",
+          "is_enabled": false,
+          "is_gallery": false
+        },
+        {
+          "name": "Wrap Text",
+          "automation_id": "TextWrapGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            702,
+            82,
+            744,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Choose how your text wraps around the selected object.\n\nFor example, you can choose to have the text continue around the object or cross right over it.",
+          "access_key": "Alt, P, T W",
+          "accelerator_key": "",
+          "is_enabled": false,
+          "is_gallery": false
+        },
+        {
+          "name": "Bring Forward",
+          "automation_id": "ObjectBringForward",
+          "control_type": "SplitButton",
+          "rect": [
+            746,
+            82,
+            805,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Bring the selected object forward one level, or bring it in front of all the other objects.",
+          "access_key": "Alt, P, A F",
+          "accelerator_key": "",
+          "is_enabled": false,
+          "is_gallery": false
+        },
+        {
+          "name": "Send Backward",
+          "automation_id": "ObjectSendBackward",
+          "control_type": "SplitButton",
+          "rect": [
+            807,
+            82,
+            874,
+            158
+          ],
+          "patterns": [
+            "invoke",
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Send the selected object back one level, or send it behind all the other objects.",
+          "access_key": "Alt, P, A E",
+          "accelerator_key": "",
+          "is_enabled": false,
+          "is_gallery": false
+        },
+        {
+          "name": "Selection Pane...",
+          "automation_id": "SelectionPane",
+          "control_type": "Button",
+          "rect": [
+            876,
+            82,
+            929,
+            158
+          ],
+          "patterns": [
+            "expand_collapse",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "See a list of all your objects.\n\nThis makes it easier to select objects, change their order, or change their visibility.",
+          "access_key": "Alt, P, A P",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Align",
+          "automation_id": "ObjectAlignMenu",
+          "control_type": "MenuItem",
+          "rect": [
+            931,
+            82,
+            1003,
+            106
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Change the placement of your selected objects on the page.\n\nThis is great for aligning objects to the margins or the edge of the page. You can also align them relative to one another.",
+          "access_key": "Alt, P, A A",
+          "accelerator_key": "",
+          "is_enabled": true,
+          "is_gallery": false
+        },
+        {
+          "name": "Group",
+          "automation_id": "ObjectsGroupMenu",
+          "control_type": "MenuItem",
+          "rect": [
+            931,
+            108,
+            1008,
+            132
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Join objects together to move and format them as if they were a single object.",
+          "access_key": "Alt, P, A G",
+          "accelerator_key": "",
+          "is_enabled": false,
+          "is_gallery": false
+        },
+        {
+          "name": "Rotate",
+          "automation_id": "ObjectRotateGallery",
+          "control_type": "MenuItem",
+          "rect": [
+            931,
+            134,
+            1009,
+            158
+          ],
+          "patterns": [
+            "toggle",
+            "selection_item",
+            "scroll",
+            "legacy_i_accessible"
+          ],
+          "tooltip": "Rotate or flip the selected object.",
+          "access_key": "Alt, P, A Y",
+          "accelerator_key": "",
+          "is_enabled": false,
+          "is_gallery": false
+        }
+      ]
+    }
+  ],
+  "control_count": 29
+}

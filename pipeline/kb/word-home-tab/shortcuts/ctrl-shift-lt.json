@@ -1,0 +1,15 @@
+{
+  "keys": "Ctrl+Shift+<",
+  "bindings": [
+    {
+      "context": "editing text — applies to the selection or at the cursor",
+      "effect": "Decreases the font size of the selection to the previous step.",
+      "triggers": "subfeature:font-size-decrease",
+      "opens": null,
+      "source": [
+        "uia-accelerator",
+        "tooltip"
+      ]
+    }
+  ]
+}

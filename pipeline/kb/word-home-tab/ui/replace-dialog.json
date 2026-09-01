@@ -1,0 +1,632 @@
+{
+  "id": "ui:replace-dialog",
+  "kind": "dialog",
+  "label": "Find and Replace",
+  "purpose": "the subfeature:replace dialog — fully enumerated across 3 tab(s); option controls are endpoints",
+  "screenshot": "screenshots/ui-replace-dialog/tab-find.png",
+  "children": [
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Find In",
+      "icon": {
+        "description": "Find In (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        981,
+        575,
+        1056,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "menuitem",
+      "label": "Reading Highlight",
+      "icon": {
+        "description": "Reading Highlight (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        848,
+        575,
+        972,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        776,
+        458,
+        1206,
+        472
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Context help",
+      "icon": {
+        "description": "Context help (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1146,
+        387,
+        1193,
+        417
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1193,
+        387,
+        1240,
+        417
+      ],
+      "state_notes": "commit/dismiss",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Find what:",
+      "icon": {
+        "description": "Find what: (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        774,
+        455,
+        1224,
+        475
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "More >>",
+      "icon": {
+        "description": "More >> (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        695,
+        574,
+        771,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Find Next",
+      "icon": {
+        "description": "Find Next (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1064,
+        574,
+        1140,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Cancel",
+      "icon": {
+        "description": "Cancel (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1148,
+        574,
+        1224,
+        598
+      ],
+      "state_notes": "commit/dismiss",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        776,
+        518,
+        1206,
+        532
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Replace with:",
+      "icon": {
+        "description": "Replace with: (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        774,
+        515,
+        1224,
+        535
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Replace",
+      "icon": {
+        "description": "Replace (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        896,
+        574,
+        972,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Replace All",
+      "icon": {
+        "description": "Replace All (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        980,
+        574,
+        1056,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line up",
+      "icon": {
+        "description": "Line up (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        841,
+        473,
+        858,
+        490
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Page down",
+      "icon": {
+        "description": "Page down (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        841,
+        510,
+        858,
+        534
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Line down",
+      "icon": {
+        "description": "Line down (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        841,
+        534,
+        858,
+        551
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "RichEdit Control",
+      "icon": {
+        "description": "RichEdit Control (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        871,
+        474,
+        1222,
+        488
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Page",
+      "icon": {
+        "description": "Page (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        696,
+        471,
+        860,
+        484
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Section",
+      "icon": {
+        "description": "Section (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        696,
+        484,
+        860,
+        497
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Line",
+      "icon": {
+        "description": "Line (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        696,
+        497,
+        860,
+        510
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Bookmark",
+      "icon": {
+        "description": "Bookmark (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        696,
+        510,
+        860,
+        523
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Comment",
+      "icon": {
+        "description": "Comment (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        696,
+        523,
+        860,
+        536
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "listitem",
+      "label": "Footnote",
+      "icon": {
+        "description": "Footnote (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        696,
+        536,
+        860,
+        549
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "edit",
+      "label": "Enter page number:",
+      "icon": {
+        "description": "Enter page number: (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        869,
+        471,
+        1224,
+        491
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Next",
+      "icon": {
+        "description": "Next (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1064,
+        574,
+        1140,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Previous",
+      "icon": {
+        "description": "Previous (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        980,
+        574,
+        1056,
+        598
+      ],
+      "state_notes": "sets an option (endpoint)",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": null,
+      "control_type": "button",
+      "label": "Close",
+      "icon": {
+        "description": "Close (in subfeature:replace)",
+        "image": null
+      },
+      "tooltip": null,
+      "shortcut": null,
+      "location": null,
+      "bounds": [
+        1148,
+        574,
+        1224,
+        598
+      ],
+      "state_notes": "commit/dismiss",
+      "source": "uia",
+      "triggers": "subfeature:replace",
+      "opens": null,
+      "unexplored": false
+    }
+  ],
+  "child_containers": [],
+  "explored": true
+}

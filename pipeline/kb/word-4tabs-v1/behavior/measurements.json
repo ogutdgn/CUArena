@@ -1,0 +1,5776 @@
+{
+  "build": "16.0.20131",
+  "contexts": [
+    "bare",
+    "text-selected",
+    "in-table",
+    "picture-selected",
+    "svg-selected",
+    "shape-selected",
+    "smartart-selected",
+    "chart-selected",
+    "equation",
+    "header-edit"
+  ],
+  "nodes": {
+    "subfeature:chart-add-element": {
+      "idmso": "AddChartElementMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:chart-change-colors": {
+      "idmso": "ChartColorsGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:chart-change-type": {
+      "idmso": "ChartChangeType",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:chart-edit-data": {
+      "idmso": "ChartShowDataGrid",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:chart-quick-layout": {
+      "idmso": "ChartLayoutGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:chart-style": {
+      "idmso": "ChartStylesGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:chart-switch-row-column": {
+      "idmso": "ChartSwitchRowColumn",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:chart-format-selection": {
+      "idmso": "ChartResetToMatchStyle",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:chart-select-element": {
+      "idmso": "ChartElementSelector",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:paste": {
+      "idmso": "Paste",
+      "marker": "triggers",
+      "layer": "P0",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "doc-text",
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "doc-text"
+      ],
+      "toggle": false,
+      "gesture": "executeMso(Paste)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:cut": {
+      "idmso": "Cut",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": false,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)",
+      "effect_delta": [
+        "doc-text"
+      ],
+      "gesture": "executeMso (re-measure, structure-aware)",
+      "remeasured": true
+    },
+    "subfeature:copy": {
+      "idmso": "Copy",
+      "marker": "triggers",
+      "layer": "P0",
+      "enabled": {
+        "bare": false,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:format-painter": {
+      "idmso": "FormatPainter",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(FormatPainter)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:office-clipboard": {
+      "idmso": "ShowClipboard",
+      "marker": "opens",
+      "layer": "P4",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:insert-new-comment": {
+      "idmso": "InsertNewComment",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_delta": [
+        "layout:auto_hyphenation:0->-1",
+        "layout:hyphenate_caps:1->-1"
+      ],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(InsertNewComment)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:themes": {
+      "idmso": "ThemesGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:style-set": {
+      "idmso": null,
+      "marker": "opens",
+      "layer": "P3"
+    },
+    "subfeature:theme-colors": {
+      "idmso": "ThemeColorsGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:theme-fonts": {
+      "idmso": "ThemeFontsGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:paragraph-spacing-set": {
+      "idmso": "ParagraphSpacing",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:find": {
+      "idmso": null,
+      "marker": "opens",
+      "layer": "P1"
+    },
+    "subfeature:replace": {
+      "idmso": "ReplaceDialog",
+      "marker": "opens",
+      "layer": "P2",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:select": {
+      "idmso": "SelectMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:equation-conversions": {
+      "idmso": "EquationNormalText",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(EquationNormalText)",
+      "measure_context": "equation"
+    },
+    "subfeature:equation-structures": {
+      "idmso": "EquationMatrixGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:equation-symbols": {
+      "idmso": "EquationSymbolsInsertGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147024809), None)"
+    },
+    "subfeature:font": {
+      "idmso": "Font",
+      "marker": "opens",
+      "layer": "P0",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:font-size": {
+      "idmso": "FontSize",
+      "marker": "opens",
+      "layer": "P0",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:font-size-increase": {
+      "idmso": "FontSizeIncreaseWord",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": false,
+      "gesture": "executeMso(FontSizeIncreaseWord)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:font-size-decrease": {
+      "idmso": "FontSizeDecreaseWord",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": false,
+      "gesture": "executeMso(FontSizeDecreaseWord)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:change-case": {
+      "idmso": "ChangeCaseGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:clear-formatting": {
+      "idmso": "ClearFormatting",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(ClearFormatting)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:bold": {
+      "idmso": "Bold",
+      "marker": "triggers",
+      "layer": "P0",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": true,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(Bold)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:italic": {
+      "idmso": "Italic",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": true,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(Italic)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:underline-gallery": {
+      "idmso": "UnderlineGallery",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(UnderlineGallery)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:strikethrough": {
+      "idmso": "Strikethrough",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(Strikethrough)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:subscript": {
+      "idmso": "Subscript",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(Subscript)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:superscript": {
+      "idmso": "Superscript",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(Superscript)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:text-highlight-color-picker": {
+      "idmso": "TextHighlightColorPicker",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso (re-measure, structure-aware)",
+      "measure_context": "text-selected",
+      "remeasured": true
+    },
+    "subfeature:font-color-picker": {
+      "idmso": "FontColorPicker",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(FontColorPicker)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:font-dialog": {
+      "idmso": "FontDialog",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:graphics-color": {
+      "idmso": null,
+      "marker": "opens",
+      "layer": "P3"
+    },
+    "subfeature:graphics-convert-to-shape": {
+      "idmso": "SVGEdit",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:graphics-style-gallery": {
+      "idmso": "GraphicsStylesGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:hf-close": {
+      "idmso": "HeaderFooterClose",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:hf-document-info": {
+      "idmso": "DocumentInfo",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:hf-link-to-previous": {
+      "idmso": "HeaderFooterLinkToPrevious",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "header-edit": false
+      },
+      "pressed": {
+        "header-edit": false
+      }
+    },
+    "subfeature:hf-navigate": {
+      "idmso": "HeaderFooterNextSection",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:hf-options": {
+      "idmso": "HeaderFooterDifferentFirstPageWord",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "header-edit": true
+      },
+      "pressed": {
+        "header-edit": false
+      },
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(HeaderFooterDifferentFirstPageWord)",
+      "measure_context": "header-edit"
+    },
+    "subfeature:header-insert": {
+      "idmso": "HeaderInsertGallery",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:footer-insert": {
+      "idmso": "FooterInsertGallery",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:page-number-insert": {
+      "idmso": "HeaderFooterPageNumberInsert",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:insert-pictures": {
+      "idmso": "ClipArtInsertDialog",
+      "marker": "opens",
+      "layer": "P0",
+      "enabled": {
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:shapes-insert": {
+      "idmso": "ShapesInsertGallery",
+      "marker": "unexplored",
+      "layer": "P2",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:smart-art-insert": {
+      "idmso": "SmartArtInsert",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:chart-insert": {
+      "idmso": "ChartInsert",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:indent-left": {
+      "idmso": null,
+      "marker": "triggers",
+      "layer": "P3"
+    },
+    "subfeature:indent-right": {
+      "idmso": null,
+      "marker": "triggers",
+      "layer": "P3"
+    },
+    "subfeature:spacing-before": {
+      "idmso": null,
+      "marker": "triggers",
+      "layer": "P3"
+    },
+    "subfeature:spacing-after": {
+      "idmso": null,
+      "marker": "triggers",
+      "layer": "P3"
+    },
+    "subfeature:insert-link": {
+      "idmso": null,
+      "marker": "opens",
+      "layer": "P2"
+    },
+    "subfeature:cross-reference-insert": {
+      "idmso": "CrossReferenceInsert",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:object-align": {
+      "idmso": "ObjectAlignMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:object-alt-text": {
+      "idmso": "AltTextPaneRibbon",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      }
+    },
+    "subfeature:object-group": {
+      "idmso": "ObjectsGroupMenu",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:object-position": {
+      "idmso": "PicturePositionGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:object-reorder": {
+      "idmso": "ObjectBringForward",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": true,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(ObjectBringForward)",
+      "measure_context": "shape-selected"
+    },
+    "subfeature:object-rotate": {
+      "idmso": "ObjectRotateGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:object-selection-pane": {
+      "idmso": "SelectionPane",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      }
+    },
+    "subfeature:object-text-wrap": {
+      "idmso": "TextWrapGallery",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:object-size": {
+      "idmso": null,
+      "marker": "triggers",
+      "layer": "P2"
+    },
+    "subfeature:picture-crop": {
+      "idmso": null,
+      "marker": "opens",
+      "layer": "P1"
+    },
+    "subfeature:watermark": {
+      "idmso": "WatermarkGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:page-borders": {
+      "idmso": "PageBorderAndShadingDialog",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:page-margins": {
+      "idmso": "PageMarginsGallery",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:page-orientation": {
+      "idmso": "PageOrientationGallery",
+      "marker": "opens",
+      "layer": "P2",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:page-size": {
+      "idmso": "PageSizeGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:page-columns": {
+      "idmso": "TableColumnsGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:breaks": {
+      "idmso": "BreaksGallery",
+      "marker": "opens",
+      "layer": "P2",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:page-setup-dialog": {
+      "idmso": "PageSetupDialog",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:cover-page-insert": {
+      "idmso": "CoverPageInsertGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:blank-page-insert": {
+      "idmso": "BlankPageInsert",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_delta": [
+        "doc-text"
+      ],
+      "second_press_delta": [
+        "doc-text"
+      ],
+      "toggle": false,
+      "gesture": "executeMso(BlankPageInsert)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:page-break-insert": {
+      "idmso": "PageBreakInsertWord",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_delta": [
+        "doc-text",
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "doc-text"
+      ],
+      "toggle": false,
+      "gesture": "executeMso(PageBreakInsertWord)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:bullets-gallery": {
+      "idmso": "BulletsGalleryWord",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(BulletsGalleryWord)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:numbering-gallery": {
+      "idmso": "NumberingGalleryWord",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(NumberingGalleryWord)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:multilevel-list": {
+      "idmso": "MultilevelListGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:indent-decrease": {
+      "idmso": "IndentDecreaseWord",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(IndentDecreaseWord)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:indent-increase": {
+      "idmso": "IndentIncreaseWord",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": false,
+      "gesture": "executeMso(IndentIncreaseWord)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:paragraph-marks": {
+      "idmso": "ParagraphMarks",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(ParagraphMarks)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:align-left": {
+      "idmso": "AlignLeft",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(AlignLeft)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:align-center": {
+      "idmso": "AlignCenter",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(AlignCenter)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:align-right": {
+      "idmso": "AlignRight",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(AlignRight)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:align-justify": {
+      "idmso": "AlignJustify",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "bare": false,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": true,
+        "header-edit": false
+      },
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(AlignJustify)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:line-spacing": {
+      "idmso": "LineSpacingGallery",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:shading-color-picker": {
+      "idmso": "ShadingColorPicker",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(ShadingColorPicker)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:borders-selection-gallery": {
+      "idmso": "BordersSelectionGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [
+        "selection-format"
+      ],
+      "second_press_delta": [
+        "selection-format"
+      ],
+      "toggle": true,
+      "gesture": "executeMso(BordersSelectionGallery)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:paragraph-dialog": {
+      "idmso": "ParagraphDialog",
+      "marker": "opens",
+      "layer": "P2",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:picture-border": {
+      "idmso": null,
+      "marker": "opens",
+      "layer": "P3"
+    },
+    "subfeature:picture-change": {
+      "idmso": "PictureChangeMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:picture-color": {
+      "idmso": "PictureColorMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:picture-compress": {
+      "idmso": "PicturesCompress",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:picture-corrections": {
+      "idmso": "PictureCorrectionsMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:picture-effects": {
+      "idmso": "PictureEffectsMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:picture-remove-background": {
+      "idmso": "PictureBackgroundRemoval",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      }
+    },
+    "subfeature:picture-reset": {
+      "idmso": "PictureReset",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(PictureReset)",
+      "measure_context": "picture-selected"
+    },
+    "subfeature:picture-style-gallery": {
+      "idmso": "PictureStylesGallery",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:picture-transparency": {
+      "idmso": "PictureTransparencyGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:shape-edit": {
+      "idmso": "ShapeChangeShapeGallery",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:shape-text-align": {
+      "idmso": "TextAlignGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "shape-selected": true,
+        "smartart-selected": false,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:shape-effects": {
+      "idmso": "ShapeEffectsMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:shape-fill": {
+      "idmso": "ShapeFillColorPicker",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(ShapeFillColorPicker)",
+      "measure_context": "shape-selected"
+    },
+    "subfeature:shape-format-pane": {
+      "idmso": "ObjectFormatDialog",
+      "marker": "opens",
+      "layer": "P4",
+      "enabled": {
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:shape-outline": {
+      "idmso": null,
+      "marker": "opens",
+      "layer": "P2"
+    },
+    "subfeature:shape-style-gallery": {
+      "idmso": "ShapeStylesGallery",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "shape-selected": true,
+        "smartart-selected": false,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:smartart-add-bullet": {
+      "idmso": "SmartArtAddBullet",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:smartart-add-shape": {
+      "idmso": "SmartArtAddShape",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": true,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(SmartArtAddShape)",
+      "measure_context": "smartart-selected"
+    },
+    "subfeature:smartart-change-colors": {
+      "idmso": "SmartArtChangeColorsGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": true,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:smartart-layout": {
+      "idmso": "SmartArtLayoutGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": true,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:smartart-promote-demote": {
+      "idmso": "SmartArtReorderDown",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:smartart-style": {
+      "idmso": "SmartArtStylesGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": true,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:smartart-text-pane": {
+      "idmso": "SmartArtTextPane",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "smartart-selected": true,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      }
+    },
+    "subfeature:quick-styles": {
+      "idmso": "QuickStylesGallery",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:styles-pane": {
+      "idmso": "StylesPane",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:equation-insert-gallery": {
+      "idmso": "EquationInsertGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147024809), None)"
+    },
+    "subfeature:symbol-insert": {
+      "idmso": "SymbolInsertGallery",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:table-borders": {
+      "idmso": "BorderStylesGallery",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(BorderStylesGallery)",
+      "measure_context": "in-table"
+    },
+    "subfeature:table-shading": {
+      "idmso": "ShadingColorPicker",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "bare": true,
+        "text-selected": true,
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(ShadingColorPicker)",
+      "measure_context": "text-selected"
+    },
+    "subfeature:table-style-options": {
+      "idmso": "TableStyleHeaderRowWord",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(TableStyleHeaderRowWord)",
+      "measure_context": "in-table"
+    },
+    "subfeature:table-styles": {
+      "idmso": "TableStylesGalleryWord",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147024809), None)"
+    },
+    "subfeature:table-autofit": {
+      "idmso": "TableAutoFitMenu",
+      "marker": "opens",
+      "layer": "P2",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:table-cell-alignment": {
+      "idmso": "TableCellAlignTopCenter",
+      "marker": "triggers",
+      "layer": "P2",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:table-cell-margins": {
+      "idmso": "TableOptionsDialog",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:table-cell-size": {
+      "idmso": null,
+      "marker": "triggers",
+      "layer": "P3"
+    },
+    "subfeature:table-convert-to-text": {
+      "idmso": "ConvertTableToText",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:table-delete": {
+      "idmso": "TableDeleteRowsAndColumnsMenuWord",
+      "marker": "opens",
+      "layer": "P1",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:table-insert-columns": {
+      "idmso": "TableColumnsInsertLeft",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)",
+      "effect_delta": [
+        "text:7386786->7083517"
+      ],
+      "gesture": "executeMso (re-measure, structure-aware)",
+      "remeasured": true
+    },
+    "subfeature:table-insert-rows": {
+      "idmso": "TableRowsInsertAboveWord",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)",
+      "effect_delta": [
+        "text:4003861->4141949"
+      ],
+      "gesture": "executeMso (re-measure, structure-aware)",
+      "remeasured": true
+    },
+    "subfeature:table-merge-cells": {
+      "idmso": "MergeCells",
+      "marker": "triggers",
+      "layer": "P1",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)",
+      "effect_delta": [
+        "cells:9->8",
+        "text:2341914->794849"
+      ],
+      "gesture": "executeMso (re-measure, structure-aware)",
+      "remeasured": true
+    },
+    "subfeature:table-properties": {
+      "idmso": "TablePropertiesDialog",
+      "marker": "opens",
+      "layer": "P2",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:table-repeat-header": {
+      "idmso": "TableRepeatHeaderRows",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:table-select": {
+      "idmso": "TableSelectMenu",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:table-split-cells": {
+      "idmso": "SplitCells",
+      "marker": "opens",
+      "layer": "P2",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {}
+    },
+    "subfeature:table-split-table": {
+      "idmso": "TableSplitTable",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": false
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147467259), None)"
+    },
+    "subfeature:table-view-gridlines": {
+      "idmso": "TableShowGridlines",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {
+        "in-table": true,
+        "picture-selected": true,
+        "svg-selected": true,
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(TableShowGridlines)",
+      "measure_context": "in-table"
+    },
+    "subfeature:table-insert": {
+      "idmso": "TableInsertGallery",
+      "marker": "opens",
+      "layer": "P0",
+      "enabled": {
+        "bare": true,
+        "text-selected": false,
+        "in-table": false,
+        "picture-selected": false,
+        "svg-selected": false,
+        "shape-selected": false,
+        "smartart-selected": false,
+        "chart-selected": false,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:text-box-insert": {
+      "idmso": "TextBoxInsertWord",
+      "marker": "unexplored",
+      "layer": "P3",
+      "enabled": {
+        "shape-selected": true,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:wordart-text-effects": {
+      "idmso": "WordArtFormatDialog",
+      "marker": "opens",
+      "layer": "P3",
+      "enabled": {
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": false,
+        "header-edit": true
+      },
+      "pressed": {}
+    },
+    "subfeature:wordart-text-fill": {
+      "idmso": "TextFillColorPicker",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_delta": [],
+      "second_press_delta": [],
+      "toggle": false,
+      "gesture": "executeMso(TextFillColorPicker)",
+      "measure_context": "smartart-selected"
+    },
+    "subfeature:wordart-text-style-gallery": {
+      "idmso": "TextStylesGallery",
+      "marker": "triggers",
+      "layer": "P3",
+      "enabled": {
+        "shape-selected": false,
+        "smartart-selected": true,
+        "chart-selected": true,
+        "equation": true,
+        "header-edit": true
+      },
+      "pressed": {},
+      "effect_error": "(-2147352567, 'Exception occurred.', (0, None, None, None, 0, -2147024809), None)"
+    }
+  },
+  "idmso_map": {
+    "el:paste": "Paste",
+    "el:cut": "Cut",
+    "el:copy": "Copy",
+    "el:format-painter": "FormatPainter",
+    "el:show-clipboard": "ShowClipboard",
+    "el:font": "Font",
+    "el:font-size": "FontSize",
+    "el:font-size-increase": "FontSizeIncreaseWord",
+    "el:font-size-decrease": "FontSizeDecreaseWord",
+    "el:change-case-gallery": "ChangeCaseGallery",
+    "el:clear-formatting": "ClearFormatting",
+    "el:bold": "Bold",
+    "el:italic": "Italic",
+    "el:underline-gallery": "UnderlineGallery",
+    "el:strikethrough": "Strikethrough",
+    "el:subscript": "Subscript",
+    "el:superscript": "Superscript",
+    "el:text-effects-gallery": "TextEffectsGallery",
+    "el:text-highlight-color-picker": "TextHighlightColorPicker",
+    "el:font-color-picker": "FontColorPicker",
+    "el:font-dialog": "FontDialog",
+    "el:bullets-gallery": "BulletsGalleryWord",
+    "el:numbering-gallery": "NumberingGalleryWord",
+    "el:multilevel-list-gallery": "MultilevelListGallery",
+    "el:indent-decrease": "IndentDecreaseWord",
+    "el:indent-increase": "IndentIncreaseWord",
+    "el:sort-dialog-classic": "SortDialogClassic",
+    "el:paragraph-marks": "ParagraphMarks",
+    "el:align-left": "AlignLeft",
+    "el:align-center": "AlignCenter",
+    "el:align-right": "AlignRight",
+    "el:align-justify": "AlignJustify",
+    "el:line-spacing-gallery": "LineSpacingGallery",
+    "el:shading-color-picker": "ShadingColorPicker",
+    "el:borders-selection-gallery": "BordersSelectionGallery",
+    "el:paragraph-dialog": "ParagraphDialog",
+    "el:quick-styles-gallery": "QuickStylesGallery",
+    "el:styles-pane": "StylesPane",
+    "el:navigation-pane-find": "NavigationPaneFind",
+    "el:replace-dialog": "ReplaceDialog",
+    "el:select-menu": "SelectMenu",
+    "el:dictate": "Dictate",
+    "el:writing-assistance-check-document": "WritingAssistanceCheckDocument",
+    "el:office-extensions-show-addin-flyout": "OfficeExtensionsShowAddinFlyout",
+    "el:cover-page-insert-gallery": "CoverPageInsertGallery",
+    "el:blank-page-insert": "BlankPageInsert",
+    "el:page-break-insert": "PageBreakInsertWord",
+    "el:table-insert-gallery": "TableInsertGallery",
+    "el:flyout-anchor-insert-pictures": "FlyoutAnchorInsertPictures",
+    "el:shapes-insert-gallery": "ShapesInsertGallery",
+    "el:icon-insert-from-file": "IconInsertFromFile",
+    "el:insert3-dmodel-default": "Insert3DModelDefault",
+    "el:smart-art-insert": "SmartArtInsert",
+    "el:chart-insert": "ChartInsert",
+    "el:screenshot-insert-gallery": "ScreenshotInsertGallery",
+    "el:movie-from-clip-organizer-insert": "MovieFromClipOrganizerInsert",
+    "el:insert-link-gallery": "InsertLinkGallery",
+    "el:bookmark-insert": "BookmarkInsert",
+    "el:cross-reference-insert": "CrossReferenceInsert",
+    "el:insert-new-comment": "InsertNewComment",
+    "el:header-insert-gallery": "HeaderInsertGallery",
+    "el:footer-insert-gallery": "FooterInsertGallery",
+    "el:header-footer-page-number-insert": "HeaderFooterPageNumberInsert",
+    "el:text-box-insert-gallery": "TextBoxInsertGallery",
+    "el:quick-parts-insert-gallery": "QuickPartsInsertGallery",
+    "el:word-art-insert-gallery": "WordArtInsertGallery",
+    "el:drop-cap-insert-gallery": "DropCapInsertGallery",
+    "el:signature-line-insert": "SignatureLineInsert",
+    "el:date-and-time-insert": "DateAndTimeInsert",
+    "el:ole-objectct-insert": "OleObjectctInsert",
+    "el:equation-insert-gallery": "EquationInsertGallery",
+    "el:symbol-insert-gallery": "SymbolInsertGallery",
+    "el:syntex-esign": "SyntexEsign",
+    "el:themes-gallery": "ThemesGallery",
+    "el:quick-styles-sets": "QuickStylesSets",
+    "el:theme-colors-gallery": "ThemeColorsGallery",
+    "el:theme-fonts-gallery": "ThemeFontsGallery",
+    "el:paragraph-spacing": "ParagraphSpacing",
+    "el:theme-effects-gallery": "ThemeEffectsGallery",
+    "el:quick-styles-set-as-default": "QuickStylesSetAsDefault",
+    "el:watermark-gallery": "WatermarkGallery",
+    "el:page-color-picker": "PageColorPicker",
+    "el:page-border-and-shading-dialog": "PageBorderAndShadingDialog",
+    "el:page-margins-gallery": "PageMarginsGallery",
+    "el:page-orientation-gallery": "PageOrientationGallery",
+    "el:page-size-gallery": "PageSizeGallery",
+    "el:table-columns-gallery": "TableColumnsGallery",
+    "el:breaks-gallery": "BreaksGallery",
+    "el:line-numbers-menu": "LineNumbersMenu",
+    "el:hyphenation-menu": "HyphenationMenu",
+    "el:page-setup-dialog": "PageSetupDialog",
+    "el:paragraph-indent-left": "ParagraphIndentLeft",
+    "el:paragraph-indent-right": "ParagraphIndentRight",
+    "el:paragraph-spacing-before": "ParagraphSpacingBefore",
+    "el:paragraph-spacing-after": "ParagraphSpacingAfter",
+    "el:picture-position-gallery": "PicturePositionGallery",
+    "el:text-wrap-gallery": "TextWrapGallery",
+    "el:object-bring-forward": "ObjectBringForward",
+    "el:object-send-backward": "ObjectSendBackward",
+    "el:selection-pane": "SelectionPane",
+    "el:object-align-menu": "ObjectAlignMenu",
+    "el:objects-group-menu": "ObjectsGroupMenu",
+    "el:object-rotate-gallery": "ObjectRotateGallery",
+    "el:ribbon-table-design-table-style-header-row": "TableStyleHeaderRowWord",
+    "el:ribbon-table-design-table-style-total-row": "TableStyleTotalRowWord",
+    "el:ribbon-table-design-table-style-banded-rows": "TableStyleBandedRowsWord",
+    "el:ribbon-table-design-table-styles-first-column": "TableStylesFirstColumnWord",
+    "el:ribbon-table-design-table-style-last-column": "TableStyleLastColumnWord",
+    "el:ribbon-table-design-table-style-banded-columns": "TableStyleBandedColumnsWord",
+    "el:ribbon-table-design-table-styles-gallery": "TableStylesGalleryWord",
+    "el:ribbon-table-design-shading-color-picker": "ShadingColorPicker",
+    "el:ribbon-table-design-border-styles-gallery": "BorderStylesGallery",
+    "el:ribbon-table-design-border-color-picker": "BorderColorPicker",
+    "el:ribbon-table-design-borders-selection-gallery": "BordersSelectionGallery",
+    "el:ribbon-table-design-table-paint-border": "TablePaintBorder",
+    "el:ribbon-table-design-borders-shading-dialog": "BordersShadingDialogWord",
+    "el:ribbon-table-layout-table-select-menu": "TableSelectMenu",
+    "el:ribbon-table-layout-table-show-gridlines": "TableShowGridlines",
+    "el:ribbon-table-layout-table-properties-dialog": "TablePropertiesDialog",
+    "el:ribbon-table-layout-table-draw-table": "TableDrawTable",
+    "el:ribbon-table-layout-table-eraser": "TableEraser",
+    "el:ribbon-table-layout-table-delete-rows-and-columns-menu": "TableDeleteRowsAndColumnsMenuWord",
+    "el:ribbon-table-layout-table-rows-insert-above": "TableRowsInsertAboveWord",
+    "el:ribbon-table-layout-table-rows-insert-below": "TableRowsInsertBelowWord",
+    "el:ribbon-table-layout-table-columns-insert-left": "TableColumnsInsertLeft",
+    "el:ribbon-table-layout-table-columns-insert-right": "TableColumnsInsertRight",
+    "el:ribbon-table-layout-table-insert-cells-dialog": "TableInsertCellsDialog",
+    "el:ribbon-table-layout-merge-cells": "MergeCells",
+    "el:ribbon-table-layout-split-cells": "SplitCells",
+    "el:ribbon-table-layout-table-split-table": "TableSplitTable",
+    "el:ribbon-table-layout-table-auto-fit-menu": "TableAutoFitMenu",
+    "el:ribbon-table-layout-table-row-height": "TableRowHeight",
+    "el:ribbon-table-layout-table-column-width": "TableColumnWidth",
+    "el:ribbon-table-layout-table-rows-distribute": "TableRowsDistribute",
+    "el:ribbon-table-layout-table-columns-distribute": "TableColumnsDistribute",
+    "el:ribbon-table-layout-table-cell-align-top-left": "TableCellAlignTopLeft",
+    "el:ribbon-table-layout-table-cell-align-top-center": "TableCellAlignTopCenter",
+    "el:ribbon-table-layout-table-cell-align-top-right": "TableCellAlignTopRight",
+    "el:ribbon-table-layout-table-cell-align-middle-left": "TableCellAlignMiddleLeft",
+    "el:ribbon-table-layout-table-cell-align-middle-center": "TableCellAlignMiddleCenter",
+    "el:ribbon-table-layout-table-cell-align-middle-right": "TableCellAlignMiddleRight",
+    "el:ribbon-table-layout-table-cell-align-bottom-left": "TableCellAlignBottomLeft",
+    "el:ribbon-table-layout-table-cell-align-bottom-center": "TableCellAlignBottomCenter",
+    "el:ribbon-table-layout-table-cell-align-bottom-right": "TableCellAlignBottomRight",
+    "el:ribbon-table-layout-text-direction": "TextDirection",
+    "el:ribbon-table-layout-table-options-dialog": "TableOptionsDialog",
+    "el:ribbon-table-layout-sort-dialog-classic": "SortDialogClassic",
+    "el:ribbon-table-layout-table-repeat-header-rows": "TableRepeatHeaderRows",
+    "el:ribbon-table-layout-convert-table-to-text": "ConvertTableToText",
+    "el:ribbon-table-layout-table-formula-dialog": "TableFormulaDialog",
+    "el:ribbon-picture-format-picture-background-removal": "PictureBackgroundRemoval",
+    "el:ribbon-picture-format-picture-corrections-menu": "PictureCorrectionsMenu",
+    "el:ribbon-picture-format-picture-color-menu": "PictureColorMenu",
+    "el:ribbon-picture-format-picture-artistic-effects-gallery": "PictureArtisticEffectsGallery",
+    "el:ribbon-picture-format-picture-transparency-gallery": "PictureTransparencyGallery",
+    "el:ribbon-picture-format-pictures-compress": "PicturesCompress",
+    "el:ribbon-picture-format-picture-change-menu": "PictureChangeMenu",
+    "el:ribbon-picture-format-picture-reset": "PictureReset",
+    "el:ribbon-picture-format-picture-styles-gallery": "PictureStylesGallery",
+    "el:ribbon-picture-format-outline-color-picker": "OutlineColorPicker",
+    "el:ribbon-picture-format-picture-effects-menu": "PictureEffectsMenu",
+    "el:ribbon-picture-format-pictures-convert-to-smart-art": "PicturesConvertToSmartArt",
+    "el:ribbon-picture-format-picture-format-dialog": "PictureFormatDialog",
+    "el:ribbon-picture-format-alt-text-pane-ribbon": "AltTextPaneRibbon",
+    "el:ribbon-picture-format-picture-position-gallery": "PicturePositionGallery",
+    "el:ribbon-picture-format-text-wrap-gallery": "TextWrapGallery",
+    "el:ribbon-picture-format-object-bring-forward": "ObjectBringForward",
+    "el:ribbon-picture-format-object-send-backward": "ObjectSendBackward",
+    "el:ribbon-picture-format-selection-pane": "SelectionPane",
+    "el:ribbon-picture-format-object-align-menu": "ObjectAlignMenu",
+    "el:ribbon-picture-format-objects-group-menu": "ObjectsGroupMenu",
+    "el:ribbon-picture-format-object-rotate-gallery": "ObjectRotateGallery",
+    "el:ribbon-picture-format-picture-crop": "PictureCrop",
+    "el:ribbon-picture-format-shape-height": "ShapeHeight",
+    "el:ribbon-picture-format-shape-width": "ShapeWidth",
+    "el:ribbon-picture-format-layout-options-dialog-size": "LayoutOptionsDialogSize",
+    "el:ribbon-graphics-format-graphic-change-menu": "GraphicChangeMenu",
+    "el:ribbon-graphics-format-svgedit": "SVGEdit",
+    "el:ribbon-graphics-format-graphics-styles-gallery": "GraphicsStylesGallery",
+    "el:ribbon-graphics-format-graphics-color-picker": "GraphicsColorPicker",
+    "el:ribbon-graphics-format-graphics-outline-color-picker": "GraphicsOutlineColorPicker",
+    "el:ribbon-graphics-format-graphics-effects-menu": "GraphicsEffectsMenu",
+    "el:ribbon-graphics-format-graphics-format-dialog": "GraphicsFormatDialog",
+    "el:ribbon-graphics-format-alt-text-pane-ribbon": "AltTextPaneRibbon",
+    "el:ribbon-graphics-format-picture-position-gallery": "PicturePositionGallery",
+    "el:ribbon-graphics-format-text-wrap-gallery": "TextWrapGallery",
+    "el:ribbon-graphics-format-object-bring-forward": "ObjectBringForward",
+    "el:ribbon-graphics-format-object-send-backward": "ObjectSendBackward",
+    "el:ribbon-graphics-format-selection-pane": "SelectionPane",
+    "el:ribbon-graphics-format-object-align-menu": "ObjectAlignMenu",
+    "el:ribbon-graphics-format-objects-group-menu": "ObjectsGroupMenu",
+    "el:ribbon-graphics-format-object-rotate-gallery": "ObjectRotateGallery",
+    "el:ribbon-graphics-format-picture-crop": "PictureCrop",
+    "el:ribbon-graphics-format-shape-height": "ShapeHeight",
+    "el:ribbon-graphics-format-shape-width": "ShapeWidth",
+    "el:ribbon-graphics-format-layout-options-dialog-size": "LayoutOptionsDialogSize",
+    "el:ribbon-shape-format-shapes-insert-gallery": "ShapesInsertGallery",
+    "el:ribbon-shape-format-object-edit-shape-menu": "ObjectEditShapeMenu",
+    "el:ribbon-shape-format-text-box-insert": "TextBoxInsertWord",
+    "el:ribbon-shape-format-shape-styles-gallery": "ShapeStylesGallery",
+    "el:ribbon-shape-format-shape-fill-color-picker": "ShapeFillColorPicker",
+    "el:ribbon-shape-format-outline-color-picker": "OutlineColorPicker",
+    "el:ribbon-shape-format-shape-effects-menu": "ShapeEffectsMenu",
+    "el:ribbon-shape-format-object-format-dialog": "ObjectFormatDialog",
+    "el:ribbon-shape-format-text-styles-gallery": "TextStylesGallery",
+    "el:ribbon-shape-format-text-fill-color-picker": "TextFillColorPicker",
+    "el:ribbon-shape-format-text-outline-color-picker": "TextOutlineColorPicker",
+    "el:ribbon-shape-format-text-effects-menu": "TextEffectsMenu",
+    "el:ribbon-shape-format-word-art-format-dialog": "WordArtFormatDialog",
+    "el:ribbon-shape-format-text-direction-gallery": "TextDirectionGallery",
+    "el:ribbon-shape-format-text-align-gallery": "TextAlignGallery",
+    "el:ribbon-shape-format-text-box-link-create": "TextBoxLinkCreate",
+    "el:ribbon-shape-format-alt-text-pane-ribbon": "AltTextPaneRibbon",
+    "el:ribbon-shape-format-picture-position-gallery": "PicturePositionGallery",
+    "el:ribbon-shape-format-text-wrap-gallery": "TextWrapGallery",
+    "el:ribbon-shape-format-object-bring-forward": "ObjectBringForward",
+    "el:ribbon-shape-format-object-send-backward": "ObjectSendBackward",
+    "el:ribbon-shape-format-selection-pane": "SelectionPane",
+    "el:ribbon-shape-format-object-align-menu": "ObjectAlignMenu",
+    "el:ribbon-shape-format-objects-group-menu": "ObjectsGroupMenu",
+    "el:ribbon-shape-format-object-rotate-gallery": "ObjectRotateGallery",
+    "el:ribbon-shape-format-shape-height": "ShapeHeight",
+    "el:ribbon-shape-format-shape-width": "ShapeWidth",
+    "el:ribbon-shape-format-layout-options-dialog-size": "LayoutOptionsDialogSize",
+    "el:ribbon-smart-art-design-smart-art-add-shape": "SmartArtAddShape",
+    "el:ribbon-smart-art-design-smart-art-add-bullet": "SmartArtAddBullet",
+    "el:ribbon-smart-art-design-smart-art-text-pane": "SmartArtTextPane",
+    "el:ribbon-smart-art-design-smart-art-promote": "SmartArtPromote",
+    "el:ribbon-smart-art-design-smart-art-demote": "SmartArtDemote",
+    "el:ribbon-smart-art-design-smart-art-right-to-left": "SmartArtRightToLeft",
+    "el:ribbon-smart-art-design-smart-art-reorder-up": "SmartArtReorderUp",
+    "el:ribbon-smart-art-design-smart-art-reorder-down": "SmartArtReorderDown",
+    "el:ribbon-smart-art-design-smart-art-organization-chart-menu": "SmartArtOrganizationChartMenu",
+    "el:ribbon-smart-art-design-smart-art-layout-gallery": "SmartArtLayoutGallery",
+    "el:ribbon-smart-art-design-smart-art-change-colors-gallery": "SmartArtChangeColorsGallery",
+    "el:ribbon-smart-art-design-smart-art-styles-gallery": "SmartArtStylesGallery",
+    "el:ribbon-smart-art-design-smart-art-reset-graphic": "SmartArtResetGraphic",
+    "el:ribbon-smart-art-format-smart-art-edit-in2-d": "SmartArtEditIn2D",
+    "el:ribbon-smart-art-format-shape-change-shape-gallery": "ShapeChangeShapeGallery",
+    "el:ribbon-smart-art-format-smart-art-larger-shape": "SmartArtLargerShape",
+    "el:ribbon-smart-art-format-smart-art-smaller-shape": "SmartArtSmallerShape",
+    "el:ribbon-smart-art-format-shape-styles-gallery": "ShapeStylesGallery",
+    "el:ribbon-smart-art-format-shape-fill-color-picker": "ShapeFillColorPicker",
+    "el:ribbon-smart-art-format-outline-color-picker": "OutlineColorPicker",
+    "el:ribbon-smart-art-format-shape-effects-menu": "ShapeEffectsMenu",
+    "el:ribbon-smart-art-format-object-format-dialog": "ObjectFormatDialog",
+    "el:ribbon-smart-art-format-text-styles-gallery": "TextStylesGallery",
+    "el:ribbon-smart-art-format-text-fill-color-picker": "TextFillColorPicker",
+    "el:ribbon-smart-art-format-text-outline-color-picker": "TextOutlineColorPicker",
+    "el:ribbon-smart-art-format-text-effects-menu": "TextEffectsMenu",
+    "el:ribbon-smart-art-format-word-art-format-dialog": "WordArtFormatDialog",
+    "el:ribbon-smart-art-format-alt-text-pane-ribbon": "AltTextPaneRibbon",
+    "el:ribbon-smart-art-format-picture-position-gallery": "PicturePositionGallery",
+    "el:ribbon-smart-art-format-text-wrap-gallery": "TextWrapGallery",
+    "el:ribbon-smart-art-format-object-bring-forward": "ObjectBringForward",
+    "el:ribbon-smart-art-format-object-send-backward": "ObjectSendBackward",
+    "el:ribbon-smart-art-format-selection-pane": "SelectionPane",
+    "el:ribbon-smart-art-format-object-align-menu": "ObjectAlignMenu",
+    "el:ribbon-smart-art-format-objects-group-menu": "ObjectsGroupMenu",
+    "el:ribbon-smart-art-format-object-rotate-gallery": "ObjectRotateGallery",
+    "el:ribbon-smart-art-format-shape-height": "ShapeHeight",
+    "el:ribbon-smart-art-format-shape-width": "ShapeWidth",
+    "el:ribbon-smart-art-format-layout-options-dialog-size": "LayoutOptionsDialogSize",
+    "el:ribbon-chart-design-add-chart-element-menu": "AddChartElementMenu",
+    "el:ribbon-chart-design-chart-layout-gallery": "ChartLayoutGallery",
+    "el:ribbon-chart-design-chart-colors-gallery": "ChartColorsGallery",
+    "el:ribbon-chart-design-chart-styles-gallery": "ChartStylesGallery",
+    "el:ribbon-chart-design-chart-switch-row-column": "ChartSwitchRowColumn",
+    "el:ribbon-chart-design-chart-edit-data-source": "ChartEditDataSource",
+    "el:ribbon-chart-design-chart-show-data-grid": "ChartShowDataGrid",
+    "el:ribbon-chart-design-chart-refresh": "ChartRefresh",
+    "el:ribbon-chart-design-chart-change-type": "ChartChangeType",
+    "el:ribbon-chart-format-chart-element-selector": "ChartElementSelector",
+    "el:ribbon-chart-format-chart-format-selection": "ChartFormatSelection",
+    "el:ribbon-chart-format-chart-reset-to-match-style": "ChartResetToMatchStyle",
+    "el:ribbon-chart-format-shapes-insert-gallery": "ShapesInsertGallery",
+    "el:ribbon-chart-format-shape-change-shape-gallery": "ShapeChangeShapeGallery",
+    "el:ribbon-chart-format-shape-styles-gallery": "ShapeStylesGallery",
+    "el:ribbon-chart-format-shape-fill-color-picker": "ShapeFillColorPicker",
+    "el:ribbon-chart-format-outline-color-picker": "OutlineColorPicker",
+    "el:ribbon-chart-format-shape-effects-menu": "ShapeEffectsMenu",
+    "el:ribbon-chart-format-object-format-dialog": "ObjectFormatDialog",
+    "el:ribbon-chart-format-text-styles-gallery": "TextStylesGallery",
+    "el:ribbon-chart-format-text-fill-color-picker": "TextFillColorPicker",
+    "el:ribbon-chart-format-text-outline-color-picker": "TextOutlineColorPicker",
+    "el:ribbon-chart-format-text-effects-menu": "TextEffectsMenu",
+    "el:ribbon-chart-format-word-art-format-dialog": "WordArtFormatDialog",
+    "el:ribbon-chart-format-alt-text-pane-ribbon": "AltTextPaneRibbon",
+    "el:ribbon-chart-format-picture-position-gallery": "PicturePositionGallery",
+    "el:ribbon-chart-format-text-wrap-gallery": "TextWrapGallery",
+    "el:ribbon-chart-format-object-bring-forward": "ObjectBringForward",
+    "el:ribbon-chart-format-object-send-backward": "ObjectSendBackward",
+    "el:ribbon-chart-format-selection-pane": "SelectionPane",
+    "el:ribbon-chart-format-object-align-menu": "ObjectAlignMenu",
+    "el:ribbon-chart-format-objects-group-menu": "ObjectsGroupMenu",
+    "el:ribbon-chart-format-object-rotate-gallery": "ObjectRotateGallery",
+    "el:ribbon-chart-format-shape-height": "ShapeHeight",
+    "el:ribbon-chart-format-shape-width": "ShapeWidth",
+    "el:ribbon-chart-format-layout-options-dialog-size": "LayoutOptionsDialogSize",
+    "el:ribbon-equation-equation-insert-gallery": "EquationInsertGallery",
+    "el:ribbon-equation-ink-equation": "InkEquation",
+    "el:ribbon-equation-equation-unicode-format": "EquationUnicodeFormat",
+    "el:ribbon-equation-equation-la-tex-format": "EquationLaTexFormat",
+    "el:ribbon-equation-equation-normal-text": "EquationNormalText",
+    "el:ribbon-equation-equation-convert": "EquationConvert",
+    "el:ribbon-equation-equation-options": "EquationOptions",
+    "el:ribbon-equation-equation-symbols-insert-gallery": "EquationSymbolsInsertGallery",
+    "el:ribbon-equation-equation-fraction-gallery": "EquationFractionGallery",
+    "el:ribbon-equation-equation-script-gallery": "EquationScriptGallery",
+    "el:ribbon-equation-equation-radical-gallery": "EquationRadicalGallery",
+    "el:ribbon-equation-equation-integral-gallery": "EquationIntegralGallery",
+    "el:ribbon-equation-equation-large-operator-gallery": "EquationLargeOperatorGallery",
+    "el:ribbon-equation-equation-delimiter-gallery": "EquationDelimiterGallery",
+    "el:ribbon-equation-equation-function-gallery": "EquationFunctionGallery",
+    "el:ribbon-equation-equation-accent-gallery": "EquationAccentGallery",
+    "el:ribbon-equation-equation-limit-gallery": "EquationLimitGallery",
+    "el:ribbon-equation-equation-operator-gallery": "EquationOperatorGallery",
+    "el:ribbon-equation-equation-matrix-gallery": "EquationMatrixGallery",
+    "el:ribbon-header-footer-header-insert-gallery": "HeaderInsertGallery",
+    "el:ribbon-header-footer-footer-insert-gallery": "FooterInsertGallery",
+    "el:ribbon-header-footer-header-footer-page-number-insert": "HeaderFooterPageNumberInsert",
+    "el:ribbon-header-footer-date-and-time-insert": "DateAndTimeInsert",
+    "el:ribbon-header-footer-document-info": "DocumentInfo",
+    "el:ribbon-header-footer-quick-parts-insert-gallery": "QuickPartsInsertGallery",
+    "el:ribbon-header-footer-picture-insert-from-file": "PictureInsertFromFile",
+    "el:ribbon-header-footer-clip-art-insert-dialog": "ClipArtInsertDialog",
+    "el:ribbon-header-footer-go-to-header": "GoToHeader",
+    "el:ribbon-header-footer-go-to-footer": "GoToFooter",
+    "el:ribbon-header-footer-header-footer-previous-section": "HeaderFooterPreviousSection",
+    "el:ribbon-header-footer-header-footer-next-section": "HeaderFooterNextSection",
+    "el:ribbon-header-footer-header-footer-link-to-previous": "HeaderFooterLinkToPrevious",
+    "el:ribbon-header-footer-header-footer-different-first-page": "HeaderFooterDifferentFirstPageWord",
+    "el:ribbon-header-footer-header-footer-different-odd-even-page": "HeaderFooterDifferentOddEvenPageWord",
+    "el:ribbon-header-footer-header-footer-show-document-text": "HeaderFooterShowDocumentText",
+    "el:ribbon-header-footer-header-footer-position-header-from-top": "HeaderFooterPositionHeaderFromTop",
+    "el:ribbon-header-footer-header-footer-position-footer-from-bottom": "HeaderFooterPositionFooterFromBottom",
+    "el:ribbon-header-footer-insert-alignment-tab": "InsertAlignmentTab",
+    "el:ribbon-header-footer-header-footer-close": "HeaderFooterClose"
+  },
+  "enabled_matrix": {
+    "AlignCenter": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "AlignJustify": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "AlignLeft": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "AlignRight": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "BlankPageInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": false
+    },
+    "Bold": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "BookmarkInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "BordersSelectionGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": true
+    },
+    "BreaksGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": false
+    },
+    "BulletsGalleryWord": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ChangeCaseGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ChartInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "ClearFormatting": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "Copy": {
+      "bare": false,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": false
+    },
+    "CoverPageInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "CrossReferenceInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "Cut": {
+      "bare": false,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": false
+    },
+    "DateAndTimeInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": true
+    },
+    "Dictate": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "DropCapInsertGallery": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "EquationInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": true
+    },
+    "FlyoutAnchorInsertPictures": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "Font": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "FontColorPicker": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "FontDialog": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "FontSize": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "FontSizeDecreaseWord": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "FontSizeIncreaseWord": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "FooterInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "FormatPainter": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": true
+    },
+    "HeaderFooterPageNumberInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "HeaderInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "HyphenationMenu": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "IconInsertFromFile": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "IndentDecreaseWord": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "IndentIncreaseWord": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "Insert3DModelDefault": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "InsertLinkGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": false,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": true
+    },
+    "InsertNewComment": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": false
+    },
+    "Italic": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "LineNumbersMenu": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "LineSpacingGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "MovieFromClipOrganizerInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "MultilevelListGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "NavigationPaneFind": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "NumberingGalleryWord": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ObjectAlignMenu": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ObjectBringForward": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": true,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ObjectRotateGallery": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ObjectSendBackward": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": true,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ObjectsGroupMenu": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "OfficeExtensionsShowAddinFlyout": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "OleObjectctInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "PageBorderAndShadingDialog": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "PageBreakInsertWord": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": false
+    },
+    "PageColorPicker": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "PageMarginsGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "PageOrientationGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "PageSetupDialog": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "PageSizeGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ParagraphDialog": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ParagraphIndentLeft": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ParagraphIndentRight": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ParagraphMarks": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ParagraphSpacing": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ParagraphSpacingAfter": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ParagraphSpacingBefore": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "Paste": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "PicturePositionGallery": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "QuickPartsInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "QuickStylesGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "QuickStylesSetAsDefault": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "QuickStylesSets": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ReplaceDialog": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ScreenshotInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "SelectMenu": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "SelectionPane": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ShadingColorPicker": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ShapesInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "ShowClipboard": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "SignatureLineInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "SmartArtInsert": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "SortDialogClassic": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "Strikethrough": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "StylesPane": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "Subscript": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "Superscript": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "SymbolInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "SyntexEsign": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TableColumnsGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": false
+    },
+    "TableInsertGallery": {
+      "bare": true,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": true
+    },
+    "TextBoxInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "TextEffectsGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TextHighlightColorPicker": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TextWrapGallery": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ThemeColorsGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ThemeEffectsGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ThemeFontsGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ThemesGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "UnderlineGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "WatermarkGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "WordArtInsertGallery": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "WritingAssistanceCheckDocument": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "BorderColorPicker": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "BorderStylesGallery": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "BordersShadingDialogWord": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "ConvertTableToText": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "MergeCells": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SplitCells": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableAutoFitMenu": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignBottomCenter": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignBottomLeft": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignBottomRight": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignMiddleCenter": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignMiddleLeft": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignMiddleRight": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignTopCenter": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignTopLeft": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignTopRight": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableColumnWidth": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableColumnsDistribute": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableColumnsInsertLeft": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableColumnsInsertRight": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableDeleteRowsAndColumnsMenuWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableDrawTable": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "TableEraser": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TableFormulaDialog": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TableInsertCellsDialog": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableOptionsDialog": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TablePaintBorder": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "TablePropertiesDialog": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableRepeatHeaderRows": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableRowHeight": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableRowsDistribute": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableRowsInsertAboveWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableRowsInsertBelowWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableSelectMenu": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableShowGridlines": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TableSplitTable": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleBandedColumnsWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleBandedRowsWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleHeaderRowWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleLastColumnWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleTotalRowWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStylesFirstColumnWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStylesGalleryWord": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TextDirection": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "AltTextPaneRibbon": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "LayoutOptionsDialogSize": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "OutlineColorPicker": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureArtisticEffectsGallery": {
+      "picture-selected": true,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureBackgroundRemoval": {
+      "picture-selected": true,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureChangeMenu": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureColorMenu": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureCorrectionsMenu": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureCrop": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureEffectsMenu": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureFormatDialog": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureReset": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureStylesGallery": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureTransparencyGallery": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PicturesCompress": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "PicturesConvertToSmartArt": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ShapeHeight": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ShapeWidth": {
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "GraphicChangeMenu": {
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "GraphicsColorPicker": {
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "GraphicsEffectsMenu": {
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "GraphicsFormatDialog": {
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "GraphicsOutlineColorPicker": {
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "GraphicsStylesGallery": {
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SVGEdit": {
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ObjectEditShapeMenu": {
+      "shape-selected": true,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ObjectFormatDialog": {
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ShapeEffectsMenu": {
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ShapeFillColorPicker": {
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ShapeStylesGallery": {
+      "shape-selected": true,
+      "smartart-selected": false,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "TextAlignGallery": {
+      "shape-selected": true,
+      "smartart-selected": false,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "TextBoxInsertWord": {
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "TextBoxLinkCreate": {
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TextDirectionGallery": {
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TextEffectsMenu": {
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TextFillColorPicker": {
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TextOutlineColorPicker": {
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TextStylesGallery": {
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "WordArtFormatDialog": {
+      "shape-selected": false,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "ShapeChangeShapeGallery": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtAddBullet": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtAddShape": {
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtChangeColorsGallery": {
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtDemote": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtEditIn2D": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtLargerShape": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtLayoutGallery": {
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtOrganizationChartMenu": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtPromote": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtReorderDown": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtReorderUp": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtResetGraphic": {
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtRightToLeft": {
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtSmallerShape": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtStylesGallery": {
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtTextPane": {
+      "smartart-selected": true,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "AddChartElementMenu": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartChangeType": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartColorsGallery": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartEditDataSource": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartElementSelector": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartFormatSelection": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartLayoutGallery": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartRefresh": {
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartResetToMatchStyle": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartShowDataGrid": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartStylesGallery": {
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": false
+    },
+    "ChartSwitchRowColumn": {
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "EquationAccentGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationConvert": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationDelimiterGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationFractionGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationFunctionGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationIntegralGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationLaTexFormat": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationLargeOperatorGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationLimitGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationMatrixGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationNormalText": {
+      "equation": true,
+      "header-edit": false
+    },
+    "EquationOperatorGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationOptions": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationRadicalGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationScriptGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationSymbolsInsertGallery": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationUnicodeFormat": {
+      "equation": true,
+      "header-edit": true
+    },
+    "InkEquation": {
+      "equation": true,
+      "header-edit": true
+    },
+    "ClipArtInsertDialog": {
+      "header-edit": true
+    },
+    "DocumentInfo": {
+      "header-edit": true
+    },
+    "GoToFooter": {
+      "header-edit": true
+    },
+    "GoToHeader": {
+      "header-edit": false
+    },
+    "HeaderFooterClose": {
+      "header-edit": true
+    },
+    "HeaderFooterDifferentFirstPageWord": {
+      "header-edit": true
+    },
+    "HeaderFooterDifferentOddEvenPageWord": {
+      "header-edit": true
+    },
+    "HeaderFooterLinkToPrevious": {
+      "header-edit": false
+    },
+    "HeaderFooterNextSection": {
+      "header-edit": true
+    },
+    "HeaderFooterPositionFooterFromBottom": {
+      "header-edit": true
+    },
+    "HeaderFooterPositionHeaderFromTop": {
+      "header-edit": true
+    },
+    "HeaderFooterPreviousSection": {
+      "header-edit": true
+    },
+    "HeaderFooterShowDocumentText": {
+      "header-edit": true
+    },
+    "InsertAlignmentTab": {
+      "header-edit": true
+    },
+    "PictureInsertFromFile": {
+      "header-edit": true
+    }
+  },
+  "pressed": {
+    "AlignCenter": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "AlignJustify": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": false
+    },
+    "AlignLeft": {
+      "bare": true,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": true,
+      "equation": false,
+      "header-edit": true
+    },
+    "AlignRight": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "Bold": {
+      "bare": false,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": false
+    },
+    "Dictate": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "Italic": {
+      "bare": false,
+      "text-selected": true,
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": true,
+      "header-edit": false
+    },
+    "OfficeExtensionsShowAddinFlyout": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "ParagraphMarks": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SelectionPane": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "Strikethrough": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "Subscript": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "Superscript": {
+      "bare": false,
+      "text-selected": false,
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignBottomCenter": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignBottomLeft": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignBottomRight": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignMiddleCenter": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignMiddleLeft": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignMiddleRight": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignTopCenter": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignTopLeft": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableCellAlignTopRight": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableDrawTable": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableEraser": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TablePaintBorder": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableRepeatHeaderRows": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableShowGridlines": {
+      "in-table": true,
+      "picture-selected": true,
+      "svg-selected": true,
+      "shape-selected": true,
+      "smartart-selected": true,
+      "chart-selected": true,
+      "equation": true,
+      "header-edit": true
+    },
+    "TableStyleBandedColumnsWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleBandedRowsWord": {
+      "in-table": true,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleHeaderRowWord": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleLastColumnWord": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStyleTotalRowWord": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "TableStylesFirstColumnWord": {
+      "in-table": false,
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "AltTextPaneRibbon": {
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureBackgroundRemoval": {
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "PictureCrop": {
+      "picture-selected": false,
+      "svg-selected": false,
+      "shape-selected": false,
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtEditIn2D": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtRightToLeft": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "SmartArtTextPane": {
+      "smartart-selected": false,
+      "chart-selected": false,
+      "equation": false,
+      "header-edit": false
+    },
+    "EquationConvert": {
+      "equation": false,
+      "header-edit": false
+    },
+    "EquationLaTexFormat": {
+      "equation": true,
+      "header-edit": true
+    },
+    "EquationNormalText": {
+      "equation": false,
+      "header-edit": false
+    },
+    "EquationUnicodeFormat": {
+      "equation": false,
+      "header-edit": false
+    },
+    "HeaderFooterDifferentFirstPageWord": {
+      "header-edit": false
+    },
+    "HeaderFooterDifferentOddEvenPageWord": {
+      "header-edit": false
+    },
+    "HeaderFooterLinkToPrevious": {
+      "header-edit": false
+    },
+    "HeaderFooterShowDocumentText": {
+      "header-edit": true
+    }
+  }
+}

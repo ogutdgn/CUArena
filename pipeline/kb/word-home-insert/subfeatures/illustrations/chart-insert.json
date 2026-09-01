@@ -1,0 +1,82 @@
+{
+  "id": "subfeature:chart-insert",
+  "node_type": "subfeature",
+  "name": "Chart",
+  "parent": "feature:illustrations",
+  "what_it_does": "Opens the Insert Chart dialog (column, line, pie, bar, area, scatter, map…); an inserted chart activates the Chart Design + Format contextual tabs and opens an embedded Excel datasheet for its data (measured).",
+  "affects": "document content (adds a chart backed by worksheet data)",
+  "audience_breadth": "most",
+  "behavior": "Opens Insert Chart (dialog). Contents (31 controls): Recent, Templates, Column, Line, Pie, Bar, Area, X Y (Scatter), Map, Stock, Surface, Radar, Treemap, Sunburst, Histogram, Box & Whisker. [the Insert Chart dialog; enumerated across 1 tab(s)] Appears as a column chart with colored bars, labelled 'Chart'.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:chart-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:chart-insert-dialog",
+  "location": "ui:ribbon-insert",
+  "screenshot": "screenshots/ui-ribbon-insert/icon-chart-insert.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-chart-insert.png",
+    "screenshots/ui-chart-insert-dialog/tab-all-charts.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:insert-pictures",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:shapes-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:icon-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:insert-3d-models",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:smart-art-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:screenshot-insert",
+      "kind": "affects",
+      "why": "all insert graphic objects (Shapes/InlineShapes) into the document",
+      "source": "shared-target"
+    },
+    {
+      "target": "ui:ribbon-chart-design",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    },
+    {
+      "target": "ui:ribbon-chart-format",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

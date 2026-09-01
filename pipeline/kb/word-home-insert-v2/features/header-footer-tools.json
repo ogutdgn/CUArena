@@ -1,0 +1,345 @@
+{
+  "feature": {
+    "id": "feature:header-footer-tools",
+    "node_type": "feature",
+    "name": "Header & Footer Tools",
+    "what_it_does": "Navigate and configure header/footer editing mode — move between header and footer, set first-page / odd-even options, position, and close the editor.",
+    "affects": "the header/footer editing session and its layout options",
+    "audience_breadth": "most",
+    "behavior": "Navigate and configure header/footer editing mode — move between header and footer, set first-page / odd-even options, position, and close the editor. Group controls: subfeature:hf-alignment-tab, subfeature:hf-close, subfeature:hf-document-info, subfeature:hf-link-to-previous, subfeature:hf-navigate, subfeature:hf-options, subfeature:hf-position",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-header-footer"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-header-footer",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:hf-alignment-tab",
+      "subfeature:hf-close",
+      "subfeature:hf-document-info",
+      "subfeature:hf-link-to-previous",
+      "subfeature:hf-navigate",
+      "subfeature:hf-options",
+      "subfeature:hf-position"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:header-insert",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:hf-alignment-tab",
+      "node_type": "subfeature",
+      "name": "Insert Alignment Tab",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Inserts an alignment tab so header/footer content can be left/center/right aligned on one line.",
+      "affects": "the header/footer content (alignment tab)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-insert-alignment-tab"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-header-footer-insert-alignment-tab-dialog",
+      "location": "ui:ribbon-header-footer",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-insert-alignment-tab.png",
+        "screenshots/ui-ribbon-header-footer-insert-alignment-tab-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-close",
+      "node_type": "subfeature",
+      "name": "Close Header and Footer",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Exits header/footer editing mode and returns to the document body.",
+      "affects": "the header/footer editing session (exit)",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Exits header/footer editing mode and returns to the document body. Applied immediately to the header/footer editing session (exit); toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-close"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-close.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-close.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-document-info",
+      "node_type": "subfeature",
+      "name": "Document Info",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Inserts document-property fields (author, file name, path…) into the header/footer.",
+      "affects": "the header/footer content (document-info fields)",
+      "audience_breadth": "niche",
+      "behavior": "Opens Document Info (dropdown). Contents (0 controls): . [Quickly insert information about your document, such as author or file name.\n\nFor more options, explore document properties and fields.]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-document-info"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-header-footer-document-info-dropdown",
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-document-info.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-document-info.png",
+        "screenshots/ui-ribbon-header-footer-document-info-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-link-to-previous",
+      "node_type": "subfeature",
+      "name": "Link to Previous",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Links this section's header/footer to the previous section's (or breaks the link).",
+      "affects": "whether this section reuses the previous header/footer",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Links this section's header/footer to the previous section's (or breaks the link). Applied immediately to whether this section reuses the previous header/footer; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-link-to-previous"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-link-to-previous.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-link-to-previous.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-navigate",
+      "node_type": "subfeature",
+      "name": "Header/Footer Navigation",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Moves the cursor between the header and footer and between sections' headers/footers (go to header/footer, previous, next).",
+      "affects": "the header/footer editing position",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Moves the cursor between the header and footer and between sections' headers/footers (go to header/footer, previous, next). Applied immediately to the header/footer editing position; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-go-to-header"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-go-to-footer"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-previous-section"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-next-section"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-go-to-header.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-go-to-header.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-options",
+      "node_type": "subfeature",
+      "name": "Header/Footer Options",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Toggles header/footer display options — different first page, different odd & even pages, and showing the document text.",
+      "affects": "the header/footer display options",
+      "audience_breadth": "most",
+      "behavior": "Direct action: Toggles header/footer display options — different first page, different odd & even pages, and showing the document text. Applied immediately to the header/footer display options; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-different-first-page"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-different-odd-even-page"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-header-footer-show-document-text"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-different-first-page.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-header-footer-different-first-page.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:hf-position",
+      "node_type": "subfeature",
+      "name": "Header/Footer Position",
+      "parent": "feature:header-footer-tools",
+      "what_it_does": "Sets the distance of the header/footer from the top/bottom page edge.",
+      "affects": "the header/footer position on the page",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-more"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-less"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-header-footer",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-header-footer/icon-ribbon-header-footer-more.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

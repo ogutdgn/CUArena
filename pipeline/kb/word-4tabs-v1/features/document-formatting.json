@@ -1,0 +1,1438 @@
+{
+  "feature": {
+    "id": "feature:document-formatting",
+    "node_type": "feature",
+    "name": "Document Formatting",
+    "what_it_does": "Set the document's overall visual theme in one place — theme colors, fonts and effects, the style set, and document-wide paragraph spacing — and save the result as the default.",
+    "affects": "the whole document's theme and default formatting",
+    "audience_breadth": "most",
+    "cohesion": "capability",
+    "behavior": "Set the document's overall visual theme in one place — theme colors, fonts and effects, the style set, and document-wide paragraph spacing — and save the result as the default.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-design"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-design",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:themes",
+      "subfeature:style-set",
+      "subfeature:theme-colors",
+      "subfeature:theme-fonts",
+      "subfeature:paragraph-spacing-set",
+      "subfeature:theme-effects",
+      "subfeature:set-as-default"
+    ],
+    "connections": [
+      {
+        "target": "feature:styles",
+        "kind": "affects-same",
+        "why": "the theme/style-set drives how the named styles render",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:themes",
+      "node_type": "subfeature",
+      "name": "Themes",
+      "parent": "feature:document-formatting",
+      "what_it_does": "Applies a document theme — a coordinated bundle of theme colors, fonts and effects — to the whole document from a gallery; also browse/reset/save themes.",
+      "affects": "the document's whole theme (colors + fonts + effects)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Themes dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the document's whole theme (colors + fonts + effects).",
+      "behavior_record": {
+        "effect": "Opens the Themes dropdown — the surface that presents this capability's options (31 controls enumerated in the structural pass). Applying a choice there changes: the document's whole theme (colors + fonts + effects).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Themes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Office",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Office 2013 - 2022 Theme",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Facet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Gallery",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Integral",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Ion",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Ion Boardroom",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Organic",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Retrospect",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Slice",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Wisp",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Banded",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Basis",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Berlin",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Circuit",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Damask",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Dividend",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Droplet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Frame",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:themes"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ThemesGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:themes"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:themes-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:themes-dropdown",
+      "location": "ui:ribbon-design",
+      "screenshot": "screenshots/ui-ribbon-design/icon-themes-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-themes-gallery.png",
+        "screenshots/ui-themes-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:theme-colors",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-fonts",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-effects",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:style-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-spacing-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:style-set",
+      "node_type": "subfeature",
+      "name": "Style Set",
+      "parent": "feature:document-formatting",
+      "what_it_does": "Applies a style set — a coordinated look for the built-in styles (Title, Headings, body) — from the in-ribbon gallery; also reset to the default or save a new set.",
+      "affects": "the document's style set (how the built-in styles look)",
+      "audience_breadth": "most",
+      "behavior": "Opens the QuickStylesSets dropdown — the surface that presents this capability's options (23 controls enumerated in the structural pass). Applying a choice there changes: the document's style set (how the built-in styles look).",
+      "behavior_record": {
+        "effect": "Opens the QuickStylesSets dropdown — the surface that presents this capability's options (23 controls enumerated in the structural pass). Applying a choice there changes: the document's style set (how the built-in styles look).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Style Set",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Document",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Basic (Elegant)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Basic (Simple)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Basic (Stylish)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Black & White (Capitalized)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Black & White (Classic)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Black & White (Numbered)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Black & White (Word 2013)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Casual",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Centered",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Lines (Distinctive)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Lines (Simple)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Lines (Stylish)",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Minimalist",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Shaded",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Word",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Word 2003",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Word 2010",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Word 2013",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Reset to the Default Style Set",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          },
+          {
+            "name": "Save as a New Style Set...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:style-set"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:style-set"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:style-set-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:style-set-gallery",
+      "location": "ui:ribbon-design",
+      "screenshot": "screenshots/ui-ribbon-design/icon-style-set-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-style-set-gallery.png",
+        "screenshots/ui-style-set-gallery/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:themes",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-colors",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-fonts",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-effects",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-spacing-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:quick-styles",
+          "kind": "affects-same",
+          "why": "a style set changes how the Quick Styles look",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:theme-colors",
+      "node_type": "subfeature",
+      "name": "Colors",
+      "parent": "feature:document-formatting",
+      "what_it_does": "Changes the document theme's color scheme from a gallery (or customizes new theme colors).",
+      "affects": "the document theme's colors",
+      "audience_breadth": "most",
+      "behavior": "Opens the Colors dropdown — the surface that presents this capability's options (27 controls enumerated in the structural pass). Applying a choice there changes: the document theme's colors.",
+      "behavior_record": {
+        "effect": "Opens the Colors dropdown — the surface that presents this capability's options (27 controls enumerated in the structural pass). Applying a choice there changes: the document theme's colors.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Colors",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Office",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Office 2013 - 2022",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Office 2007 - 2010",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Grayscale",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Blue Warm",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Blue",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Blue II",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Blue Green",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Green",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Green Yellow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Yellow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Yellow Orange",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Orange",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Orange Red",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Red Orange",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Red",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Red Violet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Violet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Violet II",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          },
+          {
+            "name": "Median",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-colors"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ThemeColorsGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:theme-colors"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:theme-colors-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:theme-colors-dropdown",
+      "location": "ui:ribbon-design",
+      "screenshot": "screenshots/ui-ribbon-design/icon-theme-colors-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-theme-colors-gallery.png",
+        "screenshots/ui-theme-colors-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:themes",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-fonts",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-effects",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:style-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-spacing-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font-color-picker",
+          "kind": "affects-same",
+          "why": "theme colors are the palette the Font Color picker offers",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:theme-fonts",
+      "node_type": "subfeature",
+      "name": "Fonts",
+      "parent": "feature:document-formatting",
+      "what_it_does": "Changes the document theme's heading/body font pairing from a gallery (or customizes them).",
+      "affects": "the document theme's fonts",
+      "audience_breadth": "most",
+      "behavior": "Opens the Fonts dropdown — the surface that presents this capability's options (17 controls enumerated in the structural pass). Applying a choice there changes: the document theme's fonts.",
+      "behavior_record": {
+        "effect": "Opens the Fonts dropdown — the surface that presents this capability's options (17 controls enumerated in the structural pass). Applying a choice there changes: the document theme's fonts.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Fonts",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Line up",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Position",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Office, Heading Font: Aptos Display, Body Font: Aptos",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Office 2013 - 2022, Heading Font: Calibri Light, Body Font: Calibri",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Office 2007 - 2010, Heading Font: Cambria, Body Font: Calibri",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Calibri, Heading Font: Calibri, Body Font: Calibri",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Page down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Arial, Heading Font: Arial, Body Font: Arial",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Corbel, Heading Font: Corbel, Body Font: Corbel",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Candara, Heading Font: Candara, Body Font: Candara",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Franklin Gothic, Heading Font: Franklin Gothic Medium, Body Font: Franklin Gothic Book",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Century Gothic, Heading Font: Century Gothic, Body Font: Century Gothic",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Tw Cen MT, Heading Font: Tw Cen MT, Body Font: Tw Cen MT",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Line down",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          },
+          {
+            "name": "Customize Fonts...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-fonts"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: ThemeFontsGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:theme-fonts"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:theme-fonts-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:theme-fonts-dropdown",
+      "location": "ui:ribbon-design",
+      "screenshot": "screenshots/ui-ribbon-design/icon-theme-fonts-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-theme-fonts-gallery.png",
+        "screenshots/ui-theme-fonts-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:themes",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-colors",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-effects",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:style-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-spacing-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "theme fonts are the (body/heading) fonts the Font box defaults to",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:paragraph-spacing-set",
+      "node_type": "subfeature",
+      "name": "Paragraph Spacing",
+      "parent": "feature:document-formatting",
+      "what_it_does": "Applies a document-wide paragraph spacing preset (compact / open / double…) by adjusting the built-in styles' spacing.",
+      "affects": "the whole document's paragraph spacing",
+      "audience_breadth": "most",
+      "behavior": "Opens the Paragraph Spacing menu — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the whole document's paragraph spacing.",
+      "behavior_record": {
+        "effect": "Opens the Paragraph Spacing menu — the surface that presents this capability's options (8 controls enumerated in the structural pass). Applying a choice there changes: the whole document's paragraph spacing.",
+        "options": [
+          {
+            "name": "Default",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          },
+          {
+            "name": "No Paragraph Space",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          },
+          {
+            "name": "Compact",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          },
+          {
+            "name": "Tight",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          },
+          {
+            "name": "Open",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          },
+          {
+            "name": "Relaxed",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          },
+          {
+            "name": "Double",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          },
+          {
+            "name": "Custom Paragraph Spacing...",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:paragraph-spacing-set"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in context(s): bare, chart-selected, equation, header-edit, in-table, picture-selected, smartart-selected, svg-selected, text-selected; disabled in: shape-selected (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: ParagraphSpacing",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:paragraph-spacing-set"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:paragraph-spacing"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:paragraph-spacing-menu",
+      "location": "ui:ribbon-design",
+      "screenshot": "screenshots/ui-ribbon-design/icon-paragraph-spacing.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-paragraph-spacing.png",
+        "screenshots/ui-paragraph-spacing-menu/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:themes",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-colors",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-fonts",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-effects",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:style-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:line-spacing",
+          "kind": "affects-same",
+          "why": "both set paragraph spacing (document-wide preset vs per-paragraph)",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:theme-effects",
+      "node_type": "subfeature",
+      "name": "Effects",
+      "parent": "feature:document-formatting",
+      "what_it_does": "Changes the document theme's graphic effects (shadow/reflection/line styling for shapes and charts) from a gallery.",
+      "affects": "the document theme's graphic effects",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Effects dropdown — the surface that presents this capability's options (17 controls enumerated in the structural pass). Applying a choice there changes: the document theme's graphic effects.",
+      "behavior_record": {
+        "effect": "Opens the Effects dropdown — the surface that presents this capability's options (17 controls enumerated in the structural pass). Applying a choice there changes: the document theme's graphic effects.",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Effects",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Office",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Office 2007 - 2010",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Subtle Solids",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Banded Edge",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Smokey Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Glow Edge",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Grunge Texture",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Frosted Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Top Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Inset",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Milk Glass",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Riblet",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Reflection",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Extreme Shadow",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          },
+          {
+            "name": "Glossy",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:theme-effects"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:theme-effects"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:theme-effects-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:theme-effects-dropdown",
+      "location": "ui:ribbon-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-theme-effects-gallery.png",
+        "screenshots/ui-theme-effects-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:themes",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-colors",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:theme-fonts",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:style-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:paragraph-spacing-set",
+          "kind": "affects-same",
+          "why": "all reshape the document's global theme/formatting layer",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:set-as-default",
+      "node_type": "subfeature",
+      "name": "Set as Default",
+      "parent": "feature:document-formatting",
+      "what_it_does": "Sets the current theme/style-set/spacing formatting as the default for new documents based on this template.",
+      "affects": "the template's default formatting",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Microsoft Word dialog — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: the template's default formatting.",
+      "behavior_record": {
+        "effect": "Opens the Microsoft Word dialog — the surface that presents this capability's options (3 controls enumerated in the structural pass). Applying a choice there changes: the template's default formatting.",
+        "options": [
+          {
+            "name": "Yes",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:set-as-default"
+            ]
+          },
+          {
+            "name": "No",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:set-as-default"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:set-as-default"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-design",
+            "el:quick-styles-set-as-default"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:quick-styles-set-as-default-dialog",
+      "location": "ui:ribbon-design",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-design/icon-quick-styles-set-as-default.png",
+        "screenshots/ui-quick-styles-set-as-default-dialog/tab-single.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

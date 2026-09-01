@@ -1,0 +1,787 @@
+{
+  "feature": {
+    "id": "feature:object-arrange",
+    "node_type": "feature",
+    "name": "Arrange objects",
+    "what_it_does": "Position and order any selected drawing object — text wrapping, position, z-order, alignment, grouping, rotation, the selection pane, and alt text.",
+    "affects": "the placement, ordering and metadata of the selected object",
+    "audience_breadth": "most",
+    "behavior": "Position and order any selected drawing object — text wrapping, position, z-order, alignment, grouping, rotation, the selection pane, and alt text. Group controls: subfeature:object-align, subfeature:object-alt-text, subfeature:object-group, subfeature:object-position, subfeature:object-reorder, subfeature:object-rotate, subfeature:object-selection-pane, subfeature:object-text-wrap",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-chart-format"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-chart-format",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:object-align",
+      "subfeature:object-alt-text",
+      "subfeature:object-group",
+      "subfeature:object-position",
+      "subfeature:object-reorder",
+      "subfeature:object-rotate",
+      "subfeature:object-selection-pane",
+      "subfeature:object-text-wrap"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:insert-pictures",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:object-align",
+      "node_type": "subfeature",
+      "name": "Align",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Aligns/distributes the selected object(s) to the page/margin/each other (menu).",
+      "affects": "the object's alignment",
+      "audience_breadth": "most",
+      "behavior": "Opens Align (dropdown). Contents (15 controls): Color swatches, Align Left, Align Center, Align Right, Align Top, Align Middle, Align Bottom, Distribute Horizontally, Distribute Vertically, Align to Page, Align to Margin, Align Selected Objects, Use Alignment Guides, View Gridlines, Grid Settings.... [flyout of subfeature:object-align — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-align-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-object-align-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-object-align-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-object-align-menu.png",
+        "screenshots/ui-ribbon-chart-format-object-align-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-alt-text",
+      "node_type": "subfeature",
+      "name": "Alt Text",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Opens the Alt Text pane to author accessibility descriptions for the object.",
+      "affects": "the object's accessibility alt text",
+      "audience_breadth": "niche",
+      "behavior": "Opens Alt Text (pane). Contents (3 controls): Minimize, Restore, Close. [the subfeature:object-alt-text pane (docked/floating), enumerated one level — pane controls act on the pane's function (endpoints)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-alt-text-pane-ribbon"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-alt-text-pane-ribbon-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-alt-text-pane-ribbon.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-alt-text-pane-ribbon.png",
+        "screenshots/ui-ribbon-chart-format-alt-text-pane-ribbon-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-group",
+      "node_type": "subfeature",
+      "name": "Group",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Groups multiple objects into one (or ungroups) so they move together.",
+      "affects": "the grouping of the selected objects",
+      "audience_breadth": "niche",
+      "behavior": "Direct action: Groups multiple objects into one (or ungroups) so they move together. Applied immediately to the grouping of the selected objects; toggle state (where applicable) is reflected by the button's highlighted look.",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-objects-group-menu"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-objects-group-menu.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-objects-group-menu.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-position",
+      "node_type": "subfeature",
+      "name": "Position",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Places the object at a preset position on the page with text wrapping (gallery).",
+      "affects": "the object's page position",
+      "audience_breadth": "most",
+      "behavior": "Opens Position (dropdown). Contents (13 controls): Color swatches, Position, In Line with Text, Position in Top Left with Square Text Wrapping, Position in Top Center with Square Text Wrapping, Position in Top Right with Square Text Wrapping, Position in Middle Left with Square Text Wrapping, Position in Middle Center with Square Text Wrapping, Position in Middle Right with Square Text Wrapping, Position in Bottom Left with Square Text Wrapping, Position in Bottom Center with Square Text Wrapping, Position in Bottom Right with Square Text Wrapping, More Layout Options.... [flyout of subfeature:object-position — commands/tiles are endpoints; openers descended per the depth-endpoint rule; sections: In Line with Text, With Text Wrapping]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-picture-position-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-picture-position-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-position-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-picture-position-gallery.png",
+        "screenshots/ui-ribbon-chart-format-picture-position-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-reorder",
+      "node_type": "subfeature",
+      "name": "Bring Forward / Send Backward",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Changes the object's z-order relative to other objects and the text (bring forward/to front, send backward/to back — variations of z-order).",
+      "affects": "the object's stacking order",
+      "audience_breadth": "most",
+      "behavior": "Opens Bring Forward (dropdown) (dropdown). Contents (3 controls): Bring Forward, Bring to Front, Bring in Front of Text. [flyout of subfeature:object-reorder — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-bring-forward-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-send-backward-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-bring-forward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-send-backward"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-shape-format-object-bring-forward-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-object-bring-forward.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-object-bring-forward.png",
+        "screenshots/ui-ribbon-shape-format-object-bring-forward-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-rotate",
+      "node_type": "subfeature",
+      "name": "Rotate",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Rotates or flips the object (right 90°, flip horizontal/vertical, more options).",
+      "affects": "the object's rotation",
+      "audience_breadth": "most",
+      "behavior": "Opens Rotate (dropdown). Contents (5 controls): Rotate Right 90°, Rotate Left 90°, Flip Vertical, Flip Horizontal, More Rotation Options.... [flyout of subfeature:object-rotate — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-object-rotate-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-graphics-format-object-rotate-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-object-rotate-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-object-rotate-gallery.png",
+        "screenshots/ui-ribbon-graphics-format-object-rotate-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-text-wrap",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-selection-pane",
+      "node_type": "subfeature",
+      "name": "Selection Pane",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Opens the Selection pane listing every object for show/hide/reorder/rename.",
+      "affects": "opens the Selection pane",
+      "audience_breadth": "niche",
+      "behavior": "Opens Selection Pane... (pane). Contents (3 controls): Minimize, Restore, Close. [the subfeature:object-selection-pane pane (docked/floating), enumerated one level — pane controls act on the pane's function (endpoints)]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-selection-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-selection-pane",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-selection-pane.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-selection-pane.png",
+        "screenshots/ui-ribbon-chart-format-selection-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-text-wrap",
+      "node_type": "subfeature",
+      "name": "Wrap Text",
+      "parent": "feature:object-arrange",
+      "what_it_does": "Sets how document text wraps around the object (in line, square, tight, behind…).",
+      "affects": "how text flows around the object",
+      "audience_breadth": "most",
+      "behavior": "Opens Wrap Text (dropdown). Contents (12 controls): In Line with Text, Square, Tight, Through, Top and Bottom, Behind Text, In Front of Text, Edit Wrap Points, Move with Text, Fix Position on Page, Set as Default Layout, More Layout Options.... Sub-surfaces: ui:ribbon-picture-format-layout-options-dialog-size-dialog. [flyout of subfeature:object-text-wrap — commands/tiles are endpoints; openers descended per the depth-endpoint rule]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-chart-format",
+            "el:ribbon-chart-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-graphics-format",
+            "el:ribbon-graphics-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-picture-format",
+            "el:ribbon-picture-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-smart-art-format",
+            "el:ribbon-smart-art-format-text-wrap-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-chart-format-text-wrap-dropdown",
+      "location": "ui:ribbon-chart-format",
+      "screenshot": "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-text-wrap-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-picture-format/icon-ribbon-picture-format-text-wrap-gallery.png",
+        "screenshots/ui-ribbon-chart-format-text-wrap-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:object-position",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-align",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-rotate",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:object-reorder",
+          "kind": "affects-same",
+          "why": "all reposition/reorder the same selected object on the page",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "measured"
+    }
+  ]
+}

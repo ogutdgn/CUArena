@@ -1,0 +1,55 @@
+{
+  "id": "subfeature:text-highlight-color-picker",
+  "node_type": "subfeature",
+  "name": "Text Highlight Color",
+  "parent": "feature:font",
+  "what_it_does": "Applies a highlighter color behind the text; the dropdown picks the color.",
+  "affects": "the selection's highlight color",
+  "audience_breadth": "most",
+  "behavior": "Opens subfeature:text-highlight-color-picker (dropdown). Contents (5 controls): Text Highlight Color, High-contrast only, No Color, Stop Highlighting, Color swatches. [the subfeature:text-highlight-color-picker flyout — items are endpoints; swatches pixel-sampled; sections: Gallery Filters] Appears as a highlighter pen over text with a yellow bar and dropdown.",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:text-highlight-color-picker"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:text-highlight-color-picker-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:text-highlight-color-dropdown",
+  "location": "ui:ribbon-home",
+  "screenshot": "screenshots/ui-ribbon-home/icon-text-highlight-color-picker.png",
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-text-highlight-color-picker.png",
+    "screenshots/ui-text-highlight-color-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-color-picker",
+      "kind": "affects",
+      "why": "all apply a color (text / highlight / fill) to the selection",
+      "source": "shared-target"
+    },
+    {
+      "target": "subfeature:shading-color-picker",
+      "kind": "affects",
+      "why": "all apply a color (text / highlight / fill) to the selection",
+      "source": "shared-target"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

@@ -1,0 +1,377 @@
+{
+  "method": "lookup: everyone=1.0, most=0.65, niche=0.30, role-specific=0.40",
+  "nodes": {
+    "feature:acrobat": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "feature:add-ins": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "feature:clipboard": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "feature:comments": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:editing": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:editor": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:esignature": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "feature:font": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "feature:header-footer": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:illustrations": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "feature:links": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:media": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "feature:pages": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:paragraph": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "feature:styles": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:symbols": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:tables": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "feature:text": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "feature:voice": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:create-pdf": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:office-addins": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:copy": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:cut": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:format-painter": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:office-clipboard": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:paste": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:insert-new-comment": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:find": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:replace": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:select": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:editor": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:esignature-fields": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:bold": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:change-case": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:clear-formatting": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:font-color-picker": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:font-dialog": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:font-size-decrease": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:font-size-increase": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:font-size": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:font": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:italic": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:strikethrough": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:subscript": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:superscript": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:text-effects": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:text-highlight-color-picker": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:underline-gallery": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:footer-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:header-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:page-number-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:chart-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:icon-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:insert-3d-models": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:insert-pictures": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:screenshot-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:shapes-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:smart-art-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:bookmark-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:cross-reference-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:insert-link": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:online-videos-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:blank-page-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:cover-page-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:page-break-insert": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:align-center": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:align-justify": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:align-left": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:align-right": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:borders-selection-gallery": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:bullets-gallery": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:indent-decrease": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:indent-increase": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:line-spacing": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:multilevel-list": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:numbering-gallery": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:paragraph-dialog": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:paragraph-marks": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:shading-color-picker": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:sort": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:quick-styles": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:styles-pane": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:equation-insert-gallery": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:symbol-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:table-insert": {
+      "audience_breadth": "everyone",
+      "score": 1.0
+    },
+    "subfeature:date-and-time-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:drop-cap-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:object-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:quick-parts-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:signature-line-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:text-box-insert": {
+      "audience_breadth": "most",
+      "score": 0.65
+    },
+    "subfeature:word-art-insert": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    },
+    "subfeature:dictate": {
+      "audience_breadth": "niche",
+      "score": 0.3
+    }
+  }
+}

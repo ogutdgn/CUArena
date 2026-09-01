@@ -1,0 +1,40 @@
+{
+  "id": "subfeature:change-case",
+  "node_type": "subfeature",
+  "name": "Change Case",
+  "parent": "feature:font",
+  "what_it_does": "Changes the capitalization of the selected text (Sentence case, lowercase, UPPERCASE, Capitalize Each Word, tOGGLE cASE).",
+  "affects": "the case of the selected text",
+  "audience_breadth": "most",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home",
+        "el:change-case-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "opens": "ui:change-case-menu",
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-home/icon-change-case-gallery.png",
+    "screenshots/ui-change-case-menu/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:font-dialog",
+      "kind": "uses",
+      "why": "consolidated in the Font dialog",
+      "source": "co-location"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

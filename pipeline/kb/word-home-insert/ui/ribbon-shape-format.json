@@ -1,0 +1,702 @@
+{
+  "id": "ui:ribbon-shape-format",
+  "kind": "tab",
+  "label": "Shape Format (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Drawing Tools' family; exists only while: a drawn shape is selected. Groups: Insert Shapes, Shape Styles, WordArt Styles, Text, Accessibility, Arrange, Size. Appeared on the 'shape' probe. Also appears when: a text box is selected ('textbox' probe).",
+  "screenshot": "screenshots/ui-ribbon-shape-format/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-shape-format-shapes-insert-gallery",
+      "control_type": "menuitem",
+      "label": "ShapesInsertGallery",
+      "icon": {
+        "description": "ShapesInsertGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-shapes-insert-gallery.png"
+      },
+      "tooltip": "Insert ready-made shapes, such as circles, squares, and arrows.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        20,
+        84,
+        195,
+        158
+      ],
+      "state_notes": "group 'Insert Shapes'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-object-edit-shape-menu",
+      "control_type": "menuitem",
+      "label": "Edit Shape",
+      "icon": {
+        "description": "Edit Shape control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-object-edit-shape-menu.png"
+      },
+      "tooltip": "Change the shape of this drawing, or convert it to a freeform shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        197,
+        82,
+        296,
+        106
+      ],
+      "state_notes": "group 'Insert Shapes'; keytip Alt, J D, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-box-insert",
+      "control_type": "button",
+      "label": "Draw Text Box",
+      "icon": {
+        "description": "Draw Text Box control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-box-insert.png"
+      },
+      "tooltip": "Draw a text box anywhere in your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        197,
+        108,
+        303,
+        132
+      ],
+      "state_notes": "group 'Insert Shapes'; keytip Alt, J D, X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-shape-styles-gallery",
+      "control_type": "menuitem",
+      "label": "ShapeStylesGallery",
+      "icon": {
+        "description": "ShapeStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-shape-styles-gallery.png"
+      },
+      "tooltip": "Quickly add a visual style to the selected shape or line.\n\nEach style uses a unique combination of colors, lines, and other effects to change the shape's appearance. Hover over a Quick Style in the gallery to preview your new look.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        319,
+        90,
+        742,
+        150
+      ],
+      "state_notes": "group 'Shape Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-shape-fill-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Fill",
+      "icon": {
+        "description": "Shape Fill control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-shape-fill-color-picker.png"
+      },
+      "tooltip": "Fill the selected shape with a solid color, gradient, picture, or texture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        744,
+        82,
+        834,
+        106
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J D, S F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Outline",
+      "icon": {
+        "description": "Shape Outline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-outline-color-picker.png"
+      },
+      "tooltip": "Pick the color, width, and line style for the outline of your shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        744,
+        108,
+        858,
+        132
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J D, S O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-shape-effects-menu",
+      "control_type": "menuitem",
+      "label": "Shape Effects",
+      "icon": {
+        "description": "Shape Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-shape-effects-menu.png"
+      },
+      "tooltip": "Apply a visual effect to the selected shape, such as shadow, glow, reflection, or 3-D rotation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        744,
+        134,
+        858,
+        158
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J D, S E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-object-format-dialog",
+      "control_type": "button",
+      "label": "Format Object...",
+      "icon": {
+        "description": "Format Object... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-object-format-dialog.png"
+      },
+      "tooltip": "Make fine-tuned adjustments to the look of your shape using the Format Shape task pane.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        850,
+        160,
+        866,
+        176
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J D, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-styles-gallery",
+      "control_type": "menuitem",
+      "label": "TextStylesGallery",
+      "icon": {
+        "description": "TextStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-styles-gallery.png"
+      },
+      "tooltip": "Add some artistic flair by choosing between predefined text styles.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        874,
+        90,
+        1073,
+        150
+      ],
+      "state_notes": "group 'WordArt Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-fill-color-picker",
+      "control_type": "splitbutton",
+      "label": "Text Fill",
+      "icon": {
+        "description": "Text Fill control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-fill-color-picker.png"
+      },
+      "tooltip": "Fill the text with a solid color, gradient, picture, or texture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1075,
+        82,
+        1154,
+        106
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J D, T I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Text Outline",
+      "icon": {
+        "description": "Text Outline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-outline-color-picker.png"
+      },
+      "tooltip": "Customize the outline of your text by choosing the color, width and line style.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1075,
+        108,
+        1178,
+        132
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J D, T O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-effects-menu",
+      "control_type": "menuitem",
+      "label": "Text Effects",
+      "icon": {
+        "description": "Text Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-effects-menu.png"
+      },
+      "tooltip": "Turn your work into a work of art. \n\nAdd a visual effect such as shadow, glow or reflection to your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1075,
+        134,
+        1178,
+        158
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J D, T X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-word-art-format-dialog",
+      "control_type": "button",
+      "label": "Format Text Effects...",
+      "icon": {
+        "description": "Format Text Effects... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-word-art-format-dialog.png"
+      },
+      "tooltip": "Show the Format Text Effects task pane to change text properties.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1170,
+        160,
+        1186,
+        176
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J D, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-direction-gallery",
+      "control_type": "menuitem",
+      "label": "Text Direction",
+      "icon": {
+        "description": "Text Direction control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-direction-gallery.png"
+      },
+      "tooltip": "Change the orientation of text to vertical, stacked, or rotate it to the desired direction.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1194,
+        82,
+        1310,
+        106
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J D, A X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-align-gallery",
+      "control_type": "menuitem",
+      "label": "Align Text",
+      "icon": {
+        "description": "Align Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-align-gallery.png"
+      },
+      "tooltip": "Change how your text is aligned within the text box.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1194,
+        108,
+        1290,
+        132
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J D, A T 1; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-box-link-create",
+      "control_type": "button",
+      "label": "Create Link",
+      "icon": {
+        "description": "Create Link control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-box-link-create.png"
+      },
+      "tooltip": "Let your text flow from one textbox to another.\n\nClick an empty text box to link it to the current one.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1194,
+        134,
+        1286,
+        158
+      ],
+      "state_notes": "group 'Text'; keytip Alt, J D, C; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-alt-text-pane-ribbon",
+      "control_type": "button",
+      "label": "Alt Text",
+      "icon": {
+        "description": "Alt Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-alt-text-pane-ribbon.png"
+      },
+      "tooltip": "Create text descriptions of objects for screen readers.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1331,
+        82,
+        1373,
+        158
+      ],
+      "state_notes": "group 'Accessibility'; keytip Alt, J D, A T 2; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-picture-position-gallery",
+      "control_type": "menuitem",
+      "label": "Position",
+      "icon": {
+        "description": "Position control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-picture-position-gallery.png"
+      },
+      "tooltip": "Choose where the selected object will appear on the page.\n\nText will automatically wrap around the object so that it's still easy to read.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1394,
+        82,
+        1442,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, P O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-text-wrap-gallery",
+      "control_type": "menuitem",
+      "label": "Wrap Text",
+      "icon": {
+        "description": "Wrap Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-text-wrap-gallery.png"
+      },
+      "tooltip": "Choose how your text wraps around the selected object.\n\nFor example, you can choose to have the text continue around the object or cross right over it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1444,
+        82,
+        1486,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, T W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-object-bring-forward",
+      "control_type": "splitbutton",
+      "label": "Bring Forward",
+      "icon": {
+        "description": "Bring Forward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-object-bring-forward.png"
+      },
+      "tooltip": "Bring the selected object forward one level, or bring it in front of all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1488,
+        82,
+        1619,
+        106
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, A F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-object-send-backward",
+      "control_type": "splitbutton",
+      "label": "Send Backward",
+      "icon": {
+        "description": "Send Backward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-object-send-backward.png"
+      },
+      "tooltip": "Send the selected object back one level, or send it behind all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1488,
+        108,
+        1625,
+        132
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, A E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-selection-pane",
+      "control_type": "button",
+      "label": "Selection Pane...",
+      "icon": {
+        "description": "Selection Pane... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-selection-pane.png"
+      },
+      "tooltip": "See a list of all your objects.\n\nThis makes it easier to select objects, change their order, or change their visibility.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1488,
+        134,
+        1598,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, A P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-object-align-menu",
+      "control_type": "menuitem",
+      "label": "Align",
+      "icon": {
+        "description": "Align control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-object-align-menu.png"
+      },
+      "tooltip": "Change the placement of your selected objects on the page.\n\nThis is great for aligning objects to the margins or the edge of the page. You can also align them relative to one another.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1627,
+        82,
+        1699,
+        106
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, A A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-objects-group-menu",
+      "control_type": "menuitem",
+      "label": "Group",
+      "icon": {
+        "description": "Group control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-objects-group-menu.png"
+      },
+      "tooltip": "Join objects together to move and format them as if they were a single object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1627,
+        108,
+        1704,
+        132
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, A G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-object-rotate-gallery",
+      "control_type": "menuitem",
+      "label": "Rotate",
+      "icon": {
+        "description": "Rotate control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-object-rotate-gallery.png"
+      },
+      "tooltip": "Rotate or flip the selected object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1627,
+        134,
+        1705,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J D, A Y; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-more.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1840,
+        91,
+        1857,
+        102
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-less.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1840,
+        102,
+        1857,
+        113
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-more.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1840,
+        123,
+        1857,
+        134
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-less.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1840,
+        134,
+        1857,
+        145
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-shape-format-layout-options-dialog-size",
+      "control_type": "button",
+      "label": "Size and Position...",
+      "icon": {
+        "description": "Size and Position... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-shape-format/icon-layout-options-dialog-size.png"
+      },
+      "tooltip": "See more options for changing the size of your shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-shape-format",
+      "bounds": [
+        1850,
+        160,
+        1866,
+        176
+      ],
+      "state_notes": "group 'Size'; keytip Alt, J D, S Z; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "a drawn shape is selected | a text box is selected"
+}

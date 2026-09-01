@@ -1,0 +1,82 @@
+{
+  "boundaries": {
+    "P0": 0.78,
+    "P1": 0.66,
+    "P2": 0.52,
+    "P3": 0.36
+  },
+  "rule": "score-threshold cut; boundary nodes floored to P4",
+  "counts": {
+    "P0": 3,
+    "P1": 11,
+    "P2": 10,
+    "P3": 10,
+    "P4": 20
+  },
+  "layers": {
+    "P0": [
+      "subfeature:bold",
+      "subfeature:font-size",
+      "subfeature:font"
+    ],
+    "P1": [
+      "subfeature:italic",
+      "subfeature:underline-gallery",
+      "feature:clipboard",
+      "feature:font",
+      "subfeature:copy",
+      "subfeature:paste",
+      "subfeature:align-center",
+      "subfeature:align-left",
+      "subfeature:font-color-picker",
+      "subfeature:cut",
+      "subfeature:find"
+    ],
+    "P2": [
+      "feature:paragraph",
+      "subfeature:font-dialog",
+      "subfeature:align-right",
+      "subfeature:paragraph-dialog",
+      "feature:styles",
+      "subfeature:bullets-gallery",
+      "subfeature:numbering-gallery",
+      "subfeature:quick-styles",
+      "feature:editing",
+      "subfeature:line-spacing"
+    ],
+    "P3": [
+      "subfeature:align-justify",
+      "subfeature:format-painter",
+      "subfeature:replace",
+      "subfeature:text-highlight-color-picker",
+      "subfeature:indent-decrease",
+      "subfeature:indent-increase",
+      "subfeature:strikethrough",
+      "subfeature:shading-color-picker",
+      "subfeature:font-size-decrease",
+      "subfeature:font-size-increase"
+    ],
+    "P4": [
+      "subfeature:clear-formatting",
+      "subfeature:borders-selection-gallery",
+      "subfeature:select",
+      "subfeature:change-case",
+      "subfeature:paragraph-marks",
+      "feature:editor",
+      "subfeature:editor",
+      "subfeature:subscript",
+      "subfeature:superscript",
+      "subfeature:multilevel-list",
+      "subfeature:styles-pane",
+      "feature:acrobat",
+      "feature:add-ins",
+      "feature:voice",
+      "subfeature:create-pdf",
+      "subfeature:office-addins",
+      "subfeature:dictate",
+      "subfeature:text-effects",
+      "subfeature:office-clipboard",
+      "subfeature:sort"
+    ]
+  }
+}

@@ -1,0 +1,963 @@
+{
+  "feature": {
+    "id": "feature:equation-tools",
+    "node_type": "feature",
+    "name": "Equation",
+    "what_it_does": "Author a mathematical equation in the selected math zone — conversions, symbols and structures (fractions, scripts, radicals, integrals, matrices…).",
+    "affects": "the content of the selected equation",
+    "audience_breadth": "niche",
+    "cohesion": "capability",
+    "behavior": "Author a mathematical equation in the selected math zone — conversions, symbols and structures (fractions, scripts, radicals, integrals, matrices…).",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-equation"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-equation",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:equation-conversions",
+      "subfeature:equation-ink",
+      "subfeature:equation-structures",
+      "subfeature:equation-symbols"
+    ],
+    "connections": [
+      {
+        "target": "subfeature:equation-insert-gallery",
+        "kind": "requires",
+        "why": "measured: the hosting contextual tab appears only in this object's context",
+        "source": "contextual"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:equation-conversions",
+      "node_type": "subfeature",
+      "name": "Conversions",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Converts the equation's notation between professional/linear, Unicode, LaTeX and text (Convert menu + Equation Options).",
+      "affects": "the equation's notation format",
+      "audience_breadth": "niche",
+      "behavior": "Running it changes the selection's formatting (the equation's notation format). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+      "behavior_record": {
+        "effect": "Running it changes the selection's formatting (the equation's notation format). Measured toggle: a second press from the same state reverts the change (on/off behavior).",
+        "options": [],
+        "defaults": "baseline: the command applied its effect from the staged neutral state (measured delta above); pre-selected options not separately diffed",
+        "state_rules": "enabled in context(s): equation; disabled in: header-edit (measured via GetEnabledMso) — the disabled contexts are its preconditions; no pressed state observed (a command, not a toggle)",
+        "dynamics": null,
+        "extra": "idMso: EquationNormalText",
+        "pending": [
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:equation-conversions"
+        ],
+        "gesture": "executeMso(EquationNormalText)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-unicode-format"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-la-tex-format"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-normal-text"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-convert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-convert-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-options"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-equation-equation-convert-dropdown",
+      "location": "ui:ribbon-equation",
+      "screenshot": "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-unicode-format.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-unicode-format.png",
+        "screenshots/ui-ribbon-equation-equation-convert-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:equation-ink",
+      "node_type": "subfeature",
+      "name": "Ink Equation",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Opens a canvas to hand-write a math equation that is recognized into typeset math.",
+      "affects": "the equation content (ink input)",
+      "audience_breadth": "niche",
+      "behavior": "measured via enablement matrix; see behavior_record",
+      "behavior_record": {
+        "effect": null,
+        "options": [],
+        "defaults": null,
+        "state_rules": null,
+        "dynamics": null,
+        "extra": null,
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "state_rules (enablement not resolved — no idMso mapped)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:equation-ink"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-ink-equation"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-equation",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-ink-equation.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:equation-structures",
+      "node_type": "subfeature",
+      "name": "Structures",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Inserts a math structure template into the equation — fraction, script, radical, integral, large operator, bracket, function, accent, limit/log, operator, or matrix (a palette of templates).",
+      "affects": "the equation content (adds a structure)",
+      "audience_breadth": "niche",
+      "behavior": "Opens the Fraction dropdown — the surface that presents this capability's options (11 controls enumerated in the structural pass). Applying a choice there changes: the equation content (adds a structure).",
+      "behavior_record": {
+        "effect": "Opens the Fraction dropdown — the surface that presents this capability's options (11 controls enumerated in the structural pass). Applying a choice there changes: the equation content (adds a structure).",
+        "options": [
+          {
+            "name": "Color swatches",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Fraction",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure Stacked Fraction",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure Skewed Fraction",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure Linear Fraction",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure Small Fraction",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure dy over dx",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure cap delta y over cap delta x",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure partial y over partial x",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure delta y over delta x",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          },
+          {
+            "name": "Equation Structure pi Over 2",
+            "found": null,
+            "evidence": [
+              "behavior/measurements.json#subfeature:equation-structures"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: EquationMatrixGallery",
+        "pending": [
+          "per-option functional differences (each option's individual effect enumerated structurally in Step 5; not measured one-by-one this pass)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:equation-structures"
+        ],
+        "gesture": "ribbon-click (opens a surface — not ExecuteMso'd: modal launcher)",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-fraction-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-script-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-radical-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-integral-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-large-operator-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-delimiter-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-function-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-accent-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-limit-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-operator-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-matrix-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ribbon-equation-equation-fraction-dropdown",
+      "location": "ui:ribbon-equation",
+      "screenshot": "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-fraction-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-fraction-gallery.png",
+        "screenshots/ui-ribbon-equation-equation-fraction-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:equation-symbols",
+      "node_type": "subfeature",
+      "name": "Equation Symbols",
+      "parent": "feature:equation-tools",
+      "what_it_does": "Inserts a mathematical symbol (operators, Greek letters, arrows…) from the gallery.",
+      "affects": "the equation content (adds a symbol)",
+      "audience_breadth": "niche",
+      "behavior": "enabled in every staged context (no object/selection precondition measured)",
+      "behavior_record": {
+        "effect": null,
+        "options": [
+          {
+            "name": "Equation Symbol Plus Minus",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Infinity",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Equal",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Not Equal To",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Approximately",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Multiplication Sign",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Division Sign",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Factorial",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Proportional To",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Less Than",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Much Less Than",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Greater Than",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Much Greater Than",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Less Than or Equal To",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Greater Than or Equal To",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Minus Plus",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Approximately Equal To",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Almost Equal To (Asymptotic To)",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Identical To",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol For All",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Complement",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Partial Differential",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Radical Sign",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Cube Root",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Fourth Root",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Union",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Intersection",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Empty Set",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Percentage",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Degrees",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Degrees Fahrenheit",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Degrees Celsius",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Increment",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Nabla",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol There Exists",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol There Does Not Exist",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Element Of",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Contains as Member",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Left Arrow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Up Arrow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Right Arrow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Down Arrow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Left-Right Arrow",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Therefore",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Plus",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Minus",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Not Sign",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Alpha",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Beta",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Gamma",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Delta",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Epsilon",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Epsilon Variant",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Theta",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Theta Variant",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Mu",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Pi",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Rho",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Sigma",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Tau",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Phi",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Omega",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Asterisk Operator",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Bullet Operator",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Vertical Ellipsis",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Midline Horizontal Ellipsis",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Up Right Diagonal Ellipsis",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Down Right Diagonal Ellipsis",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Alef",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol Bet",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          },
+          {
+            "name": "Equation Symbol End of Proof (Q.E.D.)",
+            "found": "gallery tile — applies this named style/item to the selected object (variation of the capability)",
+            "evidence": [
+              "journal:run-20260713-122521-repair-galleries"
+            ]
+          }
+        ],
+        "defaults": null,
+        "state_rules": "enabled in every staged context (no object/selection precondition measured)",
+        "dynamics": null,
+        "extra": "idMso: EquationSymbolsInsertGallery",
+        "pending": [
+          "effect delta (idMso not resolved or ExecuteMso not applicable in the staged contexts; the control's press outcome was measured in Steps 2-3 — see its skeleton element)",
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:equation-symbols",
+          "journal:run-20260713-122521-repair-galleries"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-equation",
+            "el:ribbon-equation-equation-symbols-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": null,
+      "location": "ui:ribbon-equation",
+      "screenshot": "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-symbols-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-equation/icon-ribbon-equation-equation-symbols-insert-gallery.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

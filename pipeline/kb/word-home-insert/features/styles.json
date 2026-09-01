@@ -1,0 +1,44 @@
+{
+  "id": "feature:styles",
+  "node_type": "feature",
+  "name": "Styles",
+  "what_it_does": "Apply named, reusable style sets that bundle character and paragraph formatting.",
+  "affects": "the paragraph/character style applied to the selection",
+  "audience_breadth": "most",
+  "behavior": "Apply named, reusable style sets that bundle character and paragraph formatting. Group controls: subfeature:quick-styles, subfeature:styles-pane",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-home"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-home",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:quick-styles",
+    "subfeature:styles-pane"
+  ],
+  "connections": [
+    {
+      "target": "feature:font",
+      "kind": "uses",
+      "why": "styles bundle character formatting",
+      "source": "observed"
+    },
+    {
+      "target": "feature:paragraph",
+      "kind": "uses",
+      "why": "styles bundle paragraph formatting",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

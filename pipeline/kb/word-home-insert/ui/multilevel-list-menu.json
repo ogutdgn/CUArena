@@ -1,0 +1,10 @@
+{
+  "id": "ui:multilevel-list-menu",
+  "kind": "menu",
+  "label": "Multilevel List",
+  "purpose": null,
+  "screenshot": "screenshots/ui-multilevel-list-menu/surface.png",
+  "children": [],
+  "child_containers": [],
+  "explored": false
+}

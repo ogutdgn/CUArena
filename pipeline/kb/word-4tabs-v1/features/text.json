@@ -1,0 +1,376 @@
+{
+  "feature": {
+    "id": "feature:text",
+    "node_type": "feature",
+    "name": "Text",
+    "what_it_does": "Insert text objects and building blocks: text boxes, Quick Parts/fields, WordArt, drop caps, signature lines, date/time and embedded objects.",
+    "affects": "document content (adds text objects/fields)",
+    "audience_breadth": "most",
+    "cohesion": "catalog",
+    "behavior": "Insert text objects and building blocks: text boxes, Quick Parts/fields, WordArt, drop caps, signature lines, date/time and embedded objects.",
+    "behavior_record": null,
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-insert"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-insert",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:text-box-insert",
+      "subfeature:quick-parts-insert",
+      "subfeature:word-art-insert",
+      "subfeature:drop-cap-insert",
+      "subfeature:signature-line-insert",
+      "subfeature:date-and-time-insert",
+      "subfeature:object-insert"
+    ],
+    "connections": [
+      {
+        "target": "feature:font",
+        "kind": "affects-same",
+        "why": "text objects carry character formatting",
+        "source": "inference"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:text-box-insert",
+      "node_type": "subfeature",
+      "name": "Text Box",
+      "parent": "feature:text",
+      "what_it_does": "Inserts a floating text container from a gallery of built-in designs or by drawing one; a selected text box activates the Shape Format contextual tab (measured).",
+      "affects": "document content (adds a floating text container)",
+      "audience_breadth": "most",
+      "behavior": "Opens the Text Box dropdown — the surface that presents this capability's options (20 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a floating text container).",
+      "behavior_record": {
+        "effect": "Opens the Text Box dropdown — the surface that presents this capability's options (20 controls enumerated in the structural pass). Applying a choice there changes: document content (adds a floating text container).",
+        "options": [],
+        "defaults": null,
+        "state_rules": "enabled in context(s): chart-selected, header-edit, shape-selected, smartart-selected; disabled in: equation (measured via GetEnabledMso) — the disabled contexts are its preconditions",
+        "dynamics": null,
+        "extra": "idMso: TextBoxInsertWord",
+        "pending": [
+          "defaults / baseline-subtraction (file-channel diff not run per sub this pass)",
+          "dynamics not required below P1 (R6.6)"
+        ],
+        "evidence": [
+          "journal:run-20260713-045410-step6-measure",
+          "behavior/measurements.json#subfeature:text-box-insert"
+        ],
+        "gesture": "ribbon-click",
+        "build": "16.0.20131"
+      },
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:text-box-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-shape-format",
+            "el:ribbon-shape-format-text-box-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:text-box-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": "screenshots/ui-ribbon-insert/icon-text-box-insert-gallery.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-text-box-insert-gallery.png",
+        "screenshots/ui-text-box-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:word-art-insert",
+          "kind": "affects-same",
+          "why": "both create floating text Shapes (both measured to Shape Format context)",
+          "source": "shared-target"
+        },
+        {
+          "target": "subfeature:font",
+          "kind": "affects-same",
+          "why": "text inside a text box is formatted with the Font tools",
+          "source": "inference"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:quick-parts-insert",
+      "node_type": "subfeature",
+      "name": "Quick Parts",
+      "parent": "feature:text",
+      "what_it_does": "Inserts reusable building blocks: AutoText, document properties and fields; also saves the selection to the gallery. Also hosted on the Header & Footer contextual tab.",
+      "affects": "document content (adds building blocks/fields)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:quick-parts-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-quick-parts-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:quick-parts-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-quick-parts-insert-gallery.png",
+        "screenshots/ui-quick-parts-insert-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:word-art-insert",
+      "node_type": "subfeature",
+      "name": "WordArt",
+      "parent": "feature:text",
+      "what_it_does": "Inserts decorative styled text from a gallery; the result is a text object whose selection activates a Format contextual tab (measured: modern WordArt uses Shape Format; legacy WordArt objects surface a dedicated WordArt tab).",
+      "affects": "document content (adds decorative text)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:word-art-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:word-art-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-word-art-insert-gallery.png",
+        "screenshots/ui-word-art-insert-dropdown/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:text-box-insert",
+          "kind": "affects-same",
+          "why": "both create floating text Shapes (both measured to Shape Format context)",
+          "source": "shared-target"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:drop-cap-insert",
+      "node_type": "subfeature",
+      "name": "Drop Cap",
+      "parent": "feature:text",
+      "what_it_does": "Turns the paragraph's first letter into a large dropped capital (Dropped / In margin / options dialog); disabled until the document has text (measured).",
+      "affects": "the first paragraph character's layout",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:drop-cap-insert-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:drop-cap-insert-dropdown",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-drop-cap-insert-gallery.png",
+        "screenshots/ui-drop-cap-insert-dropdown/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:signature-line-insert",
+      "node_type": "subfeature",
+      "name": "Signature Line",
+      "parent": "feature:text",
+      "what_it_does": "Opens the Signature Setup dialog to insert a signature line naming the required signer (digital signature requires a certificate).",
+      "affects": "document content (adds a signature line object)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:signature-line-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:signature-line-insert-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:signature-line-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-signature-line-insert.png",
+        "screenshots/ui-signature-line-insert-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:date-and-time-insert",
+      "node_type": "subfeature",
+      "name": "Date & Time",
+      "parent": "feature:text",
+      "what_it_does": "Opens a dialog of date/time formats to insert the current date or time, optionally as an auto-updating field. Also hosted on the Header & Footer contextual tab.",
+      "affects": "document content (adds date/time text or field)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:date-and-time-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-header-footer",
+            "el:ribbon-header-footer-date-and-time-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:date-and-time-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-date-and-time-insert.png",
+        "screenshots/ui-date-and-time-insert-dialog/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:quick-parts-insert",
+          "kind": "co-location",
+          "why": "an auto-updating date is a field, the machinery Quick Parts exposes",
+          "source": "inference"
+        }
+      ],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    },
+    {
+      "id": "subfeature:object-insert",
+      "node_type": "subfeature",
+      "name": "Object",
+      "parent": "feature:text",
+      "what_it_does": "Embeds an OLE object (or inserts text from another file via the dropdown menu) into the document.",
+      "affects": "document content (adds an embedded object)",
+      "audience_breadth": "niche",
+      "behavior": null,
+      "behavior_record": null,
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:ole-objectct-insert"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-insert",
+            "el:ole-objectct-insert-dropdown"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:ole-objectct-insert-dialog",
+      "location": "ui:ribbon-insert",
+      "screenshot": null,
+      "screenshots": [
+        "screenshots/ui-ribbon-insert/icon-ole-objectct-insert.png",
+        "screenshots/ui-ole-objectct-insert-dialog/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}

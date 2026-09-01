@@ -1,0 +1,43 @@
+{
+  "id": "feature:illustrations",
+  "node_type": "feature",
+  "name": "Illustrations",
+  "what_it_does": "Insert graphic objects — pictures, shapes, icons, 3D models, SmartArt diagrams, charts and screenshots; each selected object surfaces its own Format contextual tab(s).",
+  "affects": "document content (adds graphic objects)",
+  "audience_breadth": "everyone",
+  "behavior": "Insert graphic objects — pictures, shapes, icons, 3D models, SmartArt diagrams, charts and screenshots; each selected object surfaces its own Format contextual tab(s). Group controls: subfeature:insert-pictures, subfeature:shapes-insert, subfeature:icon-insert, subfeature:insert-3d-models, subfeature:smart-art-insert, subfeature:chart-insert, subfeature:screenshot-insert",
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    }
+  ],
+  "shortcut": null,
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [],
+  "subfeatures": [
+    "subfeature:insert-pictures",
+    "subfeature:shapes-insert",
+    "subfeature:icon-insert",
+    "subfeature:insert-3d-models",
+    "subfeature:smart-art-insert",
+    "subfeature:chart-insert",
+    "subfeature:screenshot-insert"
+  ],
+  "connections": [
+    {
+      "target": "feature:clipboard",
+      "kind": "uses",
+      "why": "graphic objects are moved/duplicated through the clipboard",
+      "source": "observed"
+    }
+  ],
+  "boundary": false,
+  "explored": true,
+  "source": "measured"
+}

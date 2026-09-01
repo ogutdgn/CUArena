@@ -1,0 +1,823 @@
+{
+  "id": "ui:ribbon-insert",
+  "kind": "tab",
+  "label": "Insert tab",
+  "purpose": null,
+  "screenshot": "screenshots/ui-ribbon-insert/surface.png",
+  "children": [
+    {
+      "id": "el:cover-page-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Cover Page",
+      "icon": {
+        "description": "Cover Page control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-cover-page-insert-gallery.png"
+      },
+      "tooltip": "Your document will make a great first impression with a stylish cover page.\n\nMake it your own by tweaking the font and color options on the Design tab.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        20,
+        82,
+        62,
+        158
+      ],
+      "state_notes": "keytip Alt, N, V",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:cover-page-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:blank-page-insert",
+      "control_type": "button",
+      "label": "Blank Page",
+      "icon": {
+        "description": "Blank Page control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-blank-page-insert.png"
+      },
+      "tooltip": "Add a blank page anywhere in your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        64,
+        82,
+        106,
+        158
+      ],
+      "state_notes": "state changed: ['doc']; keytip Alt, N, N P",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:blank-page-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:page-break-insert",
+      "control_type": "button",
+      "label": "Page Break",
+      "icon": {
+        "description": "Page Break control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-page-break-insert.png"
+      },
+      "tooltip": "End the current page here and move to the next page.",
+      "shortcut": "Ctrl+Return",
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        108,
+        82,
+        150,
+        158
+      ],
+      "state_notes": "state changed: ['doc', 'format']; keytip Alt, N, B",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:page-break-insert",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:table-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Table",
+      "icon": {
+        "description": "Table control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-table-insert-gallery.png"
+      },
+      "tooltip": "A table is a great way to organize information within your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        166,
+        82,
+        208,
+        158
+      ],
+      "state_notes": "keytip Alt, N, T",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:table-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:flyout-anchor-insert-pictures",
+      "control_type": "menuitem",
+      "label": "Pictures",
+      "icon": {
+        "description": "Pictures control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-flyout-anchor-insert-pictures.png"
+      },
+      "tooltip": "Insert pictures from your computer, stock image library or online sources.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        224,
+        82,
+        271,
+        158
+      ],
+      "state_notes": "keytip Alt, N, P",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:flyout-anchor-insert-pictures-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:shapes-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Shapes",
+      "icon": {
+        "description": "Shapes control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-shapes-insert-gallery.png"
+      },
+      "tooltip": "Insert ready-made shapes, such as circles, squares, and arrows.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        273,
+        82,
+        315,
+        158
+      ],
+      "state_notes": "keytip Alt, N, S H",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:shapes-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:icon-insert-from-file",
+      "control_type": "button",
+      "label": "Icons",
+      "icon": {
+        "description": "Icons control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-icon-insert-from-file.png"
+      },
+      "tooltip": "Insert an icon to visually communicate using symbols.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        317,
+        82,
+        359,
+        158
+      ],
+      "state_notes": "keytip Alt, N, N S",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:icon-insert-from-file-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:insert3-dmodel-default",
+      "control_type": "splitbutton",
+      "label": "3D Models",
+      "icon": {
+        "description": "3D Models control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-insert3-dmodel-default.png"
+      },
+      "tooltip": "Insert a 3D model so you can rotate it and see all angles.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        361,
+        82,
+        416,
+        158
+      ],
+      "state_notes": "keytip Alt, N, S 3",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:insert3-dmodel-default-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:insert3-dmodel-default-dropdown",
+      "control_type": "splitbutton",
+      "label": "3D Models (dropdown)",
+      "icon": {
+        "description": "3D Models (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-insert3-dmodel-default-dropdown.png"
+      },
+      "tooltip": "Insert a 3D model so you can rotate it and see all angles.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        361,
+        82,
+        416,
+        158
+      ],
+      "state_notes": "keytip Alt, N, S 3",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:insert3-dmodel-default-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:smart-art-insert",
+      "control_type": "button",
+      "label": "SmartArt...",
+      "icon": {
+        "description": "SmartArt... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-smart-art-insert.png"
+      },
+      "tooltip": "Insert a SmartArt graphic to visually communicate information.\n\nSmartArt graphics range from graphical lists and process diagrams to more complex graphics, such as Venn diagrams and organization charts.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        418,
+        82,
+        470,
+        158
+      ],
+      "state_notes": "keytip Alt, N, M",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:smart-art-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:chart-insert",
+      "control_type": "button",
+      "label": "Chart...",
+      "icon": {
+        "description": "Chart... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-chart-insert.png"
+      },
+      "tooltip": "Make it easy to spot patterns and trends in your data by inserting a bar, area, or line chart.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        472,
+        82,
+        514,
+        158
+      ],
+      "state_notes": "keytip Alt, N, C",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:chart-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:screenshot-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Screenshot",
+      "icon": {
+        "description": "Screenshot control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-screenshot-insert-gallery.png"
+      },
+      "tooltip": "Quickly add a snapshot of any window that's open on your desktop to your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        516,
+        82,
+        579,
+        158
+      ],
+      "state_notes": "keytip Alt, N, S C",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:screenshot-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:movie-from-clip-organizer-insert",
+      "control_type": "button",
+      "label": "Online Videos...",
+      "icon": {
+        "description": "Online Videos... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-movie-from-clip-organizer-insert.png"
+      },
+      "tooltip": "Find and insert videos from a variety of online sources.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        595,
+        82,
+        637,
+        158
+      ],
+      "state_notes": "keytip Alt, N, N V",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:movie-from-clip-organizer-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:insert-link-gallery",
+      "control_type": "splitbutton",
+      "label": "Link",
+      "icon": {
+        "description": "Link control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-insert-link-gallery.png"
+      },
+      "tooltip": "Create a link in your document for quick access to webpages and files.\n\nHyperlinks can also take you to places in your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        653,
+        82,
+        695,
+        158
+      ],
+      "state_notes": "keytip Alt, N, I",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:insert-link-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:insert-link-gallery-dropdown",
+      "control_type": "splitbutton",
+      "label": "Link (dropdown)",
+      "icon": {
+        "description": "Link (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-insert-link-gallery-dropdown.png"
+      },
+      "tooltip": "Create a link in your document for quick access to webpages and files.\n\nHyperlinks can also take you to places in your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        653,
+        82,
+        695,
+        158
+      ],
+      "state_notes": "keytip Alt, N, I",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:insert-link-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:bookmark-insert",
+      "control_type": "button",
+      "label": "Bookmark...",
+      "icon": {
+        "description": "Bookmark... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-bookmark-insert.png"
+      },
+      "tooltip": "Bookmarks work with hyperlinks to let you jump to a specific place in your document.\n\nHere's how it works:\n1) Select the content you want to jump to\n2) Insert a bookmark\n3) Add a hyperlink that points to your bookmark",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        697,
+        82,
+        756,
+        158
+      ],
+      "state_notes": "keytip Alt, N, K",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:bookmark-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:cross-reference-insert",
+      "control_type": "button",
+      "label": "Cross-reference...",
+      "icon": {
+        "description": "Cross-reference... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-cross-reference-insert.png"
+      },
+      "tooltip": "Refer to specific places in your document, such as headings, figures, and tables.\n\nA cross-reference is a hyperlink where the label is automatically generated. It's great if you want to include the name of the thing you're referencing.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        758,
+        82,
+        812,
+        158
+      ],
+      "state_notes": "keytip Alt, N, R F",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:cross-reference-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:insert-new-comment",
+      "control_type": "button",
+      "label": "Comment",
+      "icon": {
+        "description": "Comment control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-insert-new-comment.png"
+      },
+      "tooltip": "Add a note about this part of the document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        828,
+        82,
+        887,
+        158
+      ],
+      "state_notes": "creates a pending draft comment anchored at the selection and opens its card (Edit + Post button measured in-frame); the comment is committed only on Post — draft discards on Escape",
+      "source": "measured:uia-card",
+      "triggers": "subfeature:insert-new-comment",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:header-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Header",
+      "icon": {
+        "description": "Header control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-header-insert-gallery.png"
+      },
+      "tooltip": "Headers help you to repeat content at the top of every page.\n\nThey're useful for showcasing information, like title, author, and page number.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        903,
+        82,
+        946,
+        158
+      ],
+      "state_notes": "keytip Alt, N, H",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:header-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:footer-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Footer",
+      "icon": {
+        "description": "Footer control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-footer-insert-gallery.png"
+      },
+      "tooltip": "Footers help you repeat content at the bottom of every page.\n\nThey're useful for showcasing information, like title, author, and page number.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        948,
+        82,
+        990,
+        158
+      ],
+      "state_notes": "keytip Alt, N, O",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:footer-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:header-footer-page-number-insert",
+      "control_type": "menuitem",
+      "label": "Page Number",
+      "icon": {
+        "description": "Page Number control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-header-footer-page-number-insert.png"
+      },
+      "tooltip": "Number the pages in your document.\n\nYou can choose from a variety of pre-defined looks or select your own format.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        992,
+        82,
+        1052,
+        158
+      ],
+      "state_notes": "keytip Alt, N, N U",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:header-footer-page-number-insert-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:text-box-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Text Box",
+      "icon": {
+        "description": "Text Box control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-text-box-insert-gallery.png"
+      },
+      "tooltip": "Got must-see content? Put it in a text box.\n\nA text box brings focus to the content it contains and is great for showcasing important text, such as headings or quotes.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1068,
+        82,
+        1110,
+        158
+      ],
+      "state_notes": "keytip Alt, N, X",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:text-box-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:quick-parts-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Quick Parts",
+      "icon": {
+        "description": "Quick Parts control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-quick-parts-insert-gallery.png"
+      },
+      "tooltip": "Insert preformatted text, auto-text, document properties, and fields anywhere in the document.\n\nTo reuse content in your document, select it and save it to the Quick Part Gallery.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1112,
+        82,
+        1154,
+        158
+      ],
+      "state_notes": "keytip Alt, N, Q",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:quick-parts-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:word-art-insert-gallery",
+      "control_type": "menuitem",
+      "label": "WordArt",
+      "icon": {
+        "description": "WordArt control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-word-art-insert-gallery.png"
+      },
+      "tooltip": "Add some artistic flair to your document using a WordArt text box.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1156,
+        82,
+        1206,
+        158
+      ],
+      "state_notes": "keytip Alt, N, W",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:word-art-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:drop-cap-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Drop Cap",
+      "icon": {
+        "description": "Drop Cap control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-drop-cap-insert-gallery.png"
+      },
+      "tooltip": "Create a large capital letter at the beginning of a paragraph.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1208,
+        82,
+        1250,
+        158
+      ],
+      "state_notes": "keytip Alt, N, R C",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:drop-cap-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:signature-line-insert",
+      "control_type": "splitbutton",
+      "label": "Signature Line",
+      "icon": {
+        "description": "Signature Line control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-signature-line-insert.png"
+      },
+      "tooltip": "Insert a signature line that specifies the individual who must sign.\n\nInserting a digital signature requires that you obtain a digital ID, such as one from a certified Microsoft partner.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1252,
+        82,
+        1384,
+        106
+      ],
+      "state_notes": "keytip Alt, N, G",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:signature-line-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:signature-line-insert-dropdown",
+      "control_type": "splitbutton",
+      "label": "Signature Line (dropdown)",
+      "icon": {
+        "description": "Signature Line (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-signature-line-insert-dropdown.png"
+      },
+      "tooltip": "Insert a signature line that specifies the individual who must sign.\n\nInserting a digital signature requires that you obtain a digital ID, such as one from a certified Microsoft partner.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1252,
+        82,
+        1384,
+        106
+      ],
+      "state_notes": "keytip Alt, N, G",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:signature-line-insert-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:date-and-time-insert",
+      "control_type": "button",
+      "label": "Date & Time...",
+      "icon": {
+        "description": "Date & Time... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-date-and-time-insert.png"
+      },
+      "tooltip": "Quickly add the current date or time.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1252,
+        108,
+        1352,
+        132
+      ],
+      "state_notes": "keytip Alt, N, D",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:date-and-time-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:ole-objectct-insert",
+      "control_type": "splitbutton",
+      "label": "Object...",
+      "icon": {
+        "description": "Object... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-ole-objectct-insert.png"
+      },
+      "tooltip": "Insert an embedded object or text from another file into your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1252,
+        134,
+        1344,
+        158
+      ],
+      "state_notes": "keytip Alt, N, J",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:ole-objectct-insert-dialog",
+      "unexplored": false
+    },
+    {
+      "id": "el:ole-objectct-insert-dropdown",
+      "control_type": "splitbutton",
+      "label": "Object... (dropdown)",
+      "icon": {
+        "description": "Object... (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-ole-objectct-insert-dropdown.png"
+      },
+      "tooltip": "Insert an embedded object or text from another file into your document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1252,
+        134,
+        1344,
+        158
+      ],
+      "state_notes": "small 2-item menu (area under the generic tooltip filter — re-measured with a 2.5k floor)",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:ole-object-insert-menu",
+      "unexplored": false
+    },
+    {
+      "id": "el:equation-insert-gallery",
+      "control_type": "splitbutton",
+      "label": "Equation",
+      "icon": {
+        "description": "Equation control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-equation-insert-gallery.png"
+      },
+      "tooltip": "Add common mathematical equations to your document, such as the area of a circle or the quadratic formula.\n\nYou can also build your own equations using the library of math symbols and structures.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1400,
+        82,
+        1452,
+        158
+      ],
+      "state_notes": "state changed: ['doc', 'format', 'objects:omaths0->1']; keytip Alt, N, E",
+      "source": "measured:state-delta",
+      "triggers": "subfeature:equation-insert-gallery",
+      "opens": null,
+      "unexplored": false
+    },
+    {
+      "id": "el:equation-insert-gallery-dropdown",
+      "control_type": "splitbutton",
+      "label": "Equation (dropdown)",
+      "icon": {
+        "description": "Equation (dropdown) control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-equation-insert-gallery-dropdown.png"
+      },
+      "tooltip": "Add common mathematical equations to your document, such as the area of a circle or the quadratic formula.\n\nYou can also build your own equations using the library of math symbols and structures.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1400,
+        82,
+        1452,
+        158
+      ],
+      "state_notes": "keytip Alt, N, E",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:equation-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:symbol-insert-gallery",
+      "control_type": "menuitem",
+      "label": "Symbol",
+      "icon": {
+        "description": "Symbol control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-symbol-insert-gallery.png"
+      },
+      "tooltip": "Add symbols that are not on your keyboard.\n\nChoose from a variety of options including mathematical, currency, and copyright symbols.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1454,
+        82,
+        1499,
+        158
+      ],
+      "state_notes": "keytip Alt, N, U",
+      "source": "measured:window-delta",
+      "triggers": null,
+      "opens": "ui:symbol-insert-dropdown",
+      "unexplored": false
+    },
+    {
+      "id": "el:syntex-esign",
+      "control_type": "button",
+      "label": "eSignature fields",
+      "icon": {
+        "description": "eSignature fields control (see icon crop)",
+        "image": "screenshots/ui-ribbon-insert/icon-syntex-esign.png"
+      },
+      "tooltip": "Request electronic signatures on this document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-insert",
+      "bounds": [
+        1515,
+        82,
+        1576,
+        158
+      ],
+      "state_notes": "boundary (not pressed): SharePoint Syntex cloud e-signature service — network/account-gated",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [
+    "ui:bookmark-insert-dialog",
+    "ui:chart-insert-dialog",
+    "ui:cover-page-insert-dropdown",
+    "ui:cross-reference-insert-dialog",
+    "ui:date-and-time-insert-dialog",
+    "ui:drop-cap-insert-dropdown",
+    "ui:equation-insert-dropdown",
+    "ui:flyout-anchor-insert-pictures-menu",
+    "ui:footer-insert-dropdown",
+    "ui:header-footer-page-number-insert-menu",
+    "ui:header-insert-dropdown",
+    "ui:icon-insert-from-file-dialog",
+    "ui:insert-link-dialog",
+    "ui:insert-link-menu",
+    "ui:insert3-dmodel-default-dialog",
+    "ui:insert3-dmodel-default-menu",
+    "ui:movie-from-clip-organizer-insert-dialog",
+    "ui:ole-object-insert-menu",
+    "ui:ole-objectct-insert-dialog",
+    "ui:quick-parts-insert-dropdown",
+    "ui:screenshot-insert-dropdown",
+    "ui:shapes-insert-dropdown",
+    "ui:signature-line-insert-dialog",
+    "ui:signature-line-insert-menu",
+    "ui:smart-art-insert-dialog",
+    "ui:symbol-insert-dropdown",
+    "ui:table-insert-dropdown",
+    "ui:text-box-insert-dropdown",
+    "ui:word-art-insert-dropdown"
+  ],
+  "explored": true
+}

@@ -1,0 +1,679 @@
+{
+  "id": "ui:ribbon-chart-format",
+  "kind": "tab",
+  "label": "Format (contextual tab)",
+  "purpose": "contextual ribbon tab of the 'Chart Tools' family; exists only while: an embedded chart is selected. Groups: Current Selection, Insert Shapes, Shape Styles, WordArt Styles, Accessibility, Arrange, Size. Appeared on the 'chart' probe.",
+  "screenshot": "screenshots/ui-ribbon-chart-format/surface.png",
+  "children": [
+    {
+      "id": "el:ribbon-chart-format-chart-element-selector",
+      "control_type": "combobox",
+      "label": "Chart Elements",
+      "icon": {
+        "description": "Chart Elements control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-chart-element-selector.png"
+      },
+      "tooltip": "Select a chart element so that you can format it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        20,
+        82,
+        165,
+        106
+      ],
+      "state_notes": "group 'Current Selection'; keytip Alt, J A, E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-chart-format-selection",
+      "control_type": "button",
+      "label": "Format Selection",
+      "icon": {
+        "description": "Format Selection control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-chart-format-selection.png"
+      },
+      "tooltip": "Show the Format task pane to fine-tune formatting for the selected chart element.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        20,
+        108,
+        142,
+        132
+      ],
+      "state_notes": "group 'Current Selection'; keytip Alt, J A, M; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-chart-reset-to-match-style",
+      "control_type": "button",
+      "label": "Reset to Match Style",
+      "icon": {
+        "description": "Reset to Match Style control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-chart-reset-to-match-style.png"
+      },
+      "tooltip": "Clear the custom formatting of the selected chart element back to the overall visual style applied to the chart.\n\nThis ensures that selected chart element matches the overall theme of the document.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        20,
+        134,
+        160,
+        158
+      ],
+      "state_notes": "group 'Current Selection'; keytip Alt, J A, V; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-shapes-insert-gallery",
+      "control_type": "menuitem",
+      "label": "ShapesInsertGallery",
+      "icon": {
+        "description": "ShapesInsertGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-shapes-insert-gallery.png"
+      },
+      "tooltip": "Insert ready-made shapes, such as circles, squares, and arrows.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        181,
+        84,
+        284,
+        158
+      ],
+      "state_notes": "group 'Insert Shapes'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-shape-change-shape-gallery",
+      "control_type": "menuitem",
+      "label": "Change Shape",
+      "icon": {
+        "description": "Change Shape control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-shape-change-shape-gallery.png"
+      },
+      "tooltip": "Change the shape of the drawing, preserving all the formatting.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        286,
+        82,
+        334,
+        158
+      ],
+      "state_notes": "group 'Insert Shapes'; keytip Alt, J A, I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-shape-styles-gallery",
+      "control_type": "menuitem",
+      "label": "ShapeStylesGallery",
+      "icon": {
+        "description": "ShapeStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-shape-styles-gallery.png"
+      },
+      "tooltip": "Quickly add a visual style to the selected shape or line.\n\nEach style uses a unique combination of colors, lines, and other effects to change the shape's appearance. Hover over a Quick Style in the gallery to preview your new look.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        350,
+        90,
+        773,
+        150
+      ],
+      "state_notes": "group 'Shape Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-shape-fill-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Fill",
+      "icon": {
+        "description": "Shape Fill control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-shape-fill-color-picker.png"
+      },
+      "tooltip": "Fill the selected shape with a solid color, gradient, picture, or texture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        775,
+        82,
+        865,
+        106
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J A, S F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Shape Outline",
+      "icon": {
+        "description": "Shape Outline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-outline-color-picker.png"
+      },
+      "tooltip": "Pick the color, width, and line style for the outline of your shape.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        775,
+        108,
+        889,
+        132
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J A, S O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-shape-effects-menu",
+      "control_type": "menuitem",
+      "label": "Shape Effects",
+      "icon": {
+        "description": "Shape Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-shape-effects-menu.png"
+      },
+      "tooltip": "Apply a visual effect to the selected shape, such as shadow, glow, reflection, or 3-D rotation.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        775,
+        134,
+        889,
+        158
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J A, S E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-object-format-dialog",
+      "control_type": "button",
+      "label": "Format Object...",
+      "icon": {
+        "description": "Format Object... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-object-format-dialog.png"
+      },
+      "tooltip": "Make fine-tuned adjustments to the look of your shape using the Format Shape task pane.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        881,
+        160,
+        897,
+        176
+      ],
+      "state_notes": "group 'Shape Styles'; keytip Alt, J A, O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-text-styles-gallery",
+      "control_type": "menuitem",
+      "label": "TextStylesGallery",
+      "icon": {
+        "description": "TextStylesGallery control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-text-styles-gallery.png"
+      },
+      "tooltip": "Add some artistic flair by choosing between predefined text styles.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        905,
+        90,
+        1104,
+        150
+      ],
+      "state_notes": "group 'WordArt Styles'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-text-fill-color-picker",
+      "control_type": "splitbutton",
+      "label": "Text Fill",
+      "icon": {
+        "description": "Text Fill control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-text-fill-color-picker.png"
+      },
+      "tooltip": "Fill the text with a solid color, gradient, picture, or texture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1106,
+        82,
+        1185,
+        106
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J A, T I; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-text-outline-color-picker",
+      "control_type": "splitbutton",
+      "label": "Text Outline",
+      "icon": {
+        "description": "Text Outline control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-text-outline-color-picker.png"
+      },
+      "tooltip": "Customize the outline of your text by choosing the color, width and line style.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1106,
+        108,
+        1209,
+        132
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J A, T O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-text-effects-menu",
+      "control_type": "menuitem",
+      "label": "Text Effects",
+      "icon": {
+        "description": "Text Effects control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-text-effects-menu.png"
+      },
+      "tooltip": "Turn your work into a work of art. \n\nAdd a visual effect such as shadow, glow or reflection to your text.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1106,
+        134,
+        1209,
+        158
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J A, T X; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-word-art-format-dialog",
+      "control_type": "button",
+      "label": "Format Text Effects...",
+      "icon": {
+        "description": "Format Text Effects... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-word-art-format-dialog.png"
+      },
+      "tooltip": "Show the Format Text Effects task pane to change text properties.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1201,
+        160,
+        1217,
+        176
+      ],
+      "state_notes": "group 'WordArt Styles'; keytip Alt, J A, G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-alt-text-pane-ribbon",
+      "control_type": "button",
+      "label": "Alt Text",
+      "icon": {
+        "description": "Alt Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-alt-text-pane-ribbon.png"
+      },
+      "tooltip": "Create text descriptions of objects for screen readers.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1230,
+        82,
+        1272,
+        158
+      ],
+      "state_notes": "group 'Accessibility'; keytip Alt, J A, A T; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-picture-position-gallery",
+      "control_type": "menuitem",
+      "label": "Position",
+      "icon": {
+        "description": "Position control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-picture-position-gallery.png"
+      },
+      "tooltip": "Choose where the selected object will appear on the page.\n\nText will automatically wrap around the object so that it's still easy to read.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1293,
+        82,
+        1341,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, P O; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-text-wrap-gallery",
+      "control_type": "menuitem",
+      "label": "Wrap Text",
+      "icon": {
+        "description": "Wrap Text control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-text-wrap-gallery.png"
+      },
+      "tooltip": "Choose how your text wraps around the selected object.\n\nFor example, you can choose to have the text continue around the object or cross right over it.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1343,
+        82,
+        1385,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, T W; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-object-bring-forward",
+      "control_type": "splitbutton",
+      "label": "Bring Forward",
+      "icon": {
+        "description": "Bring Forward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-object-bring-forward.png"
+      },
+      "tooltip": "Bring the selected object forward one level, or bring it in front of all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1387,
+        82,
+        1446,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, A F; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-object-send-backward",
+      "control_type": "splitbutton",
+      "label": "Send Backward",
+      "icon": {
+        "description": "Send Backward control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-object-send-backward.png"
+      },
+      "tooltip": "Send the selected object back one level, or send it behind all the other objects.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1448,
+        82,
+        1515,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, A E; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-selection-pane",
+      "control_type": "button",
+      "label": "Selection Pane...",
+      "icon": {
+        "description": "Selection Pane... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-selection-pane.png"
+      },
+      "tooltip": "See a list of all your objects.\n\nThis makes it easier to select objects, change their order, or change their visibility.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1517,
+        82,
+        1570,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, A P; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-object-align-menu",
+      "control_type": "menuitem",
+      "label": "Align",
+      "icon": {
+        "description": "Align control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-object-align-menu.png"
+      },
+      "tooltip": "Change the placement of your selected objects on the page.\n\nThis is great for aligning objects to the margins or the edge of the page. You can also align them relative to one another.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1572,
+        82,
+        1644,
+        106
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, A A; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-objects-group-menu",
+      "control_type": "menuitem",
+      "label": "Group",
+      "icon": {
+        "description": "Group control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-objects-group-menu.png"
+      },
+      "tooltip": "Join objects together to move and format them as if they were a single object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1572,
+        108,
+        1649,
+        132
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, A G; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-object-rotate-gallery",
+      "control_type": "menuitem",
+      "label": "Rotate",
+      "icon": {
+        "description": "Rotate control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-object-rotate-gallery.png"
+      },
+      "tooltip": "Rotate or flip the selected object.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1572,
+        134,
+        1650,
+        158
+      ],
+      "state_notes": "group 'Arrange'; keytip Alt, J A, A Y; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-more.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1785,
+        91,
+        1802,
+        102
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-less.png"
+      },
+      "tooltip": "Change the height of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1785,
+        102,
+        1802,
+        113
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-more",
+      "control_type": "button",
+      "label": "More",
+      "icon": {
+        "description": "More control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-more.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1785,
+        123,
+        1802,
+        134
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-less",
+      "control_type": "button",
+      "label": "Less",
+      "icon": {
+        "description": "Less control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-less.png"
+      },
+      "tooltip": "Change the width of the shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1785,
+        134,
+        1802,
+        145
+      ],
+      "state_notes": "group 'Size'; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    },
+    {
+      "id": "el:ribbon-chart-format-layout-options-dialog-size",
+      "control_type": "button",
+      "label": "Size and Position...",
+      "icon": {
+        "description": "Size and Position... control (see icon crop)",
+        "image": "screenshots/ui-ribbon-chart-format/icon-layout-options-dialog-size.png"
+      },
+      "tooltip": "See more options for changing the size of your shape or picture.",
+      "shortcut": null,
+      "location": "ui:main-window > ui:ribbon-chart-format",
+      "bounds": [
+        1795,
+        160,
+        1811,
+        176
+      ],
+      "state_notes": "group 'Size'; keytip Alt, J A, S Z; face documented, not pressed (contextual surface layer)",
+      "source": "uia",
+      "triggers": null,
+      "opens": null,
+      "unexplored": true
+    }
+  ],
+  "child_containers": [],
+  "explored": true,
+  "trigger_condition": "an embedded chart is selected"
+}

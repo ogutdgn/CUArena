@@ -1,0 +1,60 @@
+{
+  "id": "subfeature:equation-insert-gallery",
+  "node_type": "subfeature",
+  "name": "Equation",
+  "parent": "feature:symbols",
+  "what_it_does": "Inserts an empty math zone at the cursor (measured: OMaths 0→1) and activates the Equation contextual tab; the dropdown offers built-in equations (quadratic formula, area of circle…).",
+  "affects": "document content (adds an equation/math zone)",
+  "audience_breadth": "niche",
+  "behavior": null,
+  "trigger_paths": [
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:equation-insert-gallery"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [
+        "ui:main-window",
+        "ui:ribbon-insert",
+        "el:equation-insert-gallery-dropdown"
+      ],
+      "kind": "mouse",
+      "shortcut": null
+    },
+    {
+      "path": [],
+      "kind": "keyboard",
+      "shortcut": "Alt+="
+    }
+  ],
+  "shortcut": "Alt+=",
+  "opens": "ui:equation-insert-dropdown",
+  "location": "ui:ribbon-insert",
+  "screenshot": null,
+  "screenshots": [
+    "screenshots/ui-ribbon-insert/icon-equation-insert-gallery.png",
+    "screenshots/ui-equation-insert-dropdown/surface.png"
+  ],
+  "connections": [
+    {
+      "target": "subfeature:symbol-insert",
+      "kind": "uses",
+      "why": "the Symbols group family",
+      "source": "co-location"
+    },
+    {
+      "target": "ui:ribbon-equation",
+      "kind": "affects",
+      "why": "measured: inserting/selecting this object makes the contextual tab appear (run step3-contextual probes)",
+      "source": "contextual"
+    }
+  ],
+  "boundary": false,
+  "explored": false,
+  "source": "measured"
+}

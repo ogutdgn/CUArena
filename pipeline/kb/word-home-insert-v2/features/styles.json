@@ -1,0 +1,132 @@
+{
+  "feature": {
+    "id": "feature:styles",
+    "node_type": "feature",
+    "name": "Styles",
+    "what_it_does": "Apply named, reusable style sets that bundle character and paragraph formatting.",
+    "affects": "the paragraph/character style applied to the selection",
+    "audience_breadth": "most",
+    "behavior": "Apply named, reusable style sets that bundle character and paragraph formatting. Group controls: subfeature:quick-styles, subfeature:styles-pane",
+    "trigger_paths": [
+      {
+        "path": [
+          "ui:main-window",
+          "ui:ribbon-home"
+        ],
+        "kind": "mouse",
+        "shortcut": null
+      }
+    ],
+    "shortcut": null,
+    "location": "ui:ribbon-home",
+    "screenshot": null,
+    "screenshots": [],
+    "subfeatures": [
+      "subfeature:quick-styles",
+      "subfeature:styles-pane"
+    ],
+    "connections": [
+      {
+        "target": "feature:font",
+        "kind": "affects-same",
+        "why": "styles bundle character formatting",
+        "source": "observed"
+      },
+      {
+        "target": "feature:paragraph",
+        "kind": "affects-same",
+        "why": "styles bundle paragraph formatting",
+        "source": "observed"
+      }
+    ],
+    "boundary": false,
+    "explored": true,
+    "source": "measured"
+  },
+  "subfeatures": [
+    {
+      "id": "subfeature:quick-styles",
+      "node_type": "subfeature",
+      "name": "Quick Styles gallery",
+      "parent": "feature:styles",
+      "what_it_does": "Applies a named style (Normal, No Spacing, Heading 1/2, Title, Subtitle, Quote…) to the selection from the in-ribbon gallery.",
+      "affects": "the paragraph/character style applied",
+      "audience_breadth": "most",
+      "behavior": "Opens Quick Styles gallery (dropdown). Contents (16 controls): ¶ Normal, ¶ No Spacing, Heading 1, Heading 2, Title, Subtitle, Subtle Emphasis, Emphasis, Intense Emphasis, Strong, Quote, Intense Quote, Subtle Reference, Intense Reference, Book Title, ¶ List Paragraph. [the Quick Styles gallery — named style tiles (each applies a style)] Appears as a gallery of style previews (Normal, Heading 1, Title…).",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:quick-styles-gallery"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        }
+      ],
+      "shortcut": null,
+      "opens": "ui:styles-gallery",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-quick-styles.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-quick-styles.png",
+        "screenshots/ui-styles-gallery/surface.png"
+      ],
+      "connections": [
+        {
+          "target": "subfeature:font-dialog",
+          "kind": "affects-same",
+          "why": "a style bundles the character formatting the Font dialog sets",
+          "source": "observed"
+        },
+        {
+          "target": "subfeature:paragraph-dialog",
+          "kind": "affects-same",
+          "why": "a style bundles paragraph formatting",
+          "source": "observed"
+        }
+      ],
+      "boundary": false,
+      "explored": true,
+      "source": "uia"
+    },
+    {
+      "id": "subfeature:styles-pane",
+      "node_type": "subfeature",
+      "name": "Styles pane launcher",
+      "parent": "feature:styles",
+      "what_it_does": "Opens the Styles pane — the full style list with apply/new/inspect/manage controls.",
+      "affects": "opens the Styles task pane",
+      "audience_breadth": "niche",
+      "behavior": "Opens Styles (pane). Contents (0 controls): . [Preview, manage and customize the text styles in Word.\n\nUse the window to see and edit formatting details for each style, create new styles, and quickly preview styles in your document.\n\nYou can also update styles to match selected text.]",
+      "trigger_paths": [
+        {
+          "path": [
+            "ui:main-window",
+            "ui:ribbon-home",
+            "el:styles-pane"
+          ],
+          "kind": "mouse",
+          "shortcut": null
+        },
+        {
+          "path": [],
+          "kind": "keyboard",
+          "shortcut": "Alt+Ctrl+Shift+S"
+        }
+      ],
+      "shortcut": "Alt+Ctrl+Shift+S",
+      "opens": "ui:styles-pane",
+      "location": "ui:ribbon-home",
+      "screenshot": "screenshots/ui-ribbon-home/icon-styles-pane.png",
+      "screenshots": [
+        "screenshots/ui-ribbon-home/icon-styles-pane.png",
+        "screenshots/ui-styles-pane/surface.png"
+      ],
+      "connections": [],
+      "boundary": false,
+      "explored": false,
+      "source": "measured"
+    }
+  ]
+}
