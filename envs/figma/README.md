@@ -41,7 +41,7 @@ __exportLog()   // downloads figma-mock-log-<sessionId>.json
 
 ## Docker (Customer Delivery)
 
-From `apps/figma/`:
+From `envs/figma/`:
 
 ```bash
 docker compose up -d --build mock
@@ -76,7 +76,7 @@ Full handoff/runbook: [`delivery-1/DOCKER_DELIVERY.md`](delivery-1/DOCKER_DELIVE
 ## Run the verifier
 
 ```bash
-# One-time setup (from apps/figma/)
+# One-time setup (from envs/figma/)
 python3 -m venv .venv
 .venv/Scripts/pip install -r requirements.txt   # .venv/bin/pip on Unix
 
@@ -113,7 +113,7 @@ scripts/scores/<task>_<timestamp>.json
 All docs now live under [`app-docs/`](app-docs/):
 
 ```
-apps/figma/app-docs/
+envs/figma/app-docs/
 ├── feature-checklist.md      ← customer feature list; tick [x] as features ship
 ├── execution-map.md          ← session log (top) + pending waves (bottom)
 ├── mock_improvement_steps.md ← bug fixes + UI improvements + feature updates
@@ -149,7 +149,7 @@ Do not read `app-docs/helper/figma_docs/` or `app-docs/helper/analysis/` directl
 ## Project structure (this app)
 
 ```
-apps/figma/
+envs/figma/
 ├── CLAUDE.md                 # Agent guide for this app
 ├── AGENTS.md                 # Mirror of CLAUDE.md (Codex / other tooling)
 ├── README.md                 # This file

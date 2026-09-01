@@ -1,14 +1,20 @@
-# AGENTS.md — `apps/ms-word/`
+# AGENTS.md — `envs/ms-word-native/` (this folder)
+
+> **SUPERSEDED — read [`../../docs/decisions/engine-rent-vs-own.md`](../../docs/decisions/engine-rent-vs-own.md) first.**
+> This line was replaced by [`envs/ms-word`](../ms-word/) on 2026-06-03. The vendored
+> LibreOffice engine (`libreoffice-codebase/`) has been removed from the tree and from git
+> history, so nothing here builds as-is. The docs below describe the design as it stood;
+> they are kept as a decision record, not as instructions to continue.
 
 > Canonical guide for AI coding agents (Codex, Cursor, Copilot, Claude, …) working in
-> `apps/ms-word/`. Mirror of [`CLAUDE.md`](CLAUDE.md), with a bit more detail. **Read the
+> `envs/ms-word-native/` (this folder). Mirror of [`CLAUDE.md`](CLAUDE.md), with a bit more detail. **Read the
 > `docs/` set before starting any task** (order below).
 
 ---
 
 ## 1. What this folder is
 
-`apps/ms-word/` = **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`, driven
+`envs/ms-word-native/` (this folder) = **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`, driven
 headlessly via **LibreOfficeKit / LOK**) **+ (2) the MS-Word-clone _decision record & research_
 + (3) the clone _app_** (`app/` — Phases 0–1 built & verified).
 

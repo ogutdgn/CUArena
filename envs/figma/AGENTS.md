@@ -2,7 +2,7 @@
 
 This is the **figma** app within `cua-bench`. It pairs a Figma-Design mock UI (`mock/`) with a verifier (`verifier/`) so we can score CUA agent runs against task rubrics.
 
-For repo-level overview (the three-app monorepo, cross-app conventions, skills) see [../../CLAUDE.md](../../CLAUDE.md) and [../../overview/](../../overview/).
+For repo-level overview (the three-app monorepo, cross-app conventions, skills) see [../../CLAUDE.md](../../CLAUDE.md) and [../../docs/](../../docs/).
 
 ---
 
@@ -64,7 +64,7 @@ When a new feature is checked off in `app-docs/feature-checklist.md`:
 ## Document map (this app)
 
 ```
-apps/figma/
+envs/figma/
 ├── CLAUDE.md                     agent guide for this app (mirrored to AGENTS.md)
 ├── AGENTS.md (this file)         mirror of CLAUDE.md (Codex/other tooling)
 ├── README.md                     top-level intro for the app
@@ -226,12 +226,12 @@ on every flush (~250 ms). `run_task.py` retrieves it with a plain HTTP GET — n
 flags, no Playwright, no external dependencies.
 
 ```bash
-# 1. Start the app (from apps/figma/mock/)
+# 1. Start the app (from envs/figma/mock/)
 cd mock && npm run dev
 
 # 2. Do stuff in the browser at http://localhost:5173
 
-# 3. Run a task verifier end-to-end (from apps/figma/)
+# 3. Run a task verifier end-to-end (from envs/figma/)
 .venv/Scripts/python scripts/run_task.py task_01
 # → saves log to scripts/logs/<task>_<timestamp>.json
 # → saves score to scripts/scores/<task>_<timestamp>.json
@@ -263,7 +263,7 @@ the session log via `page.evaluate()`, scores in-process via `verifier/loader.py
 per-attempt artifacts to `cua-eval/runs/<run_id>/`.
 
 ```bash
-# All from apps/figma/. Mock must be running first (npm run dev → :5173).
+# All from envs/figma/. Mock must be running first (npm run dev → :5173).
 .venv/bin/python cua-eval/runner/passk.py \
     --providers anthropic --anthropic-model claude-sonnet-4-5 \
     --tasks 02 --mock-url http://localhost:5173 --headed

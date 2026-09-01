@@ -1,6 +1,12 @@
-# CLAUDE.md — `apps/ms-word/`
+# CLAUDE.md — `envs/ms-word-native/` (this folder)
 
-> Context file for Claude Code (and other agents) working in `apps/ms-word/`.
+> **SUPERSEDED — read [`../../docs/decisions/engine-rent-vs-own.md`](../../docs/decisions/engine-rent-vs-own.md) first.**
+> This line was replaced by [`envs/ms-word`](../ms-word/) on 2026-06-03. The vendored
+> LibreOffice engine (`libreoffice-codebase/`) has been removed from the tree and from git
+> history, so nothing here builds as-is. The docs below describe the design as it stood;
+> they are kept as a decision record, not as instructions to continue.
+
+> Context file for Claude Code (and other agents) working in `envs/ms-word-native/` (this folder).
 > **Short by design** — the real content lives in [`docs/`](docs/). Mirror for
 > non-Claude tooling: [`AGENTS.md`](AGENTS.md).
 
@@ -8,7 +14,7 @@
 
 ## What this folder is now
 
-`apps/ms-word/` is **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`,
+`envs/ms-word-native/` (this folder) is **(1) the rented LibreOffice _engine_** (`libreoffice-codebase/`,
 driven headlessly via **LibreOfficeKit / LOK**), **(2) the MS-Word-clone _decision record
 & research_**, **and (3) the clone _app_ itself** (`app/` — Phases 0–1 built & verified).
 We are building a native **Qt6 Microsoft-Word clone** as a CUA (computer-using-
