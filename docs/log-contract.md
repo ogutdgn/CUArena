@@ -17,12 +17,12 @@
 
 ## Environments producing logs today
 
-**figma** — TypeScript mock. Schema fully specified at [envs/figma/app-docs/logging-documentation.md](../envs/figma/app-docs/logging-documentation.md). Defines:
+**figma** — TypeScript mock. Schema fully specified at [envs/figma/app-docs/mock-doc/logging-documentation.md](../envs/figma/app-docs/mock-doc/logging-documentation.md). Defines:
 - Three streams (`raw`, `semantic`, `outcome`) and their storage layout
 - Per-event schemas for figma semantic events
 - The full `OutcomeSnapshot` shape for figma's scene graph
 
-**ms-word-native** (superseded) — real Linux binary, LibreOffice fork. Schema specified at [envs/ms-word-native/docs/architecture/PHASE3_LOGGER_DESIGN.md](../envs/ms-word-native/docs/architecture/PHASE3_LOGGER_DESIGN.md) and [envs/ms-word-native/AGENTS.md §4.3](../envs/ms-word-native/AGENTS.md). Defines:
+**ms-word-native** (superseded) — real Linux binary, LibreOffice fork. Schema specified at [envs/ms-word-native/rllogger/](../envs/ms-word-native/rllogger/) and [envs/ms-word-native/AGENTS.md §4.3](../envs/ms-word-native/AGENTS.md). Defines:
 - `raw.jsonl` — VCL key/mouse/focus/command/gesture events
 - `semantic.jsonl` — `.uno:*` dispatches mapped to RL-friendly names with `args`, `trigger`, `rawEventIdRange`
 - `outcome.jsonl` — document URL, modified flag, counts, cursor, selection, format-at-cursor; rewritten every 250 ms

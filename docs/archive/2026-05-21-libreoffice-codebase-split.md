@@ -1,3 +1,6 @@
+> **Archived.** A historical planning doc from the native LibreOffice line. Its
+> relative links point at the repo layout as it was in May 2026 and are not maintained.
+
 # LibreOffice Codebase Split Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.

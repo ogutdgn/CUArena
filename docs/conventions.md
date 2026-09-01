@@ -14,14 +14,14 @@
 
 ## Commit style
 
-The detailed protocol lives in [`.claude/skills/commit-style.md`](../.claude/skills/commit-style.md). High-level:
+The detailed protocol lives in [`.claude/skills/commit-style/SKILL.md`](../.claude/skills/commit-style/SKILL.md). High-level:
 - Subject line: `<scope>: <imperative summary>` (e.g. `figma: add gradient fill`, `verifier: tighten polygon tolerance`).
 - Stage files explicitly; do not blanket-add.
 - One logical change per commit. If a refactor and a feature need to ship together, split them and commit in order.
 
 ## Per-session protocol
 
-Detailed in [`.claude/skills/session-end.md`](../.claude/skills/session-end.md).
+Detailed in [`.claude/skills/session-end/SKILL.md`](../.claude/skills/session-end/SKILL.md).
 
 At session start, for figma work: `envs/figma/app-docs/feature-checklist.md` + `execution-map.md` are the inputs. Plan the wave, write a session entry.
 
@@ -36,7 +36,7 @@ At session end:
 - Every app must keep its `CLAUDE.md` synchronized with `AGENTS.md` (Codex/other tooling reads the latter). If you edit one, mirror to the other.
 - New cross-environment rules go in `docs/`, not in any single app's docs.
 - Skills go in `.claude/skills/` and are placeholders until their first run, then filled.
-- Helper corpora are read through their `00-overview.md` only — see [`.claude/skills/helper-blind-read-prevent.md`](../.claude/skills/helper-blind-read-prevent.md).
+- Helper corpora are read through their `00-overview.md` only — see [`.claude/skills/helper-blind-read-prevent/SKILL.md`](../.claude/skills/helper-blind-read-prevent/SKILL.md).
 
 ## Multi-agent usage
 
