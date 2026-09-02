@@ -85,13 +85,13 @@ This is the artifact that the `envs/ms-word` build needed a human month to write
 
 ---
 
-## Archive branches
+## Archive tags
 
-Four branches carry work that was never merged to `main` and is kept as history:
+Four annotated tags preserve work that was never merged to `main` and is kept as history:
 `archive/ms-word-parity-pipeline`, `archive/ms-word-parity-v2`,
 `archive/ms-word-ui-structure`, `archive/ms-word-ensure-parity` (266 unique commits).
 
-They hold the parity-measurement machinery and the UI crawler built inside the Word
+The tags hold the parity-measurement machinery and the UI crawler built inside the Word
 environment in early July 2026 — the prototype that became [`pipeline/`](pipeline/) the
 following day. See [the bridge section in docs/arc.md](docs/arc.md).
 

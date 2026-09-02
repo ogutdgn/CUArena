@@ -90,7 +90,7 @@ The jump from "building environments by hand" to "an agent produces the specific
 was not a leap. It happened inside the Word environment, over the first week of July, and
 the work is preserved on four branches that were never merged to `main`:
 
-| Branch (`archive/ms-word-…`) | Commits | What it built |
+| Tag (`archive/ms-word-…`) | Commits | What it built |
 |---|---|---|
 | `parity-pipeline` | 103 | The first parity-measurement pipeline: scorecard axes, a STRUCTURE triage pass, and a run that **clicks every ribbon control in the live clone** |
 | `parity-v2` | 69 | A six-axis acceptance rubric (`parity/RUBRIC.md`, `RUNBOOK.md`), behavior cards, a feature-parity audit, and the `.docx` import losses it exposed |
@@ -109,7 +109,7 @@ The next day the same idea was rebuilt standalone and app-agnostic — an agent 
 real application and writing its own inspection tools, with the per-app code treated as
 disposable and the lessons as the thing that compounds.
 
-These branches are kept unmerged and read-only. They are prototype-grade and were
+These tags are kept as unmerged, read-only history. They are prototype-grade and were
 superseded within a day; their value is that they are the actual seam between the two
 stages, not a story told afterwards.
 
